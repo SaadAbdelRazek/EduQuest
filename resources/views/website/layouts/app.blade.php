@@ -66,7 +66,7 @@
                                                 <ul class="submenu">
                                                     <li><a href="{{route('blog')}}">Blog</a></li>
                                                     <li><a href="{{route('blog-details')}}">Blog Details</a></li>
-                                                    <li><a href="#">Elements</a></li>
+                                                    <li><a href="{{route('elements')}}">Elements</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="{{route('contact')}}">Contact</a></li>
