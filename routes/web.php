@@ -47,3 +47,6 @@ Route::get('/about', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin');
+Route::get('course_details',function () {
+    return view('website.course_details');
+})->name('course_details');
