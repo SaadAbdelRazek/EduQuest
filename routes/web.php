@@ -20,6 +20,12 @@ Route::get('/', function () {
 Route::get('/elements', function () {
     return view('website.elements');
 })->name('elements');
+Route::get('/book-details', function () {
+    return view('website.book-details');
+})->name('book-details');
+Route::get('/faqs', function () {
+    return view('website.faqs');
+})->name('faqs');
 Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
