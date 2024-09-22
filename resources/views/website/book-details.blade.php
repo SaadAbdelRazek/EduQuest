@@ -263,4 +263,19 @@
             </div>
         </div>
     </section>
+    @section('custom-js')
+        <script>
+            document.querySelector('.minus-btn').addEventListener('click', function() {
+                let input = document.querySelector('.quantity-input');
+                if (input.value > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+
+            document.querySelector('.plus-btn').addEventListener('click', function() {
+                let input = document.querySelector('.quantity-input');
+                input.value = parseInt(input.value) + 1;
+            });
+        </script>
+    @endsection
 @endsection
