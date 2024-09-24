@@ -53,3 +53,9 @@ Route::get('/about', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin');
+
+
+Route::get('/myProfile', function () {
+    return view('website.myProfile');
+})->name('myProfile');
+
