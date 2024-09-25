@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{asset('css/slick.css')}}">
     <link rel="stylesheet" href="{{asset('css/nice-select.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    @yield('custom-css')
 
 </head>
 
@@ -239,6 +240,6 @@
 
 <script src="{{asset('js/plugins.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
-
+@yield('custom-js')
 </body>
 </html>

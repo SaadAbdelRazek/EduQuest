@@ -20,6 +20,12 @@ Route::get('/', function () {
 Route::get('/elements', function () {
     return view('website.elements');
 })->name('elements');
+Route::get('/book-details', function () {
+    return view('website.book-details');
+})->name('book-details');
+Route::get('/faqs', function () {
+    return view('website.faqs');
+})->name('faqs');
 Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
@@ -50,3 +56,6 @@ Route::get('/dashboard', function () {
 Route::get('course_details',function () {
     return view('website.course_details');
 })->name('course_details');
+Route::get('course_videos',function () {
+    return view('website.course_videos');
+})->name('course_videos');

@@ -1,189 +1,368 @@
-<!-- Favicons -->
-{{-- <link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> --}}
 
-<!-- Fonts -->
-{{-- <link href="https://fonts.googleapis.com" rel="preconnect">
-<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> --}}
-
-<!-- Vendor CSS Files -->
-{{-- <link href="../../public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="../../public/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="../../public/aos/aos.css" rel="stylesheet">
-<link href="../../public/glightbox/css/glightbox.min.css" rel="stylesheet">
-<link href="../../public/swiper/swiper-bundle.min.css" rel="stylesheet"> --}}
-
-<!-- Main CSS File -->
-<link href="../../css/course_detail.css" rel="stylesheet">
 
 @extends('website.layouts.app')
 @section('content')
 
 
+<style>
+
+        .student-reviews, .instructors, .certificates {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .course-details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+    }
+    .course-content {
+        display: flex;
+        width: 100%;
+        max-width: 1200px;
+
+    }
+    .course-description {
+        flex: 1;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        margin-right: 20px;
+        /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+    }
+    .course-title {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: #007bff;
+        text-align: left;
+    }
+    .course-description p {
+        margin: 10px 0;
+        line-height: 1.6;
+        font-size: 1em;
+    }
+    .course-description strong {
+        color: #007bff;
+    }
+    .course-image {
+        flex: 2;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+
+
+    }
+    .course-image img {
+        width: 90%;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .course-price {
+        margin-top: 20px;
+    }
+    .register-button {
+        background-color: #FF9F67;
+        color: white;
+        float: right;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .register-button:hover {
+        background-color: gray;
+    }
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            right: 100px;
+            padding: 15px 25px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .floating-button:hover {
+            background-color: #e91e63;
+        }
+        .instructor-container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .instructor-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        width: 220px; /* Fixed width */
+        height: 320px; /* Fixed height */
+        text-align: center;
+        background-color: #f9f9f9;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .instructor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .instructor-card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        border: 2px solid #007bff; /* Border color */
+    }
+    .instructor-card h3 {
+        margin: 10px 0 5px;
+        color: #007bff; /* Title color */
+    }
+    .instructor-card p {
+        margin: 5px 0;
+        color: #666; /* Description color */
+    }
+
+
+
+    .certificate-section {
+        background: #f2f8ff;
+        padding: 30px;
+        border-radius: 10px;
+        margin: 20px auto;
+        max-width: 800px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .certificate-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .certificate-image {
+        width: 100%;
+        max-width: 600px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .certificate-description h3 {
+        font-size: 2em;
+        color: #28a745; /* Success color */
+        margin-bottom: 10px;
+    }
+    .certificate-description p {
+        line-height: 1.6;
+        font-size: 1.1em;
+        color: #333;
+    }
+
+
+    .student-reviews {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px auto;
+        max-width: 800px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .review-form {
+        margin-bottom: 30px;
+    }
+    .rating {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
+    .rating input {
+        display: none;
+    }
+    .star {
+        font-size: 30px;
+        cursor: pointer;
+        color: #ddd;
+    }
+    .rating input:checked ~ .star {
+        color: #ffcc00; /* Star color when selected */
+    }
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        resize: none;
+    }
+    .submit-review {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .submit-review:hover {
+        background-color: #0056b3;
+    }
+    .reviews {
+        border-top: 2px solid #ddd;
+        padding-top: 20px;
+    }
+    .review {
+        margin-bottom: 15px;
+    }
+    .stars {
+        font-size: 20px;
+        color: #ffcc00; /* Star color */
+    }
+</style>
+
 <main>
-    <!--? slider Area Start-->
-    <section class="slider-area slider-area2">
-        <div class="slider-active">
-            <!-- Single Slider -->
-            <div class="single-slider slider-height2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-11 col-md-12">
-                            <div class="hero__caption hero__caption2">
-                                <h1 data-animation="bounceIn" data-delay="0.2s">Our courses</h1>
-                                <!-- breadcrumb Start-->
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="{{route('courses')}}">Services</a></li>
-                                    </ol>
-                                </nav>
-                                <!-- breadcrumb End -->
-                            </div>
+
+
+
+
+
+<section class="slider-area slider-area2">
+    <div class="slider-active">
+        <!-- Single Slider -->
+        <div class="single-slider slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-11 col-md-12">
+                        <div class="hero__caption hero__caption2">
+                            <h1 data-animation="bounceIn" data-delay="0.2s">Course details</h1>
+                            <!-- breadcrumb Start-->
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="#">Course details</a></li>
+                                </ol>
+                            </nav>
+                            <!-- breadcrumb End -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="courses-course-details" class="courses-course-details section">
 
-        <div class="container" data-aos="fade-up">
-
-          <div class="row">
-            <div class="col-lg-8">
-              <img src="assets/img/course-details.jpg" class="img-fluid" alt="">
-              <h3>Et enim incidunt fuga tempora</h3>
-              <p>
-                Qui et explicabo voluptatem et ab qui vero et voluptas. Sint voluptates temporibus quam autem. Atque nostrum voluptatum laudantium a doloremque enim et ut dicta. Nostrum ducimus est iure minima totam doloribus nisi ullam deserunt. Corporis aut officiis sit nihil est. Labore aut sapiente aperiam.
-                Qui voluptas qui vero ipsum ea voluptatem. Omnis et est. Voluptatem officia voluptatem adipisci et iusto provident doloremque consequatur. Quia et porro est. Et qui corrupti laudantium ipsa.
-                Eum quasi saepe aperiam qui delectus quaerat in. Vitae mollitia ipsa quam. Ipsa aut qui numquam eum iste est dolorum. Rem voluptas ut sit ut.
-              </p>
+<section class="course-details">
+    <div class="course-content">
+        <div class="course-description">
+            <h1 class="course-title">Course Name</h1>
+            <p><strong>Description:</strong> This course covers various topics to enhance your skills and knowledge. You will learn about the fundamentals and advanced concepts.</p>
+            <p><strong>Objectives:</strong> Gain practical knowledge, improve your skills, and prepare for real-world applications.</p>
+            <p><strong>Duration:</strong> 10 weeks, with 2 classes per week.</p>
+            <div class="course-price">
+                <span>Price: $100</span>
+                <button class="register-button">Register</button>
             </div>
-            <div class="col-lg-4">
-
-              <div class="course-info d-flex justify-content-between align-items-center">
-                <h5>Trainer</h5>
-                <p><a href="#">Walter White</a></p>
-              </div>
-
-              <div class="course-info d-flex justify-content-between align-items-center">
-                <h5>Course Fee</h5>
-                <p>$165</p>
-              </div>
-
-              <div class="course-info d-flex justify-content-between align-items-center">
-                <h5>Available Seats</h5>
-                <p>30</p>
-              </div>
-
-              <div class="course-info d-flex justify-content-between align-items-center">
-                <h5>Schedule</h5>
-                <p>5.00 pm - 7.00 pm</p>
-              </div>
-
-            </div>
-          </div>
-
         </div>
-
-      </section><!-- /Courses Course Details Section -->
-
-      <section id="tabs" class="tabs section">
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="row">
-            <div class="col-lg-3">
-              <ul class="nav nav-tabs flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Modi sit est</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Unde praesentium sed</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Pariatur explicabo vel</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Nostrum qui quasi</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Iusto ut expedita aut</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-lg-9 mt-4 mt-lg-0">
-              <div class="tab-content">
-                <div class="tab-pane active show" id="tab-1">
-                  <div class="row">
-                    <div class="col-lg-8 details order-2 order-lg-1">
-                      <h3>Architecto ut aperiam autem id</h3>
-                      <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                      <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
-                    </div>
-                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                      <img src="assets/img/tabs/tab-1.png" alt="" class="img-fluid">
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab-2">
-                  <div class="row">
-                    <div class="col-lg-8 details order-2 order-lg-1">
-                      <h3>Et blanditiis nemo veritatis excepturi</h3>
-                      <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                      <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
-                    </div>
-                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                      <img src="assets/img/tabs/tab-2.png" alt="" class="img-fluid">
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab-3">
-                  <div class="row">
-                    <div class="col-lg-8 details order-2 order-lg-1">
-                      <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                      <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                      <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
-                    </div>
-                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                      <img src="assets/img/tabs/tab-3.png" alt="" class="img-fluid">
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab-4">
-                  <div class="row">
-                    <div class="col-lg-8 details order-2 order-lg-1">
-                      <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                      <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                      <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
-                    </div>
-                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                      <img src="assets/img/tabs/tab-4.png" alt="" class="img-fluid">
-                    </div>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab-5">
-                  <div class="row">
-                    <div class="col-lg-8 details order-2 order-lg-1">
-                      <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                      <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                      <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
-                    </div>
-                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                      <img src="assets/img/tabs/tab-5.png" alt="" class="img-fluid">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div class="course-image">
+            <img src="https://via.placeholder.com/600x400" alt="Course Image">
         </div>
+    </div>
+</section>
 
-      </section><!-- /Tabs Section -->
+
+
+
+<section class="instructors">
+    <h2>Instructors</h2>
+    <div class="instructor-container">
+        <div class="instructor-card">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor Name">
+            <h3>John Doe</h3>
+            <p>Senior Instructor</p>
+            <p>Expert in web development and programming.</p>
+        </div>
+        <div class="instructor-card">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Instructor Name">
+            <h3>Jane Smith</h3>
+            <p>Senior Instructor</p>
+            <p>Specialized in design and user experience.</p>
+        </div>
+        <div class="instructor-card">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Instructor Name">
+            <h3>Mike Johnson</h3>
+            <p>Lead Instructor</p>
+            <p>Expert in data science and analytics.</p>
+        </div>
+    </div>
+</section>
+
+<aside class="sidebar">
+    <button class="floating-button">Register / Buy</button>
+</aside>
+
+<section class="certificate-section">
+    <h2>Course Completion Certificate</h2>
+    <div class="certificate-content">
+        <img src="https://via.placeholder.com/600x400" alt="Certificate" class="certificate-image">
+        <div class="certificate-description">
+            <h3>Congratulations!</h3>
+            <p>You have successfully completed the <strong>Course Name</strong>.</p>
+            <p>We are pleased to award you this certificate of achievement. This document serves as a testament to your hard work and dedication to learning.</p>
+            <p>Keep this certificate safe as it can help you in your future endeavors.</p>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="student-reviews">
+    <h2>Student Reviews</h2>
+
+    <div class="review-form">
+        <h3>Rate the Course</h3>
+        <div class="rating">
+            <input type="radio" id="star1" name="rating" value="5">
+            <label for="star1" class="star">⭐</label>
+            <input type="radio" id="star2" name="rating" value="4">
+            <label for="star2" class="star">⭐</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" class="star">⭐</label>
+            <input type="radio" id="star4" name="rating" value="2">
+            <label for="star4" class="star">⭐</label>
+            <input type="radio" id="star5" name="rating" value="1">
+            <label for="star5" class="star">⭐</label>
+        </div>
+        <textarea placeholder="Leave a comment..." rows="4"></textarea>
+        <button class="submit-review">Submit Review</button>
+    </div>
+
+    <div class="reviews">
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>Great course! Learned a lot.</p>
+        </div>
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐</div>
+            <p>Very informative and engaging!</p>
+        </div>
+        <div class="review">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p>Excellent materials and clear explanations.</p>
+        </div>
+    </div>
+</section>
 
 
 </main>
