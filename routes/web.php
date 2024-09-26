@@ -61,6 +61,7 @@ Route::get('/about', function () {
 //    return view('admin.dashboard');
 //
 //})->name('admin.dashboard');
+<<<<<<< HEAD
 
 
 
@@ -71,6 +72,12 @@ Route::get('course_videos',function () {
     return view('website.course_videos');
 })->name('course_videos');
 
+=======
+Route::get('/categories', function () {
+    return view('website.categories');
+})->name('categories');
+Route::get('/home', [TestController::class, 'index'] )->name('admin');
+>>>>>>> 15e1487ea39b0b38a021e262587799b0b7980410
 
 
 Route::get('/myProfile', function () {

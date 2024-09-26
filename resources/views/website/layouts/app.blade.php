@@ -77,12 +77,12 @@
                                                 <li><a href="{{route('myProfile')}}">My Profile</a></li>
                                                 <!-- Button -->
                                                 @if ((Auth::check()))
-                                                <div class="list-inline-item logout">
+                                                {{-- <div class="list-inline-item logout">
 
                                                     <x-app-layout>
 
                                                     </x-app-layout>
-                                                </div>
+                                                </div> --}}
 
                                                 @else
                                                 <li class="button-header margin-left "><a href="{{route('register')}}"

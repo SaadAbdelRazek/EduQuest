@@ -74,10 +74,14 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'home' => RouteServiceProvider::HOME,
 
 
 
+=======
+    'home' => 'home',
+>>>>>>> 15e1487ea39b0b38a021e262587799b0b7980410
     /*
     |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain
