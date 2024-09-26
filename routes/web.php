@@ -53,9 +53,18 @@ Route::get('/about', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin');
+
 Route::get('course_details',function () {
     return view('website.course_details');
 })->name('course_details');
 Route::get('course_videos',function () {
     return view('website.course_videos');
 })->name('course_videos');
+
+
+
+Route::get('/myProfile', function () {
+    return view('website.myProfile');
+})->name('myProfile');
+
+
