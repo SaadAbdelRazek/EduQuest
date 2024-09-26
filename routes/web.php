@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->name('dashboard');
 
 Route::get('/', function () {
@@ -50,8 +50,15 @@ Route::get('/blog-details', function () {
 Route::get('/about', function () {
     return view('website.about');
 })->name('about');
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
+//Route::get('/admin/dashboard', function () {
+//    return view('admin.dashboard');
+//
+//})->name('admin.dashboard');
 
-Route::get('/hom', [TestController::class, 'index'] );
+Route::get('/home', [TestController::class, 'index'] )->name('admin');
+
+
+Route::get('/myProfile', function () {
+    return view('website.myProfile');
+})->name('myProfile');
+

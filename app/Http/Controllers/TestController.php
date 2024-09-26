@@ -18,12 +18,14 @@ class TestController extends Controller
             $user_type = $data->is_admin;
 
             if($user_type == 1){
-                return view('website.book-details');
+                return view('admin.dashboard');
             }
             else if($user_type == 0){
-                return view('dashboard');
+                return view('website.index');
             }
         }
         return redirect()->back();
     }
+
+
 }
