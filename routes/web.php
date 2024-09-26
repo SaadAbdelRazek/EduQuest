@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,4 +64,10 @@ Route::get('/home', [TestController::class, 'index'] )->name('admin');
 Route::get('/myProfile', function () {
     return view('website.myProfile');
 })->name('myProfile');
+
+//Route::get('/admin/faqs', function () {
+//    return view('admin.faqs');
+//})->name('admin-faqs');
+
+Route::resource('/dashboard/faqs', FaqController::class);
 
