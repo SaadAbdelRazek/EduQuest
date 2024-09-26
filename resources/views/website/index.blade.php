@@ -192,7 +192,7 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-12">
                                 <div class="section-tittle text-center mt-20">
-                                    <a href="{{route('courses')}}" class="border-btn">View More Subjects</a>
+                                    <a href="{{route('categories')}}" class="border-btn">View More Subjects</a>
                                 </div>
                             </div>
                         </div>

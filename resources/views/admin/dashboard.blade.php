@@ -1,96 +1,81 @@
-
-@extends('admin.layouts.app')
-@section('content')
-    <x-app-layout>
-
-
-
-    <body id="welcome">
-    <aside class="left-sidebar">
-        <div class="logo">
-            <a href="#welcome">
-                <h1>Courses</h1>
-            </a>
-        </div>
-        <nav class="left-nav">
-            <ul id="nav">
-                <li class="current"><a href="#welcome">Welcome</a></li>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#tmpl-structure">Structure</a></li>
-                <li><a href="#css-structure">CSS Files</a></li>
-                <li><a href="#javascript">JavaScript Libraries</a></li>
-                <li><a href="#contact-form">Contact Form</a></li>
-                <li><a href="#subscription-form">Subscription Form</a></li>
-                <li><a href="#video">Video Tutorial</a></li>
-                <li><a href="#credit">Source and Credit</a></li>
-            </ul>
-        </nav>
-    </aside>
-    <!-- Main Wrapper -->
-    <div id="main-wrapper">
-        <div class="main-content">
-            <section id="welcome">
-                <div class="content-header">
-                    <h1>Courses</h1>
-                </div>
-                <div class="welcome">
-
-                </div>
-                <div class="features">
-                    <h2 class="twenty">Template Features</h2>
-                    {{--               ---------------}}
-                </div>
-            </section>
-            <section id="installation">
-                <div class="content-header">
-                    <h1>Courses</h1>
-                </div>
-                <h2 class="title">Installing Template.</h2>
-                <div class="section-content">
-                    {{--                ----------------------- --}}
-                </div>
-            </section>
-            <section id="tmpl-structure">
-                <h2 class="title">Template Structure</h2>
-                <p class="fifteen">All information within the main content area is nested within a body tag. The general template structure is pretty the same throughout the template. Here is the general structure of main page (index.html).</p>
-                <pre class="brush: html">
-
-				<header class="header_area"></header>
-					<main class="site-main">
-						<section class="section"></section>
-						<section class="section"></section>
-						<section class="section"></section>
-					</main>
-				<footer class="footer"></footer>
-
-			</pre>
-            </section>
-            <section id="css-structure">
-
-
-
-
-            </section>
-            <section id="javascript">
-
-            </section>
-            <section id="contact-form">
-
-            </section>
-            <section id="subscription-form">
-
-            </section>
-            <section id="video">
-
-            </section>
-            <section id="credit">
-
-            </section>
+<!-- resources/views/layouts/dashboard.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard with AJAX CRUD</title>
+    <!-- Include Bootstrap and Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+<body>
+<x-app-layout>
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">Dashboard</div>
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action" id="categories-link">Categories</a>
+            <a href="#" class="list-group-item list-group-item-action" id="courses-link">Courses</a>
+            <a href="#" class="list-group-item list-group-item-action" id="orders-link">Orders</a>
         </div>
     </div>
+    <!-- /#sidebar-wrapper -->
 
+    <!-- Page Content -->
+    <div id="page-content-wrapper" style="width: 900px">
+        <div class="container-fluid">
+            <div id="main-content">
+                <!-- Content will be dynamically loaded here -->
+                <h2 class="text-center">Welcome to the Dashboard</h2cla>
+            </div>
+        </div>
+    </div>
+</div>
 
-    </body>
-    </x-app-layout>
-@endsection
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!-- AJAX Script -->
+<script>
+    $(document).ready(function () {
+        // Load Products CRUD
+        $('#products-link').click(function (e) {
+            e.preventDefault();
+            loadContent('/ajax/products');
+        });
+
+        // Load Categories CRUD
+        $('#categories-link').click(function (e) {
+            e.preventDefault();
+            loadContent('/ajax/categories');
+        });
+
+        // Load Orders CRUD
+        $('#orders-link').click(function (e) {
+            e.preventDefault();
+            loadContent('/ajax/orders');
+        });
+
+        function loadContent(url) {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (response) {
+                    $('#main-content').html(response);
+                },
+                error: function (xhr) {
+                    alert('No content available');
+                }
+            });
+        }
+    });
+</script>
+</x-app-layout>
+</body>
+</html>

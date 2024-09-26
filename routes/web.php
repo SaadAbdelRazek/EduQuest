@@ -54,7 +54,9 @@ Route::get('/about', function () {
 //    return view('admin.dashboard');
 //
 //})->name('admin.dashboard');
-
+Route::get('/categories', function () {
+    return view('website.categories');
+})->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
 
