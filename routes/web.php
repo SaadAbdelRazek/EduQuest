@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
     return view('website.index');
 })->name('home');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
+
+
+Route::get('/home', [TestController::class, 'index'] )->name('admin');
+
+
 Route::get('/elements', function () {
     return view('website.elements');
 })->name('elements');
@@ -29,15 +39,12 @@ Route::get('/faqs', function () {
 Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
-Route::get('/login', function () {
-    return view('website.login');
-})->name('login');
-Route::get('/register', function () {
-    return view('website.register');
-})->name('register');
-Route::get('/main', function () {
-    return view('website.main');
-});
+Route::get('/admin/login', function () {
+    return view('admin.login');
+})->name('admin-login');
+Route::get('/admin/register', function () {
+    return view('admin.register');
+})->name('admin-register');
 Route::get('/contact', function () {
     return view('website.contact');
 })->name('contact');
@@ -50,9 +57,12 @@ Route::get('/blog-details', function () {
 Route::get('/about', function () {
     return view('website.about');
 })->name('about');
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin');
+//Route::get('/admin/dashboard', function () {
+//    return view('admin.dashboard');
+//
+//})->name('admin.dashboard');
+
+
 
 Route::get('course_details',function () {
     return view('website.course_details');

@@ -76,10 +76,21 @@
                                                 <li><a href="{{route('contact')}}">Contact</a></li>
                                                 <li><a href="{{route('myProfile')}}">My Profile</a></li>
                                                 <!-- Button -->
+                                                @if ((Auth::check()))
+                                                <div class="list-inline-item logout">
+
+                                                    <x-app-layout>
+
+                                                    </x-app-layout>
+                                                </div>
+
+                                                @else
                                                 <li class="button-header margin-left "><a href="{{route('register')}}"
-                                                        class="btn">Join</a></li>
-                                                <li class="button-header"><a href="{{route('login')}}"
-                                                        class="btn btn3">Log in</a></li>
+                                                    class="btn">Join</a></li>
+                                            <li class="button-header"><a href="{{route('login')}}"
+                                                    class="btn btn3">Log in</a></li>
+
+                                                @endif
                                             </ul>
                                         </nav>
                                     </div>
@@ -271,3 +282,16 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
