@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,10 +87,4 @@ Route::get('/home', [TestController::class, 'index'] )->name('admin');
 Route::get('/myProfile', function () {
     return view('website.myProfile');
 })->name('myProfile');
-
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
-
 
