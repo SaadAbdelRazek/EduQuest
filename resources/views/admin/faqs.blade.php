@@ -12,9 +12,12 @@
 
         <!-- Create Button -->
         <div class="button-container">
+            {{-- <a href="{{ route('faqs.create') }}" class="btn create-btn"><i class="fas fa-plus"></i> Create New FAQ</a> --}}
+        </div>
+        <!-- Create Button -->
+        <div class="button-container">
             <a href="{{ route('faqs.create') }}" class="btn create-btn"><i class="fas fa-plus"></i> Create New FAQ</a>
         </div>
-
         <!-- Data Table -->
         <table class="styled-table">
             <thead>

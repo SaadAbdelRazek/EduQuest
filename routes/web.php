@@ -83,6 +83,8 @@ Route::get('/categories', function () {
 })->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
+// Route::get('/faqs_admin', [FaqController::class, 'index'] )->name('faqs.index');
+Route::resource('/dashboard/faqs', FaqController::class);
 
 Route::get('/myProfile', function () {
     return view('website.myProfile');
