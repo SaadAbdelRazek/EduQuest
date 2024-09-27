@@ -3,6 +3,7 @@
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +20,14 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+
+//     return view('admin.dashboard');
+// })->name('dashboard');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', [TestController::class, 'check_dashboard'])->name('dashboard');
+
 
 
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
@@ -61,7 +67,6 @@ Route::get('/about', function () {
 //    return view('admin.dashboard');
 //
 //})->name('admin.dashboard');
-<<<<<<< HEAD
 
 
 
@@ -72,16 +77,19 @@ Route::get('course_videos',function () {
     return view('website.course_videos');
 })->name('course_videos');
 
-=======
 Route::get('/categories', function () {
     return view('website.categories');
 })->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
->>>>>>> 15e1487ea39b0b38a021e262587799b0b7980410
 
 
 Route::get('/myProfile', function () {
     return view('website.myProfile');
 })->name('myProfile');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
 
 

@@ -73,15 +73,11 @@ return [
     | and the user is authenticated. You are free to change this value.
     |
     */
-
-<<<<<<< HEAD
     'home' => RouteServiceProvider::HOME,
 
 
 
-=======
-    'home' => 'home',
->>>>>>> 15e1487ea39b0b38a021e262587799b0b7980410
+    // 'home' => 'home',
     /*
     |--------------------------------------------------------------------------
     | Fortify Routes Prefix / Subdomain
