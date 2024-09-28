@@ -44,6 +44,7 @@ Route::get('/course_videos', function () {
     return view('website.course_videos');
 })->name('course_videos');
 
+
 Route::get('/contact', function () {
     return view('website.contact');
 })->name('contact');

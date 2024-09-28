@@ -21,20 +21,18 @@
         </div>
     </section>
 
-    <div class="container light-style flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold m-5" style="font-size: 40px">{{ $user_data->name }}</h4>
-        <div class="card overflow-hidden">
-            <div class="row no-gutters row-bordered row-border-light">
-                <div class="col-md-3 pt-0">
-                    <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action " data-toggle="list"
-                            href="#account-general">General</a>
-                        <a class="list-group-item list-group-item-action" href="{{ route('edit_profile') }}">edit
-                            profile</a>
-                        {{-- <a class="list-group-item list-group-item-action" data-toggle="list"
-                        href="#account-change-password">Change password</a> --}}
-                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Other
-                            Informations</a>
+<div class="container light-style flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold m-5" style="font-size: 40px">Account settings</h4>
+    <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action " data-toggle="list"
+                        href="#account-general">General</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        href="#account-change-password">Change password</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                        href="#account-info">Other Informations</a>
 
                     </div>
                 </div>
@@ -119,6 +117,7 @@
                             </div>
 
                         </div>
+
                     </div>
                 </div>
             </div>
