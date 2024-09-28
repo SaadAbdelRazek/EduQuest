@@ -51,6 +51,18 @@ Route::get('/categories', function () {
 })->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
+Route::get('/instructor-start', function () {
+    return view('website.instructor-start');
+})->name('instructor-start');
+
+Route::get('/instructor-dashboard', function () {
+    return view('website.instructor-dashboard');
+})->name('instructor-dashboard');
+
+Route::get('/instructor-add-course', function () {
+    return view('website.instructor-add-course');
+})->name('instructor-add-course');
+
 
 Route::get('/myProfile', function () {
     return view('website.myProfile');
