@@ -56,18 +56,6 @@ Route::get('/myProfile', function () {
     return view('website.myProfile');
 })->name('myProfile');
 
-Route::get('/instructor-add-course', function () {
-    return view('website.instructor-add-course');
-})->name('instructor-add-course');
-
-Route::get('/instructor-dashboard', function () {
-    return view('website.instructor-dashboard');
-})->name('instructor-dashboard');
-
-Route::get('/instructor-start', function () {
-    return view('website.instructor-start');
-})->name('instructor-start');
-
 //Route::get('/admin/faqs', function () {
 //    return view('admin.faqs');
 //})->name('admin-faqs');

@@ -34,8 +34,6 @@
                         href="#account-change-password">Change password</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                         href="#account-info">Other Informations</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#instructor-info">Start As Instructor</a>
 
                 </div>
             </div>
@@ -118,12 +116,6 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="tab-pane fade" id="instructor-info">
-                        <div class="card-body pb-2">
-                            <a href="{{route('instructor-start')}}" class="btn btn-primary">Start as Instructor</a>
-                        </div>
                     </div>
                 </div>
             </div>
