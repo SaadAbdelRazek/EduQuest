@@ -13,7 +13,7 @@
                     <div class="col-xl-8 col-lg-11 col-md-12">
                         <div class="hero__caption hero__caption2">
                             <h1 data-animation="bounceIn" data-delay="0.2s">My Profile</h1>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -32,9 +32,11 @@
                         href="#account-general">General</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                         href="#account-change-password">Change password</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list" 
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
                         href="#account-info">Other Informations</a>
-                    
+                    <a class="list-group-item list-group-item-action" data-toggle="list"
+                       href="#instructor-info">Start As Instructor</a>
+
                 </div>
             </div>
             <div class="col-md-9">
@@ -116,6 +118,12 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="tab-pane fade" id="instructor-info">
+                        <div class="card-body pb-2">
+                            <a href="{{route('instructor-start')}}" class="btn btn-primary">Start as Instructor</a>
+                        </div>
                     </div>
                 </div>
             </div>
