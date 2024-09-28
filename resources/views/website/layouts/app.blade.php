@@ -77,8 +77,9 @@
                                                 {{-- <li><a href="{{ route('myProfile') }}">My Profile</a></li> --}}
                                                 <!-- Button -->
                                                 @if (Auth::check())
-                                                <li><p style="color: rgb(154, 154, 154); background-color:white; border-radius:10px; padding:10px; " >Profile</p>
-                                                    <ul class="submenu" style="width:fit-content;">
+                                                <li ><p><img class="submenu" src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt class="d-block ui-w-80" style="width:50px; border-radius:50%; height:50px;"></p>
+
+                                                    <ul class="submenu" style="width:fit-content; ">
                                                         <li ><a href="{{ route('myProfile') }}">Profile</a></li>
                                                         <li ><a href="{{ route('logout') }}"
                                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

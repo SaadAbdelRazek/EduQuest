@@ -90,3 +90,7 @@ Route::get('/myProfile', function () {
     return view('website.myProfile');
 })->name('myProfile');
 
+Route::get('/edit_profile', function () {
+    return view('profile.show');
+})->name('edit_profile');
+

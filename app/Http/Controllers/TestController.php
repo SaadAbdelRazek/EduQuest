@@ -40,7 +40,8 @@ class TestController extends Controller
                 return view('admin.dashboard');
             }
             else if($user_type == 0){
-                return view('website.index');
+                // return view('website.index');
+                return redirect()->route('home');
             }
         }
         return redirect()->back();
