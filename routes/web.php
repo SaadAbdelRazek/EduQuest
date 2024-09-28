@@ -30,6 +30,12 @@ Route::get('/book-details', function () {
 Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
+Route::get('/course_details', function () {
+    return view('website.course_details');
+})->name('course_details');
+Route::get('/course_videos', function () {
+    return view('website.course_videos');
+})->name('course_videos');
 Route::get('/contact', function () {
     return view('website.contact');
 })->name('contact');
