@@ -40,18 +40,9 @@ Route::get('/elements', function () {
 Route::get('/book-details', function () {
     return view('website.book-details');
 })->name('book-details');
-Route::get('/faqs', function () {
-    return view('website.faqs');
-})->name('faqs');
 Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
-Route::get('/admin/login', function () {
-    return view('admin.login');
-})->name('admin-login');
-Route::get('/admin/register', function () {
-    return view('admin.register');
-})->name('admin-register');
 Route::get('/contact', function () {
     return view('website.contact');
 })->name('contact');
@@ -94,3 +85,9 @@ Route::get('/edit_profile', function () {
     return view('profile.show');
 })->name('edit_profile');
 
+//Route::get('/admin/faqs', function () {
+//    return view('admin.faqs');
+//})->name('admin-faqs');
+
+Route::resource('/dashboard/faqs', FaqController::class);
+Route::get('/faqs', [FaqController::class, 'showFaq'] )->name('faqs');

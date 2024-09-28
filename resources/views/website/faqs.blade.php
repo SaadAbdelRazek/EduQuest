@@ -129,33 +129,16 @@
             </symbol>
         </svg>
     </div>
-
-    <details open>
+@foreach($faqs as $faq)
+    <details close>
         <summary>
-            Does this product have what I need?
+            {{$faq->question}}
             <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
             <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
         </summary>
-        <p>Totally. Totally does.</p>
+        <p>{{$faq->answer}}</p>
     </details>
+@endforeach
 
-    <details>
-
-        <summary>
-            Can I use it all the time?
-            <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
-            <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
-        </summary>
-        <p>Of course you can, we won't stop you.</p>
-    </details>
-
-    <details>
-        <summary>
-            Are there any restrictions?
-            <svg class="control-icon control-icon-expand" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#expand-more" /></svg>
-            <svg class="control-icon control-icon-close" width="24" height="24" role="presentation"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close" /></svg>
-        </summary>
-        <p>Only your imagination my friend. Go forth!</p>
-    </details>
     <br>
 @endsection
