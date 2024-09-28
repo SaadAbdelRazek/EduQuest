@@ -34,8 +34,7 @@
                         href="#account-change-password">Change password</a>
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                         href="#account-info">Other Informations</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       href="#instructor">Start As Instructor</a>
+                    
 
                 </div>
             </div>
@@ -120,10 +119,7 @@
 
                     </div>
 
-                    <div class="tab-pane fade" id="instructor">
-                        <p>If you want to start your journey with EduQuest as instructor</p><br>
-                        <a href="{{route('instructor-start')}}" class="btn btn-primary">Start As Instructor</a>
-                    </div>
+
                     </div>
                 </div>
             </div>
