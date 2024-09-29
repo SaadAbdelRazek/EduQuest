@@ -14,7 +14,7 @@
     <h2>Instructor Dashboard</h2>
     <ul>
         <li><a href="{{route('instructor-dashboard')}}" class="@yield('dashboard')">Dashboard</a></li>
-        <li><a href="#">Courses</a></li>
+        <li><a href="{{route('instructor-courses')}}" class="@yield('courses')">My Courses</a></li>
         <li><a href="{{route('instructor-add-course')}}" class="@yield('add-course')">Add Course</a></li>
         <li><a href="#">Students</a></li>
         <li><a href="{{route('myProfile')}}">Return to website</a></li>

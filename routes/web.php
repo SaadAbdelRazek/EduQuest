@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -74,11 +75,15 @@ Route::get('/instructor-dashboard', function () {
     return view('website.instructor-dashboard');
 })->name('instructor-dashboard');
 
+Route::get('/instructor-courses',[CourseController::class, 'showMyCourses'])->name('instructor-courses');
+
 Route::get('/instructor-add-course', function () {
     return view('website.instructor-add-course');
 })->name('instructor-add-course');
 
-
+//Route::get('/instructor-add-course-2', function () {
+//    return view('website.instructor-add-course-2');
+//})->name('instructor-add-course-2');
 Route::get('/myProfile', function () {
     return view('website.myProfile');
 })->name('myProfile');
@@ -87,11 +92,23 @@ Route::get('/edit_profile', function () {
     return view('profile.show');
 })->name('edit_profile');
 
+Route::get('/admin-pending-courses',[CourseController::class, 'showPending'])->name('pending-courses');
+Route::get('/admin-accepted-courses',[CourseController::class, 'showAccepted'])->name('accepted-courses');
+Route::get('/admin-declined-courses',[CourseController::class, 'showDeclined'])->name('declined-courses');
 
+Route::get('/admin-view-course/{id}',[CourseController::class, 'viewCourse'])->name('admin-view-course');
 
 //Route::get('/admin/faqs', function () {
 //    return view('admin.faqs');
 //})->name('admin-faqs');
 
+Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
+Route::get('/instructor-add-course-2/{sections}', [CourseController::class, 'showForm2'])->name('courses.store-2');
+
+
 Route::resource('/dashboard/faqs', FaqController::class);
 Route::get('/faqs', [FaqController::class, 'showFaq'] )->name('faqs');
+
+
+Route::get('/admin-courses/accept/{id}', [CourseController::class, 'acceptCourse'])->name('courses.accept');
+Route::get('/admin-courses/decline/{id}', [CourseController::class, 'declineCourse'])->name('courses.decline');
