@@ -126,6 +126,79 @@ class CourseController extends Controller
     }
 
 
+
+    //------------------------------------------------------------------
+
+
+    public function edit($id)
+    {
+        $course = Course::find($id);
+
+
+        if (!$course) {
+            return redirect()->back()->with('error', 'Course not found');
+        }
+
+        $sections = Section::where('course_id', $course->id)->get();
+
+        $videos = [];
+
+// Loop through each section to retrieve its videos
+        foreach ($sections as $section) {
+            $sectionVideos = Video::where('section_id', $section->id)->get();
+            $videos[$section->id] = $sectionVideos; // Store videos by section ID
+        }
+
+        return view('website.instructor-view-course', compact('course','sections','videos'));
+    }
+
+    // Handle the course update logic
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'objectives' => 'required|string',
+            'price' => 'required|numeric',
+            'category' => 'required|string',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // If a new image is uploaded
+        ]);
+
+        $course = Course::find($id);
+
+        if (!$course) {
+            return redirect()->back()->with('error', 'Course not found');
+        }
+
+        // Update course details
+        $course->title = $request->input('title');
+        $course->description = $request->input('description');
+        $course->objectives = $request->input('objectives');
+        $course->price = $request->input('price');
+        $course->category = $request->input('category');
+
+        // Handle image update if a new one is uploaded
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('course_images', 'public');
+            $course->image = $imagePath;
+        }
+
+        $course->save();
+
+        // Update sections and videos
+        if ($request->has('sections')) {
+            foreach ($request->sections as $section_id => $section_title) {
+                $section = Section::find($section_id);
+                if ($section) {
+                    $section->title = $section_title;
+                    $section->save();
+                }
+            }
+        }
+
+        return redirect()->route('courses.edit', $id)->with('success', 'Course updated successfully');
+    }
+
 }
 
 

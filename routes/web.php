@@ -113,13 +113,6 @@ Route::get('/categories', function () {
 })->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
-Route::get('/instructor-start', function () {
-    return view('website.instructor-start');
-})->name('instructor-start');
-
-Route::get('/instructor-dashboard', function () {
-    return view('website.instructor-dashboard');
-})->name('instructor-dashboard');
 
 Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
 Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
@@ -151,3 +144,8 @@ Route::get('/admin-courses/decline/{id}', [CourseController::class, 'declineCour
 
 Route::resource('/dashboard/faqs', FaqController::class);
 Route::get('/faqs', [FaqController::class, 'showFaq'] )->name('faqs');
+
+
+Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+
+Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
