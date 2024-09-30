@@ -113,13 +113,7 @@ Route::get('/categories', function () {
 })->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
-Route::get('/instructor-start', function () {
-    return view('website.instructor-start');
-})->name('instructor-start');
 
-Route::get('/instructor-dashboard', function () {
-    return view('website.instructor-dashboard');
-})->name('instructor-dashboard');
 
 Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
 Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
