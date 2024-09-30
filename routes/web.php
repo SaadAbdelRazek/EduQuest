@@ -145,3 +145,8 @@ Route::get('/admin-courses/decline/{id}', [CourseController::class, 'declineCour
 
 Route::resource('/dashboard/faqs', FaqController::class);
 Route::get('/faqs', [FaqController::class, 'showFaq'] )->name('faqs');
+
+
+Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+
+Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
