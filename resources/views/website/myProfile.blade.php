@@ -22,19 +22,30 @@
     </section>
 
 <div class="container light-style flex-grow-1 container-p-y">
-    <h4 class="font-weight-bold m-5" style="font-size: 40px">Account settings</h4>
+    <h4 class="font-weight-bold m-5" style="font-size: 40px">{{$user_data->name}}</h4>
     <div class="card overflow-hidden">
         <div class="row no-gutters row-bordered row-border-light">
             <div class="col-md-3 pt-0">
                 <div class="list-group list-group-flush account-settings-links">
                     <a class="list-group-item list-group-item-action " data-toggle="list"
                         href="#account-general">General</a>
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                        href="#account-change-password">Change password</a>
+
+                    {{-- <a class="list-group-item list-group-item-action" data-toggle="list"
+                        href="#account-change-password">Change password</a> --}}
+
                     <a class="list-group-item list-group-item-action" data-toggle="list"
                         href="#account-info">Other Informations</a>
+
                     <a class="list-group-item list-group-item-action" data-toggle="list"
-                        href="#instructor">Start As Instructor</a>
+                        href="#instructor">
+                        @if ($user_data->is_instructor ==1)
+                        instructor dashboard
+                        @elseif ($user_data->is_instructor ==0)
+                        Start As Instructor
+
+
+                    @endif
+                    </a>
 
 
 
@@ -50,6 +61,10 @@
                                     <label class="btn ">
 
                                         <a  href="{{ route('edit_profile') }}">change photo</a>
+                                    </label>
+                                    <label class="btn ">
+
+                                        <a  href="{{ route('edit_profile') }}">update profile</a>
                                     </label>
                                     {{-- <button type="button" class="btn md-btn-flat">Reset</button> --}}
                                     @if ($user_data->profile_photo_path== null)
@@ -122,8 +137,18 @@
 
                         </div>
                         <div class="tab-pane fade" id="instructor">
-                            <p>If you want to start your journey with EduQuest as instructor</p><br>
-                            <a href="{{route('instructor-start')}}" class="btn btn-primary">Start As Instructor</a>
+                            <p> start your journey with EduQuest as instructor</p><br>
+                            @if ($user_data->is_instructor ==1)
+                            <a href="{{route('instructor-dashboard')}}" class="btn btn-primary">
+                                    instructor dashboard
+                                </a>
+                                @elseif ($user_data->is_instructor ==0)
+                                <a href="{{route('instructor-start')}}" class="btn btn-primary">
+                                    Start As Instructor
+                                    </a>
+
+
+                                @endif
                         </div>
                     </div>
                 </div>

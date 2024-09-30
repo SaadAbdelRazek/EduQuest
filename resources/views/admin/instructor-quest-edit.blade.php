@@ -1,9 +1,9 @@
 @extends('admin.layouts.dash')
-@section('faqs')
+@section('instructor_question_edit')
     active
 @endsection
 @section('activity-title')
-    FAQs
+instructor_question_edit
 @endsection
 @section('content')
 @php
@@ -14,18 +14,19 @@
         <h2>Edit FAQ</h2>
 
         <!-- Form for Creating or Editing an Entry -->
-        <form action="{{ route('faqs.update', $faq->id) }}" method="POST">
+        <form action="{{ route('instructor-questions.update', $data->id) }}" method="POST">
             <!-- Input for Name -->
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label for="question">question</label>
-                <input type="text" name="question" id="question" class="form-control" value="{{ $faq->question }}" required>
+                <input type="text" name="question" id="question" class="form-control" value="{{ $data->question_title }}" required>
             </div>
 
-            <div class="form-group">
-                <label for="answer">answer</label>
-                <input type="text" name="answer" id="answer" class="form-control" value="{{ $faq->answer }}" required>
+            <div class="col-md-3">
+                <input type="text" name="choice1" id="choice1" value="{{ $data->choice1 }}" class="form-control" placeholder="Enter choice 1" required>
+                <input type="text" name="choice2" id="choice2" value="{{ $data->choice2 }}" class="form-control" placeholder="Enter choice 2" required>
+                <input type="text" name="choice3" id="choice3" value="{{ $data->choice3 }}" class="form-control" placeholder="Enter choice 3" required>
             </div>
 
             <div class="form-actions">

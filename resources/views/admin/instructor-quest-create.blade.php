@@ -1,9 +1,9 @@
 @extends('admin.layouts.dash')
-@section('faqs')
+@section('instructor_question_create')
     active
 @endsection
 @section('activity-title')
-    FAQs
+instructor_question_create
 @endsection
 @section('content')
 @php
@@ -11,10 +11,10 @@
         $hideSpecialDiv = true;
     @endphp
     <div class="container">
-        <h2>Create New FAQ</h2>
+        <h2>Create New Question</h2>
 
         <!-- Form for Creating or Editing an Entry -->
-        <form action="{{ route('faqs.store') }}" method="POST">
+        <form action="{{ route('instructor-questions.store') }}" method="POST">
             <!-- Input for Name -->
             @csrf
             <div class="form-group">
@@ -22,10 +22,19 @@
                 <input type="text" name="question" id="question" class="form-control" required>
             </div>
 
-            <div class="form-group">
-                <label for="answer">answer</label>
-                <input type="text" name="answer" id="answer" class="form-control" required>
+
+            <div class="col-md-3">
+                <input type="text" name="choice1" id="choice1" class="form-control" placeholder="Enter choice 1" required>
             </div>
+
+            <div class="col-md-3">
+                <input type="text" name="choice2" id="choice2" class="form-control" placeholder="Enter choice 2" required>
+            </div>
+
+            <div class="col-md-3">
+                <input type="text" name="choice3" id="choice3" class="form-control" placeholder="Enter choice 3" required>
+            </div>
+
 
             <div class="form-actions">
                 <button type="submit" class="submit-btn">Submit</button>

@@ -8,8 +8,8 @@ body {
 
 .dashboard-container {
     display: flex;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow: visible;
 }
 
 /* Sidebar Styling */
@@ -19,7 +19,7 @@ body {
     color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding: 20px;
 }
 
