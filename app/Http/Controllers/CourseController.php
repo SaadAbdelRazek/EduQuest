@@ -23,7 +23,7 @@ class CourseController extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg',
             'num_sections' => 'required|integer|min:1',
             'sections.*.title' => 'required|string',
-            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:10240' // 10MB max for each video
+            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:40240' // 10MB max for each video
         ]);
 
         // Store the course image

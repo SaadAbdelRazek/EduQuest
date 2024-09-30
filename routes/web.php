@@ -121,6 +121,9 @@ Route::get('/instructor-dashboard', function () {
     return view('website.instructor-dashboard');
 })->name('instructor-dashboard');
 
+Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
+Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
+
 Route::get('/instructor-add-course', function () {
     return view('website.instructor-add-course');
 })->name('instructor-add-course');
@@ -134,6 +137,12 @@ Route::get('/edit_profile', function () {
     return view('profile.show');
 })->name('edit_profile');
 
+Route::get('/admin-pending-courses',[CourseController::class, 'showPending'])->name('pending-courses');
+Route::get('/admin-accepted-courses',[CourseController::class, 'showAccepted'])->name('accepted-courses');
+Route::get('/admin-declined-courses',[CourseController::class, 'showDeclined'])->name('declined-courses');
+Route::get('/admin-view-course/{id}',[CourseController::class, 'viewCourse'])->name('admin-view-course');
+Route::get('/admin-courses/accept/{id}', [CourseController::class, 'acceptCourse'])->name('courses.accept');
+Route::get('/admin-courses/decline/{id}', [CourseController::class, 'declineCourse'])->name('courses.decline');
 
 
 //Route::get('/admin/faqs', function () {

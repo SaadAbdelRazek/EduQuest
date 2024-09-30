@@ -6,6 +6,10 @@
     Courses
 @endsection
 @section('content')
+@php
+        // Define the variable to hide the div in the layout
+        $hideSpecialDiv = true;
+    @endphp
     <div class="course-container">
         <!-- Course Header -->
         <div class="course-header">
