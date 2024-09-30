@@ -49,6 +49,7 @@
 
 
 
+
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -69,7 +70,7 @@
                                     {{-- <button type="button" class="btn md-btn-flat">Reset</button> --}}
                                     @if ($user_data->profile_photo_path== null)
 
-                                    <div class="text-light small mt-1" ><p style="color: rgb(117, 117, 117); font-size:11px;">Allowed JPG, GIF or PNG. Max size of 800K</p></div>
+                                        <div class="text-light small mt-1" ><p style="color: rgb(117, 117, 117); font-size:11px;">Allowed JPG, GIF or PNG. Max size of 800K</p></div>
                                     @endif
                                 </div>
                             </div>
@@ -78,13 +79,13 @@
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
                                     <input type="text" name="first_name" value="{{ $user_data->name }}"
-                                        class="single-input" readonly>
+                                           class="single-input" readonly>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label">Email</label>
                                     <input type="text" name="email" value="{{ $user_data->email }}"
-                                        class="single-input" readonly>
+                                           class="single-input" readonly>
                                 </div>
                             </div>
                         </div>
@@ -94,17 +95,17 @@
                                 <div class="form-group">
                                     <label class="form-label">Current password</label>
                                     <input type="password" name="current_password" placeholder="Current password"
-                                        required="" class="single-input">
+                                           required="" class="single-input">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">New password</label>
                                     <input type="password" name="new_password" placeholder="New password" required=""
-                                        class="single-input">
+                                           class="single-input">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Repeat new password</label>
                                     <input type="password" name="repeat_new_password" placeholder="Repeat new password"
-                                        required="" class="single-input">
+                                           required="" class="single-input">
                                 </div>
                             </div>
                         </div>
@@ -131,7 +132,7 @@
                                 <div class="form-group">
                                     <label class="form-label">LinkedIn</label>
                                     <input type="text" name="linkedIn" placeholder="LinkedIn URL"
-                                        class="single-input">
+                                           class="single-input">
                                 </div>
                             </div>
 
