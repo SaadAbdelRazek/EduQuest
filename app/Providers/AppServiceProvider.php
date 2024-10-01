@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\TestController;
+use App\Models\Course;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -31,6 +32,17 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $view->with('user_data', Auth::user());
             }
+        });
+
+        View::composer('*', function ($view) {
+
+
+            $cheap_courses = Course::orderBy('price', 'asc')->limit(5)->get();
+
+
+
+            $view->with('all_courses', Course::all());
+            $view->with('home_courses', $cheap_courses);
         });
 
         View::composer('admin.layouts.dash', function ($view) {
