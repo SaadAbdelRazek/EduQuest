@@ -9,6 +9,8 @@ use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SettingController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -173,3 +175,9 @@ Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 Route::put('/contacts/{id}/status', [ContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+
+Route::resource('settings', SettingController::class);
+
+Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact');
+
+
