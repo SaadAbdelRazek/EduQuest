@@ -266,17 +266,20 @@
 <section class="course-details">
     <div class="course-content">
         <div class="course-description">
-            <h1 class="course-title">Course Name</h1>
-            <p><strong>Description:</strong> This course covers various topics to enhance your skills and knowledge. You will learn about the fundamentals and advanced concepts.</p>
-            <p><strong>Objectives:</strong> Gain practical knowledge, improve your skills, and prepare for real-world applications.</p>
-            <p><strong>Duration:</strong> 10 weeks, with 2 classes per week.</p>
+            <h1 class="course-title">{{$course_info->title}}</h1>
+            <p><strong>Description:</strong> {{$course_info->description}}</p>
+            <p><strong>Objectives:</strong> {{$course_info->objective}}</p>
+            {{-- <p><strong>Duration:</strong> 10 weeks, with 2 classes per week.</p> --}}
             <div class="course-price">
-                <span>Price: $100</span>
+                <span><strong>Price:</strong> {{$course_info->price}} EGP</span>
                 <button class="register-button">Register</button>
             </div>
+            <span><strong>Course Instructor: </strong><a href="{{route('course-instructor',$course_info->user_id)}}" style="color: black"> mohamed</a> </span><br>
+
+            {{-- <img src="{{asset('storage/'. $course_info->User->profile_photo_path)}}" style="width: 50px; border-radius:50%;" alt="Instructor Name"> --}}
         </div>
         <div class="course-image">
-            <img src="https://via.placeholder.com/600x400" alt="Course Image">
+            <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image">
         </div>
     </div>
 </section>
@@ -288,23 +291,12 @@
     <h2>Instructors</h2>
     <div class="instructor-container">
         <div class="instructor-card">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor Name">
-            <h3>John Doe</h3>
+            <img src="{{asset('storage/'. $course_info->User->profile_photo_path)}}" alt="Instructor Name">
+            <h3>{{$course_info->User->name}}</h3>
             <p>Senior Instructor</p>
             <p>Expert in web development and programming.</p>
         </div>
-        <div class="instructor-card">
-            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Instructor Name">
-            <h3>Jane Smith</h3>
-            <p>Senior Instructor</p>
-            <p>Specialized in design and user experience.</p>
-        </div>
-        <div class="instructor-card">
-            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Instructor Name">
-            <h3>Mike Johnson</h3>
-            <p>Lead Instructor</p>
-            <p>Expert in data science and analytics.</p>
-        </div>
+
     </div>
 </section>
 

@@ -74,17 +74,16 @@
                 </div>
                 <div class="courses-actives">
                     <!-- Single -->
+                    @foreach ($home_courses as $courses )
                     <div class="properties pb-20">
                         <div class="properties__card">
                             <div class="properties__img overlay1">
-                                <a href="#"><img src="{{asset('img/gallery/featured1.png')}}" alt=""></a>
+                                <a href="#"><img src="{{asset('storage/'. $courses->image)}}" alt=""></a>
                             </div>
                             <div class="properties__caption">
-                                <p>User Experience</p>
-                                <h3><a href="#">Fundamental of UX for Application design</a></h3>
-                                <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-
-                                </p>
+                                <p>{{$courses->category}}</p>
+                                <h3><a href="#">{{$courses->title}}</a></h3>
+                                <p> {{$courses->objectives}} </p>
                                 <div class="properties__footer d-flex justify-content-between align-items-center">
                                     <div class="restaurant-name">
                                         <div class="rating">
@@ -97,17 +96,20 @@
                                         <p><span>(4.5)</span> based on 120</p>
                                     </div>
                                     <div class="price">
-                                        <span>$135</span>
+                                        <span>{{$courses->price}}EGP</span>
                                     </div>
                                 </div>
-                                <a href="{{route('courses')}}" class="border-btn border-btn2">Find out more</a>
+                                <a href="{{route('courses')}}" class="border-btn border-btn2">View</a>
                             </div>
 
                         </div>
                     </div>
+                    @endforeach
+
                     <!-- Single -->
 
                 </div>
+                <a href="{{route('courses')}}" class="border-btn border-btn2">Find out more</a>
             </div>
         </div>
         <!-- Courses area End -->

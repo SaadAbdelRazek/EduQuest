@@ -66,6 +66,11 @@ class User extends Authenticatable
     ];
     public function courses()
     {
-        return $this->hasMany(Course::class);
+        return $this->hasMany(Course::class, 'user_id');
+    }
+
+    public function instructors()
+    {
+        return $this->hasOne(Instructor::class, 'user_id');
     }
 }

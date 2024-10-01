@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
@@ -79,9 +80,13 @@ Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
 
-Route::get('/course_details', function () {
-    return view('website.course_details');
-})->name('course_details');
+// Route::get('/course_details', function () {
+//     return view('website.course_details');
+// })->name('course_details');
+
+Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->name('course_details');
+Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
+
 
 Route::get('/course_videos', function () {
     return view('website.course_videos');
@@ -114,12 +119,14 @@ Route::get('/categories', function () {
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
 
+
 Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
 Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
 Route::get('/instructor-add-course', function () {
     return view('website.instructor-add-course');
 })->name('instructor-add-course');
+
 
 
 Route::get('/myProfile', function () {
@@ -129,6 +136,8 @@ Route::get('/myProfile', function () {
 Route::get('/edit_profile', function () {
     return view('profile.show');
 })->name('edit_profile');
+
+Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
 
 Route::get('/admin-pending-courses',[CourseController::class, 'showPending'])->name('pending-courses');
 Route::get('/admin-accepted-courses',[CourseController::class, 'showAccepted'])->name('accepted-courses');
@@ -149,3 +158,11 @@ Route::get('/faqs', [FaqController::class, 'showFaq'] )->name('faqs');
 Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
 
 Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
+
+
+Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
+Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
+Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
+Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
+Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
+Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');

@@ -16,6 +16,10 @@ return $this->hasMany(Section::class);
 }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function instructor()
+    {
+        return $this->belongsTo(Instructor::class,'user_id');
     }
 }

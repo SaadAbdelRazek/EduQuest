@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,6 +70,14 @@ class TestController extends Controller
             }
         }
         return redirect()->back();
+    }
+
+    public function courses_details($id){
+        $course_info = Course::with('User')->findOrFail($id);
+
+        return view('website.course_details',compact('course_info'));
+
+
     }
 
 

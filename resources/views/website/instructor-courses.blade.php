@@ -29,7 +29,7 @@
                         <a href="{{ route('course_details', $course->id) }}" class="btn-view" >View</a>
                     @else
                         <p style="color:red">Declined</p>
-                        <a href="{{ route('course_details', $course->id) }}" class="btn-view" >View</a>
+                        <a href="{{ route('courses.edit', $course->id) }}" class="btn-view" >View</a>
                     @endif
                 </div>
             </div>
