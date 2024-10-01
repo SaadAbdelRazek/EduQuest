@@ -80,8 +80,13 @@
                     </div>
                 </div>
             @endforeach
-
-            <button type="submit" class="btn btn-primary">Update Course</button>
-        </form>
+            <br>
+            <button type="submit" class="btn-view">Update Course</button>
+        </form><br>
+        @if($course->is_accepted==1)
+        <p><strong>Adding Quiz is important for evaluating your students and for them to get certificated</strong></p>
+        <a href="{{route('course-quiz',$course->id)}}" class="btn">Add Quiz for this course</a>
+            <a href="{{route('course-quizzes',$course->id)}}" class="btn">View Course Quizzes</a>
+        @endif
     </div>
 @endsection

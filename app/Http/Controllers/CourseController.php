@@ -199,6 +199,19 @@ class CourseController extends Controller
         return redirect()->route('courses.edit', $id)->with('success', 'Course updated successfully');
     }
 
+//    ------------------------------------------------
+public function viewCourseQuiz($id)
+{
+    $course=Course::where('id', $id)->first();
+    return view('website.course-quiz', compact('course'));
+}
+
+    public function viewAllCourseDetails($id){
+        $course=Course::where('id', $id)->first();
+        $sections=Section::where('id', $id)->get();
+        $videos=Video::where('id', $id)->get();
+        return view('website.course_videos', compact('course', 'sections', 'videos'));
+    }
 }
 
 
