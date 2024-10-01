@@ -8,6 +8,8 @@ use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -44,7 +46,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 Route::middleware(['auth', 'isInstructor'])->group(function () {
     Route::get('/instructor-start', [InstructorController::class, 'index'])->name('instructor-start');
     Route::get('/instructor-dashboard', [InstructorController::class, 'index'])->name('instructor-dashboard');
-    Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
+    // Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
 
 
 });
@@ -166,3 +168,8 @@ Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDeta
 Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
 Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
 Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
+
+
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+Route::put('/contacts/{id}/status', [ContactController::class, 'updateStatus'])->name('contacts.updateStatus');
