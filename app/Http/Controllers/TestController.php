@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Enrollment;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\User;
@@ -74,8 +75,10 @@ class TestController extends Controller
 
     public function courses_details($id){
         $course_info = Course::with('User')->findOrFail($id);
+        $user = auth()->user();
+        $enrolledUsers = Enrollment::where('course_id', $course_info->id)->where('user_id',$user->id)->exists();
 
-        return view('website.course_details',compact('course_info'));
+        return view('website.course_details',compact('course_info','enrolledUsers'));
 
 
     }

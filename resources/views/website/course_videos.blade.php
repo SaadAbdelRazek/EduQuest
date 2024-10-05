@@ -1,158 +1,7 @@
 @extends('website.layouts.app')
 @section('content')
 
-{{--    <section class="slider-area slider-area2">--}}
-{{--        <div class="slider-active">--}}
-{{--            <!-- Single Slider -->--}}
-{{--            <div class="single-slider slider-height2">--}}
-{{--                <div class="container">--}}
-{{--                    <div class="row">--}}
-{{--                        <div class="col-xl-8 col-lg-11 col-md-12">--}}
-{{--                            <div class="hero__caption hero__caption2">--}}
-{{--                                <h1 data-animation="bounceIn" data-delay="0.2s">My Courses</h1>--}}
-{{--                                <!-- breadcrumb Start-->--}}
-{{--                                <nav aria-label="breadcrumb">--}}
-{{--                                    <ol class="breadcrumb">--}}
-{{--                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>--}}
-{{--                                        <li class="breadcrumb-item"><a href="#">Courses</a></li>--}}
-{{--                                        <li class="breadcrumb-item"><a href="#">Course Videos</a></li>--}}
-{{--                                    </ol>--}}
-{{--                                </nav>--}}
-{{--                                <!-- breadcrumb End -->--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
 
-
-
-{{--    <div class="container">--}}
-{{--        <h1>Course Videos</h1>--}}
-
-{{--        <div class="video-player">--}}
-{{--            <h2 class="video-title">Current Video Title</h2>--}}
-{{--            <iframe width="100%" height="450" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>--}}
-{{--            <p class="video-description">In this video, you will learn about the key concepts of the course and how to apply them effectively.</p>--}}
-{{--        </div>--}}
-
-
-
-{{--        <div class="video-list-container" id="videoList">--}}
-{{--            <h3>Video List</h3>--}}
-{{--            <div class="toggle-button" onclick="toggleVideoList()">--}}
-{{--                <span class="toggle-icon">+</span> <!-- الرمز الافتراضي -->--}}
-{{--                Show List--}}
-{{--            </div>--}}
-{{--            <div class="video-list" id="videoListContent">--}}
-{{--                <div class="video-item">--}}
-{{--                    <div class="video-header" onclick="toggleDetails('video1-details')">--}}
-{{--                        <h4>Video Title 1 (5 min)</h4>--}}
-{{--                        <span class="toggle-icon">+</span>--}}
-{{--                    </div>--}}
-{{--                    <div class="video-details" id="video1-details" style="display: none;">--}}
-{{--                        <p>Description: This video covers the basics of the course.</p>--}}
-{{--                        <a href="#" onclick="loadVideo('VIDEO_ID1', 'Video Title 1')">Watch Now</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="video-item">--}}
-{{--                    <div class="video-header" onclick="toggleDetails('video2-details')">--}}
-{{--                        <h4>Video Title 1 (5 min)</h4>--}}
-{{--                        <span class="toggle-icon">+</span>--}}
-{{--                    </div>--}}
-{{--                    <div class="video-details" id="video2-details" style="display: none;">--}}
-{{--                        <p>Description: This video covers the basics of the course.</p>--}}
-{{--                        <a href="#" onclick="loadVideo('VIDEO_ID1', 'Video Title 1')">Watch Now</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-{{--                <div class="video-item">--}}
-{{--                    <div class="video-header" onclick="toggleDetails('video3-details')">--}}
-{{--                        <h4>Video Title 1 (5 min)</h4>--}}
-{{--                        <span class="toggle-icon">+</span>--}}
-{{--                    </div>--}}
-{{--                    <div class="video-details" id="video3-details" style="display: none;">--}}
-{{--                        <p>Description: This video covers the basics of the course.</p>--}}
-{{--                        <a href="#" onclick="loadVideo('VIDEO_ID1', 'Video Title 1')">Watch Now</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <!-- المزيد من الفيديوهات حسب الحاجة -->--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-
-
-
-{{--        <div class="progress-section">--}}
-{{--            <h2>Course Progress</h2>--}}
-{{--            <div class="progress-bar-container">--}}
-{{--                <div class="progress-bar" style="width: 75%;"></div> <!-- النسبة يمكن تعديلها ديناميكيًا -->--}}
-{{--            </div>--}}
-{{--            <div class="progress-text">Completed: 75%</div>--}}
-{{--        </div>--}}
-
-
-{{--        <div class="resources-section">--}}
-{{--            <h2>Additional Resources</h2>--}}
-{{--            <ul>--}}
-{{--                <li><a href="resource1.pdf" target="_blank">Resource 1: PDF Guide</a></li>--}}
-{{--                <li><a href="resource2.pdf" target="_blank">Resource 2: Cheat Sheet</a></li>--}}
-{{--                <li><a href="resource3.pdf" target="_blank">Resource 3: Study Material</a></li>--}}
-{{--                <!-- المزيد من الموارد حسب الحاجة -->--}}
-{{--            </ul>--}}
-{{--        </div>--}}
-
-{{--        <button class="back-button" onclick="goBack()">Back to Course</button>--}}
-{{--    </div>--}}
-
-{{--    <script>--}}
-{{--        function toggleVideoList() {--}}
-{{--    const videoListContent = document.getElementById('videoListContent');--}}
-{{--    const toggleIcon = document.querySelector('.toggle-button .toggle-icon');--}}
-
-{{--    if (videoListContent.style.display === "none" || videoListContent.style.display === "") {--}}
-{{--        videoListContent.style.display = "block";--}}
-{{--        toggleIcon.textContent = "-"; // تغيير الرمز إلى ---}}
-{{--    } else {--}}
-{{--        videoListContent.style.display = "none";--}}
-{{--        toggleIcon.textContent = "+"; // تغيير الرمز إلى +--}}
-{{--    }--}}
-{{--}--}}
-
-{{--// الدالة الموجودة مسبقًا--}}
-{{--function toggleDetails(detailsId) {--}}
-{{--    const details = document.getElementById(detailsId);--}}
-{{--    const icon = details.previousElementSibling.querySelector('.toggle-icon');--}}
-{{--    if (details.style.display === "none") {--}}
-{{--        details.style.display = "block";--}}
-{{--        icon.textContent = "-"; // تغيير الرمز عند الفتح--}}
-{{--    } else {--}}
-{{--        details.style.display = "none";--}}
-{{--        icon.textContent = "+"; // إعادة الرمز عند الإغلاق--}}
-{{--    }--}}
-{{--}--}}
-
-
-
-
-
-
-{{--        function loadVideo(videoId, title) {--}}
-{{--            document.querySelector('.video-title').textContent = title;--}}
-{{--            document.querySelector('iframe').src = 'https://www.youtube.com/embed/' + videoId;--}}
-{{--            document.querySelector('.video-description').textContent = 'Description of ' + title;--}}
-{{--        }--}}
-
-{{--        function goBack() {--}}
-{{--            // Logic to go back to the course page--}}
-{{--            window.location.href = 'course.html'; // Replace with your course page URL--}}
-{{--        }--}}
-{{--    </script>--}}
-
-{{--</main>--}}
 <style>
     .sidebar {
         width: 30%;
@@ -273,7 +122,7 @@
     .container {
         display: flex;
         flex-wrap: wrap;
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
         padding: 20px;
     }
@@ -566,12 +415,15 @@
         background: linear-gradient(135deg, #6a0572, #a4508b); /* Purple to pink gradient */
         z-index: -1; /* Position behind the navbar */
     }
+    #course-video{
+        max-height: 550px;
+    }
 
 </style>
 <div class="navbar-bg"></div>
 <br><br><br><br><br>
 <div class="course-title">
-    <h2>Course Title Goes Here</h2>
+    <h2>{{$course->title}}</h2>
 </div>
 <!-- Main Container -->
 <div class="container">
@@ -579,23 +431,29 @@
     <div class="video-container">
         <!-- Video Player -->
         <video id="course-video" controls>
-            <source src="sample-video.mp4" type="video/mp4">
+            <source id="video-source" data-id="{{ $firstVideo->id }}" src="{{ asset('storage/' . $firstVideo->path) }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
 
         <!-- Course Title and Instructor -->
         <div class="course-details">
-            <h1>Course Title</h1>
+            <h1>{{$course->title}}</h1>
             <div class="instructor-details">
-                <img src="instructor.jpg" alt="Instructor Image">
+                <img src="{{asset('storage/'.$instructor->profile_photo_path)}}" alt="Instructor Image">
                 <div class="instructor-info">
-                    <h4>Instructor: John Doe</h4>
+                    <h4>Instructor: {{$instructor->name}}</h4>
                 </div>
             </div>
             <!-- Progress Bar -->
-            <div class="progress-bar">
-                <div class="progress" style="width: 40%;"></div>
-            </div>
+            <p><strong>Course Progress : </strong></p>
+           @if($progress)
+                <div class="progress-bar" style="width: {{$progress}}%">
+                    <div class="progress"></div>
+                </div>
+                <p><strong>{{number_format($progress, 2)  }}%</strong></p>
+            @else
+               <p>No Progress Yet</p>
+           @endif
         </div>
 
         <!-- Comments Section -->
@@ -630,31 +488,35 @@
 
     <div class="sidebar">
         <div class="sidebar-logo">
-            <img src="logo.png" alt="Course Logo">
+            <p style="color: white">
+                <strong>{{$course->title}}</strong>
+            </p>
         </div>
-
         <ul>
+            @php
+            $sectionCounter=1;
+            @endphp
+            @foreach($sections as $section)
             <li class="section">
                 <div class="section-header">
-                    <span><i class="fas fa-folder"></i> Section 1</span>
+                    <span><i class="fas fa-folder"></i> Section {{$loop->iteration}}: {{$section->title}}</span>
                     <span>+</span>
                 </div>
                 <div class="section-content">
-                    <a href="#">Video 1: Introduction</a>
-                    <a href="#">Video 2: Basics</a>
-                    <a href="#">Quiz 1</a>
+                    @if(isset($videos[$section->id]) && count($videos[$section->id]) > 0)
+                        @foreach($videos[$section->id] as $video)
+                           <a data-video-url="{{ asset('storage/' . $video->path) }}" data-video-id="{{ $video->id }}" class="video-link" style="color: white">Video {{ $loop->iteration }} </a>
+                        @endforeach
+                    @endif
+                        @foreach($quizzes as $quiz)
+                            @if($quiz->section_no==$sectionCounter++)
+                             <a href="{{route('quiz',$quiz->id)}}">Quiz {{$loop->iteration}}</a>
+                            @endif
+                        @endforeach
                 </div>
             </li>
-            <li class="section">
-                <div class="section-header">
-                    <span><i class="fas fa-folder"></i> Section 2</span>
-                    <span>+</span>
-                </div>
-                <div class="section-content">
-                    <a href="#">Video 1: Advanced Topics</a>
-                    <a href="#">Quiz 2</a>
-                </div>
-            </li>
+            @endforeach
+
         </ul>
     </div>
 
@@ -664,7 +526,8 @@
 
 <script>
     // script.js
-
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     // Handle collapsing and expanding sections
     document.querySelectorAll('.section-title').forEach(function(sectionTitle) {
         sectionTitle.addEventListener('click', function() {
@@ -684,7 +547,7 @@
     document.querySelectorAll('.video-list li a').forEach(function(videoLink) {
         videoLink.addEventListener('click', function(e) {
             e.preventDefault();
-            const videoSrc = 'sample-video.mp4'; // Replace this with dynamic source
+            const videoSrc = '';
             document.getElementById('course-video').src = videoSrc;
         });
     });
@@ -699,6 +562,57 @@
     function toggleSidebar() {
         document.querySelector('.sidebar').classList.toggle('active');
     }
+
+
+    // Course Progress
+    var videoPlayer = document.getElementById('course-video');
+
+    videoPlayer.addEventListener('ended', function() {
+        // Mark the video as completed by sending an AJAX request
+        // Add CSRF token for all Axios requests
+        console.log('Video ended, sending data to the server...');
+
+        let url = window.location.pathname;
+        let videoId = url.substring(url.lastIndexOf('/') + 1);
+
+        axios.post('{{route('course_progress',$course->id)}}', {
+            course_id: '{{ $course->id }}',
+            video_id: videoId,
+        }).then(function(response) {
+            alert('Video marked as completed');
+        }).catch(function(error) {
+            console.error('Error marking video:', error);
+        });
+    });
+
+
+
+
+
+
+    document.querySelectorAll('.video-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();  // لمنع التحديث الكامل للصفحة
+
+            var videoUrl = this.getAttribute('data-video-url'); // الحصول على رابط الفيديو من data attribute
+            var videoId = this.getAttribute('data-video-id');   // الحصول على ID الفيديو
+
+            // تحديث الفيديو المعروض
+            var videoPlayer = document.getElementById('course-video');
+            var videoSource = document.getElementById('video-source');
+            videoSource.src = videoUrl;           // تغيير الـ URL للفيديو
+            videoSource.setAttribute('data-id', videoId);  // تعيين الـ data-id لمعرفة الفيديو الحالي
+
+            videoPlayer.load();  // إعادة تحميل الفيديو لعرض الفيديو الجديد
+
+            // تحديث الـ URL في شريط العناوين دون إعادة تحميل الصفحة
+            window.history.pushState({}, '', '/course_videos/{{$course->id}}/' + videoId);
+        });
+    });
+
+
+
+
 
 </script>
 
