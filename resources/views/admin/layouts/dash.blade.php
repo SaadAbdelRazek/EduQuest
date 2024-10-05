@@ -44,7 +44,7 @@
             </div>
             @if (!isset($hideSpecialDiv) || !$hideSpecialDiv)
             <!-- Dashboard Overview -->
-            <div class="dashboard-overview">
+            {{-- <div class="dashboard-overview">
                 <div class="overview-box purple">
                     <h3>Courses</h3>
                     <p>150</p>
@@ -61,7 +61,7 @@
                     <h3>Reports</h3>
                     <p>45</p>
                 </div>
-            </div>
+            </div> --}}
 
 
             <style>
