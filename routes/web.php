@@ -177,4 +177,3 @@ Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCo
 Route::get('/quiz/{id}', [QuizController::class,'showQuizForUser'])->name('quiz');
 Route::post('/quiz/{quiz_id}/submit', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
 Route::get('/quiz/{id}/user-answers', [QuizController::class, 'showUserAnswers'])->name('quiz.user_answers');
-
