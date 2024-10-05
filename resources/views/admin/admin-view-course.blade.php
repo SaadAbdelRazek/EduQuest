@@ -50,26 +50,28 @@
             <div class="course-section">
                 <h3>Course Sections</h3>
                 <ul>
+
                     @foreach($sections as $section)
                     <li><span>Section {{$loop->iteration}}</span> : {{$section->title}}</li>
+                        @foreach($section->videos as $video)
+                            <div class="video-card" style="width: 500px; height: 500px">
+                                <video controls>
+                                    <source src="{{asset('storage/'.$video->path)}}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        @endforeach
                     @endforeach
                 </ul>
             </div>
 
             <!-- Section Videos -->
-            <div class="course-section">
-                <h3>Videos</h3>
-                <div class="video-container">
-                    @foreach($videos as $video)
-                    <div class="video-card">
-                        <video controls>
-                            <source src="{{asset('storage/'.$video->path)}}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
+{{--            <div class="course-section">--}}
+{{--                <h3>Videos</h3>--}}
+{{--                <div class="video-container">--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="course-section">
                 @if($course->is_accepted==0)
                 <a href="{{ route('courses.accept', $course->id) }}" class="btn-accept" >Accept</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

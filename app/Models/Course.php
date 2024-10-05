@@ -16,7 +16,21 @@ return $this->hasMany(Section::class);
 }
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function instructor()
+    {
+        return $this->belongsTo(Instructor::class,'user_id');
+    }
+    public function enrolledUsers()
+    {
+        return $this->belongsToMany(User::class, 'course_enrollments')
+            ->withTimestamps(); // Links course with users via enrollments
+    }
+    public function progressForUser($userId)
+    {
+        return $this->hasMany(CourseProgress::class)
+            ->where('user_id', $userId);
     }
     public function course_category(){
         return $this->belongsTo(Category::class,'id');

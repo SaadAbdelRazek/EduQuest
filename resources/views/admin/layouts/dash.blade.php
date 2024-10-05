@@ -23,6 +23,9 @@
                 <li><a href="{{route('users.index')}}" class="@yield('users')"><i class="fas fa-users"></i> Users</a></li>
                 <li><a href="{{route('categories_table')}}" class="@yield('categories')"><i class="fas fa-user-tie"></i> Categories</a></li>
                 <li><a href="{{route('faqs.index')}}" class="@yield('faqs')"><i class="fas fa-user-tie"></i> FAQs</a></li>
+                <li><a href="/contacts" class="@yield('faqs')"><i class="fas fa-user-tie"></i> Contacts</a></li>
+                <li><a href="/settings" class="@yield('faqs')"><i class="fas fa-user-tie"></i> Settings</a></li>
+
                 <li><a href="{{route('instructor-questions.index')}}" class="@yield('instructor-questions')"><i class="fas fa-user-tie"></i> Instructor Questions</a></li>
                 {{-- <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> --}}
@@ -41,7 +44,7 @@
             </div>
             @if (!isset($hideSpecialDiv) || !$hideSpecialDiv)
             <!-- Dashboard Overview -->
-            <div class="dashboard-overview">
+            {{-- <div class="dashboard-overview">
                 <div class="overview-box purple">
                     <h3>Courses</h3>
                     <p>150</p>
@@ -58,7 +61,8 @@
                     <h3>Reports</h3>
                     <p>45</p>
                 </div>
-            </div>
+            </div> --}}
+
 
 
             <style>

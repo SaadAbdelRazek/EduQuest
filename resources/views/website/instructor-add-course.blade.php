@@ -1,5 +1,5 @@
 @extends('website.layouts.instructor-dash')
-@section('add-course')
+@section('courses')
     active
 @endsection
 @section('content')

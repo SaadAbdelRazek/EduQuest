@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Course;
 use App\Traits\upload_image;
 
 
@@ -80,7 +81,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-        $courses = $category->courses;
-        return view('website/category-courses', compact('category', 'courses'));
+        $courses = Course::where("category_id",$id)->get();
+        return view('website/category-courses', compact('category', 'courses',"is_empty"));
     }
 }

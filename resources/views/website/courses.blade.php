@@ -28,122 +28,64 @@
             </div>
         </section>
         <!-- Courses area start -->
-        <div class="courses-area section-padding40 fix">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>Our featured courses</h2>
-                        </div>
-                    </div>
+<div class="courses-area section-padding40 fix">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-8">
+                <div class="section-tittle text-center mb-55">
+                    <h2>Our featured courses</h2>
                 </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="properties properties2 mb-30">
-                            <div class="properties__card">
-                                <div class="properties__img overlay1">
-                                    <a href="#"><img src="{{asset('img/gallery/featured1.png')}}" alt=""></a>
-                                </div>
-                                <div class="properties__caption">
-                                    <p>User Experience</p>
-                                    <h3><a href="{{route('course_details')}}">Fundamental of UX for Application design</a></h3>
-                                    <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-                                    </p>
-                                    <div class="properties__footer d-flex justify-content-between align-items-center">
-                                        <div class="restaurant-name">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half"></i>
-                                            </div>
-                                            <p><span>(4.5)</span> based on 120</p>
-                                        </div>
-                                        <div class="price">
-                                            <span>$135</span>
-                                        </div>
-                                    </div>
-                                    <a href="{{route('course_details')}}" class="border-btn border-btn2">Find out more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="properties properties2 mb-30">
-                            <div class="properties__card">
-                                <div class="properties__img overlay1">
-                                    <a href="#"><img src="{{asset('img/gallery/featured2.png')}}" alt=""></a>
-                                </div>
-                                <div class="properties__caption">
-                                    <p>User Experience</p>
-                                    <h3><a href="{{route('course_details')}}">Fundamental of UX for Application design</a></h3>
-                                    <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-                                    </p>
-                                    <div class="properties__footer d-flex justify-content-between align-items-center">
-                                        <div class="restaurant-name">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half"></i>
-                                            </div>
-                                            <p><span>(4.5)</span> based on 120</p>
-                                        </div>
-                                        <div class="price">
-                                            <span>$135</span>
-                                        </div>
-                                    </div>
-                                    <a href="{{route('course_details')}}" class="border-btn border-btn2">Find out more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="properties properties2 mb-30">
-                            <div class="properties__card">
-                                <div class="properties__img overlay1">
-                                    <a href="#"><img src="{{asset('img/gallery/featured3.png')}}" alt=""></a>
-                                </div>
-                                <div class="properties__caption">
-                                    <p>User Experience</p>
-                                    <h3><a href="{{route('course_details')}}">Fundamental of UX for Application design</a></h3>
-                                    <p>The automated process all your website tasks. Discover tools and techniques to engage effectively with vulnerable children and young people.
-                                    </p>
-                                    <div class="properties__footer d-flex justify-content-between align-items-center">
-                                        <div class="restaurant-name">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half"></i>
-                                            </div>
-                                            <p><span>(4.5)</span> based on 120</p>
-                                        </div>
-                                        <div class="price">
-                                            <span>$135</span>
-                                        </div>
-                                    </div>
-                                    <a href="{{route('course_details')}}" class="border-btn border-btn2">Find out more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
 
-
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mt-40">
-                            <a href="#" class="border-btn">Load More</a>
+        <!-- Courses List -->
+        <div class="row" id="course-list">
+            @foreach ($all_courses as $index => $course )
+            <div class="col-lg-4 course-item" @if($index >= 6) style="display: none;" @endif>
+                <div class="properties properties2 mb-30">
+                    <div class="properties__card">
+                        <div class="properties__img overlay1">
+                            <a href="#"><img src="{{asset('storage/'. $course->image)}}" alt=""></a>
+                        </div>
+                        <div class="properties__caption">
+                            <p>{{$course->category}}</p>
+                            <h3><a href="{{route('course_details', $course->id)}}">{{$course->title}}</a></h3>
+                            <p style="overflow-y: scroll; height:200px; border:1px solid rgb(209, 209, 209);border-bottom:0; padding:10px; border-radius:5px;">{{$course->description}}</p>
+                            <div class="properties__footer d-flex justify-content-between align-items-center">
+                                <div class="restaurant-name">
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half"></i>
+                                    </div>
+                                    <p><span>(4.5)</span> based on 120</p>
+                                </div>
+                                <div class="price">
+                                    <span>{{$course->price}} EGP</span>
+                                </div>
+                            </div>
+                            <a href="{{route('course_details',$course->id)}}" class="border-btn border-btn2">View</a>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-        <!-- Courses area End -->
+
+        <!-- Load More Button -->
+        <div class="row justify-content-center">
+            <div class="col-xl-7 col-lg-8">
+                <div class="section-tittle text-center mt-40">
+                    <a href="#" id="load-more" class="border-btn">Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Courses area End -->
+
         <!--? top subjects Area Start -->
         <div class="topic-area">
             <div class="container">
@@ -167,18 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="{{asset('img/gallery/topic2.png')}}" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
                 <div class="row justify-content-center">
@@ -232,4 +163,33 @@
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // عدد الكورسات التي سيتم عرضها في كل مرة
+            const coursesToShow = 6;
+            let currentlyVisibleCourses = coursesToShow;
+
+            // جلب زر "Load More"
+            const loadMoreButton = document.getElementById('load-more');
+            // جلب قائمة الكورسات
+            const courses = document.querySelectorAll('.course-item');
+
+            loadMoreButton.addEventListener('click', function(e) {
+                e.preventDefault(); // منع السلوك الافتراضي للرابط
+
+                // حساب عدد الكورسات المخفية
+                const hiddenCourses = document.querySelectorAll('.course-item[style="display: none;"]');
+                for (let i = 0; i < coursesToShow && i < hiddenCourses.length; i++) {
+                    hiddenCourses[i].style.display = 'block'; // إظهار 6 كورسات إضافية
+                }
+
+                // إذا تم إظهار جميع الكورسات، إخفاء زر "Load More"
+                currentlyVisibleCourses += coursesToShow;
+                if (currentlyVisibleCourses >= courses.length) {
+                    loadMoreButton.style.display = 'none'; // إخفاء الزر بعد إظهار كل الكورسات
+                }
+            });
+        });
+    </script>
+
 @endsection

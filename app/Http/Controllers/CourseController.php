@@ -1,16 +1,22 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\CourseProgress;
+use App\Models\Quiz;
 use App\Models\Video;
+use http\Client\Response;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Exceptions\PostTooLargeException;
+
 
 class CourseController extends Controller
 {
+
     public function store(Request $request)
     {
         // Validate the request
@@ -23,7 +29,7 @@ class CourseController extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg',
             'num_sections' => 'required|integer|min:1',
             'sections.*.title' => 'required|string',
-            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:40240' // 10MB max for each video
+            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:80240' // 10MB max for each video
         ]);
 
         // Store the course image
@@ -79,9 +85,23 @@ class CourseController extends Controller
         return view('admin.admin-courses', compact('courses'));
     }
     public function viewCourse($id){
-        $course=Course::where('id', $id)->first();
-        $sections=Section::where('id', $id)->get();
-        $videos=Video::where('id', $id)->get();
+        $course = Course::find($id);
+
+
+        if (!$course) {
+            return redirect()->back()->with('error', 'Course not found');
+        }
+
+        $sections = Section::where('course_id', $course->id)->get();
+
+        $videos = [];
+
+// Loop through each section to retrieve its videos
+        foreach ($sections as $section) {
+            $sectionVideos = Video::where('section_id', $section->id)->get();
+            $videos[$section->id] = $sectionVideos; // Store videos by section ID
+        }
+
         return view('admin.admin-view-course', compact('course', 'sections', 'videos'));
     }
 
@@ -199,6 +219,94 @@ class CourseController extends Controller
         return redirect()->route('courses.edit', $id)->with('success', 'Course updated successfully');
     }
 
+//    ------------------------------------------------
+public function viewCourseQuiz($id)
+{
+    $course=Course::where('id', $id)->first();
+    return view('website.course-quiz', compact('course'));
 }
+
+    public function viewAllCourseDetails($id){
+        $course = Course::find($id);
+        $sections=Section::where('course_id', $id)->get();
+        $firstSection = $sections->first();
+
+        // Get the first video from the first section
+        $firstVideo = null;
+        if ($firstSection && $firstSection->videos->isNotEmpty()) {
+            $firstVideo = $firstSection->videos->first();
+        }
+
+        $videos = [];
+
+// Loop through each section to retrieve its videos
+        foreach ($sections as $section) {
+            $sectionVideos = Video::where('section_id', $section->id)->get();
+            $videos[$section->id] = $sectionVideos; // Store videos by section ID
+        }
+        $instructor = User::where('id', $course->user_id)->first();
+
+        //Course progress
+
+        $userId = auth()->id();
+        $completedVideos = CourseProgress::where('user_id', $userId)
+            ->where('course_id', $id)
+            ->count();
+
+        $videoCount = Video::whereHas('section', function($query) use ($id) {
+            $query->where('course_id', $id);
+        })->count();
+
+        // Calculate progress percentage
+        $progress = ( $completedVideos /$videoCount) * 100;
+
+
+
+        //-----------------------------------------------------
+        //// show course quizzes-------------------------------
+        $quizzes=Quiz::where('course_id', $id)->get();
+
+
+
+
+        return view('website.course_videos', compact('course', 'videos','firstVideo','sections','instructor','progress','quizzes'));
+    }
+//    ------------------------------------------------------------------------------
+
+// Course Progress
+
+    public function markVideoAsCompleted(Request $request,$id)
+    {
+
+        $request->validate([
+            'course_id' => 'required|integer',
+            'video_id' => 'required|integer',
+        ]);
+
+       // $user = auth()->user();
+        $userId = auth()->id();
+        if (!$userId) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
+
+        $progress = CourseProgress::updateOrCreate(
+            [
+                'user_id' => $userId,
+                'course_id' => $request->course_id,
+                'video_id' => $request->video_id,
+            ],
+            [
+                'status' => true,
+                'updated_at' => now(),
+            ]
+        );
+        return response()->json(['success' => 'Video marked as completed'], 200);
+    }
+
+
+
+
+}
+
 
 
