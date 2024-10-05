@@ -8,6 +8,7 @@ use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SettingController;
 
@@ -53,7 +54,8 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
     Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
     Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
-    Route::get('/instructor-view-course/{id}', [CourseController::class, 'edit'] )->name('course_detailss');
+    // Route::get('/instructor-view-course/{id}', [TestController::class, 'courses_details'] )->name('course_detailss');
+    Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->name('course_details');
     // Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
 
 

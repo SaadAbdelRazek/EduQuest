@@ -22,7 +22,7 @@
                     <p class="course-price">{{$course->price}} EGP</p>
                     @if($course->is_accepted==1)
                         <p style="color:Green">Accepted</p>
-                        <a href="{{ route('course_detailss', $course->id) }}" class="btn-view" >View in Website</a>
+                        <a href="{{ route('course_details', $course->id) }}" class="btn-view" >View in Website</a>
                         <a href="{{ route('courses.edit', $course->id) }}" class="btn-view" >View</a>
                     @elseif($course->is_accepted==0)
                         <p style="color:red">Pending</p>
