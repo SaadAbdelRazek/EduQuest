@@ -43,7 +43,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
-
+        'public_folder' => [
+            'driver' => 'local',
+            'root' => public_path('app/public'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
         'disks' => [
             'public' => [
                 'driver' => 'local',

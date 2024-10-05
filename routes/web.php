@@ -7,6 +7,7 @@ use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('website.index');
-})->name('home');
+})->name('home'); */
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('admin.dashboard');
@@ -44,8 +44,6 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
     Route::get('/instructor-start', [InstructorController::class, 'index'])->name('instructor-start');
     Route::get('/instructor-dashboard', [InstructorController::class, 'index'])->name('instructor-dashboard');
     Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
-
-
 });
 
 Route::middleware(['auth', 'isStudent'])->group(function () {
@@ -108,18 +106,13 @@ Route::get('/about', function () {
 //    return view('admin.dashboard');
 //
 //})->name('admin.dashboard');
-Route::get('/categories', function () {
-    return view('website.categories');
-})->name('categories');
+
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
 
 Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
 Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
-Route::get('/instructor-add-course', function () {
-    return view('website.instructor-add-course');
-})->name('instructor-add-course');
 
 
 Route::get('/myProfile', function () {
@@ -149,3 +142,12 @@ Route::get('/faqs', [FaqController::class, 'showFaq'] )->name('faqs');
 Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
 
 Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
+Route::get('categories', [CategoryController::class, 'categories'])->name('categories');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('dashboard/categories', [CategoryController::class, 'categories_table'])->name('categories_table');
+Route::get('category/add',[CategoryController::class,'index_category'])->name('category_add');
+Route::post('category',[CategoryController::class,'create_category'])->name('category_data');
+Route::get("/category/delete/{id}",[CategoryController::class,'delete_category'])->name("category_delete");
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit_category'])->name('category_edit');
+Route::post('/category/update/{id}', [CategoryController::class, 'update_category'])->name('category_update');
+Route::get('/', [CategoryController::class, 'home'])->name('home');

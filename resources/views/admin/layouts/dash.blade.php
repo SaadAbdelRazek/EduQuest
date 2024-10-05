@@ -21,7 +21,7 @@
                 <li><a href="{{route('dashboard')}}" class="@yield('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                 <li><a href="{{route('pending-courses')}}" class="@yield('Courses')"><i class="fas fa-book"></i> Courses</a></li>
                 <li><a href="{{route('users.index')}}" class="@yield('users')"><i class="fas fa-users"></i> Users</a></li>
-
+                <li><a href="{{route('categories_table')}}" class="@yield('categories')"><i class="fas fa-user-tie"></i> Categories</a></li>
                 <li><a href="{{route('faqs.index')}}" class="@yield('faqs')"><i class="fas fa-user-tie"></i> FAQs</a></li>
                 <li><a href="{{route('instructor-questions.index')}}" class="@yield('instructor-questions')"><i class="fas fa-user-tie"></i> Instructor Questions</a></li>
                 {{-- <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>

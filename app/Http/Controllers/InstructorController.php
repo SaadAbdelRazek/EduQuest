@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class InstructorController extends Controller
 {
@@ -12,7 +13,7 @@ class InstructorController extends Controller
     }
 
     public function add_course(){
-
-        return view('website.instructor-add-course');
+        $categories = Category::all();
+        return view('website/instructor-add-course',compact('categories'));
     }
 }
