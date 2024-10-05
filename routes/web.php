@@ -8,8 +8,10 @@ use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ReviewsController;
-use App\Http\Controllers\VoteController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SettingController;
+
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +54,7 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
     Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
     Route::get('/instructor-view-course/{id}', [CourseController::class, 'edit'] )->name('course_detailss');
+    // Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
 
 
     // =============== admin quiz ================
@@ -186,5 +189,20 @@ Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
+Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
+Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
+Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
+Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
+Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
+Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
+
+
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+Route::put('/contacts/{id}/status', [ContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+
+Route::resource('settings', SettingController::class);
+
+Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact');
 
 
