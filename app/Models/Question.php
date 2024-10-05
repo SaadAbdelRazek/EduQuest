@@ -14,4 +14,8 @@ class Question extends Model
     {
         return $this->hasMany(Option::class);
     }
+    public function userAnswer()
+    {
+        return $this->hasOne(UserAnswer::class, 'question_id');
+    }
 }

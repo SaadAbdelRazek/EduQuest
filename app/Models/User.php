@@ -73,4 +73,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Instructor::class, 'user_id');
     }
+    public function enrolledCourses()
+    {
+        return $this->belongsToMany(Course::class, 'course_enrollments')
+            ->withTimestamps(); // Links user with courses via enrollments
+    }
+    public function progress()
+    {
+        return $this->hasMany(CourseProgress::class);
+    }
+    public function answers()
+    {
+        return $this->hasMany(UserAnswer::class);
+    }
 }

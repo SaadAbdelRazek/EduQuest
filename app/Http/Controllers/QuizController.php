@@ -6,7 +6,9 @@ use App\Models\Course;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\UserAnswer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
@@ -25,12 +27,18 @@ class QuizController extends Controller
                 'question' => $questionData['question'],
                 'correct_answer' => $questionData['correct_answer'],
             ]);
-
+            $correct=$questionData['correct_answer'];
             // Loop through the options for each question and save them
+            $optionsCount = 1;
             foreach ($questionData['options'] as $option) {
+                $isCorrect = ($correct == $optionsCount); // Compare correct answer with current option count
+
                 $question->options()->create([
                     'option_text' => $option,
+                    'is_correct' => $isCorrect,
                 ]);
+
+                $optionsCount++;
             }
         }
 
@@ -120,7 +128,98 @@ class QuizController extends Controller
             $options[$question->id] = $questionOptions;
         }
 
-        return view('website.view-quiz-details', compact('quiz','questions','options'));
+        return view('website.view-quiz-details', compact('quiz', 'questions', 'options'));
+    }
+
+
+    //--------------------------------------------------------------------
+    // Show quiz on quiz page
+
+    public function showQuizForUser($quiz_id)
+    {
+        $quiz = Quiz::findOrFail($quiz_id);
+        $course_id = $quiz->course_id;
+        $quizCourse=Course::where('id', $course_id)->first();
+
+        if (!$quiz) {
+            return redirect()->back()->with('error', 'Quiz not found');
+        }
+        $questions = Question::where('quiz_id', $quiz->id)->get();
+
+        $options = [];
+
+        foreach ($questions as $question) {
+            $questionOptions = Option::where('question_id', $question->id)->get();
+            $options[$question->id] = $questionOptions;
+        }
+
+        return view('website.quiz', compact('quizCourse','quiz','questions','options'));
+    }
+
+
+
+    // Store user's answers and calculate quiz result
+    public function submitQuiz(Request $request, $quiz_id)
+    {
+        $user = auth()->user();  // Get the currently authenticated user
+        $quiz = Quiz::findOrFail($quiz_id);  // Find the quiz
+        $questions = $quiz->questions;  // Get all questions related to the quiz
+
+        $score = 0; // Variable to store user's score
+        $totalQuestions = $questions->count();  // Total number of questions
+
+        // Loop through each question
+        foreach ($questions as $question) {
+            $userAnswerId = $request->input('question_' . $question->id);  // Get user's answer from the form (radio buttons)
+
+            if ($userAnswerId) {
+                // Store user's answer in the database
+                UserAnswer::create([
+                    'user_id' => $user->id,
+                    'quiz_id' => $quiz_id,
+                    'question_id' => $question->id,
+                    'option_id' => $userAnswerId,
+                ]);
+
+                // Get the correct answer for this question
+                $correctOption = $question->options()->where('is_correct', true)->first();
+
+                // Check if the user's answer matches the correct one
+                if ($correctOption && $correctOption->id == $userAnswerId) {
+                    $score++;  // Increment score if the answer is correct
+                }
+            }
+        }
+
+        // Calculate percentage
+        $resultPercentage = ($score / $totalQuestions) * 100;
+
+        // Return the result to the user
+        $quizUser=Auth::user();
+        $incorrect=$totalQuestions-$score;
+        return view('website.quiz-result', [
+            'quiz' => $quiz,
+            'score' => $score,
+            'totalQuestions' => $totalQuestions,
+            'resultPercentage' => $resultPercentage,
+            'quizUser' => $quizUser,
+            'incorrect' => $incorrect,
+        ]);
+    }
+
+    public function showUserAnswers($quizId)
+    {
+        $userId = auth()->id();
+        $quiz=Quiz::where('id', $quizId)->first();
+        $course_id = $quiz->course_id;
+        $quizCourse=Course::where('id', $course_id)->first();
+
+        // Fetch the quiz with questions and user answers
+        $quiz = Quiz::with(['questions.options', 'questions.userAnswer' => function($query) use ($userId) {
+            $query->where('user_id', $userId)->latest('created_at');
+        }])->findOrFail($quizId);
+
+        return view('website.user-quiz-answers', compact('quiz','quizCourse'));
     }
 
 }
