@@ -129,7 +129,7 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
 
 
 
-    
+
 
 
 }

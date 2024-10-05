@@ -215,11 +215,14 @@
             {{-- <p><strong>Duration:</strong> 10 weeks, with 2 classes per week.</p> --}}
             <div class="course-price">
                 <span><strong>Price:</strong> {{$course_info->price}} EGP</span>
-                <button class="register-button">Register</button>
+                @if($enrolledUsers)
+                    <a href="{{route('course_videos',$course_info->id)}}" class="register-button">Go To Course</a>
+                @else
+                   <a href="{{route('view.enroll.course',$course_info->id)}}" class="register-button">Buy Now</a>
+                @endif
             </div>
             <span><strong>Course Instructor: </strong><a href="{{route('course-instructor',$course_info->user_id)}}" style="color: black"> {{$course_info->User->name}}</a> </span><br>
 
-            {{-- <img src="{{asset('storage/'. $course_info->User->profile_photo_path)}}" style="width: 50px; border-radius:50%;" alt="Instructor Name"> --}}
         </div>
         <div class="course-image">
             <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image">

@@ -28,4 +28,14 @@ return $this->hasMany(Section::class);
         // return $this->hasMany(Review::class, 'course_id');
         return $this->hasMany(Review::class, 'course_id', 'id');
     }
+    public function enrolledUsers()
+    {
+        return $this->belongsToMany(User::class, 'course_enrollments')
+            ->withTimestamps(); // Links course with users via enrollments
+    }
+    public function progressForUser($userId)
+    {
+        return $this->hasMany(CourseProgress::class)
+            ->where('user_id', $userId);
+    }
 }
