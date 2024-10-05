@@ -6,7 +6,7 @@
 
 <style>
 
-        .student-reviews, .instructors, .certificates {
+        .instructors, .certificates {
             background: white;
             border-radius: 8px;
             padding: 20px;
@@ -171,64 +171,7 @@
     }
 
 
-    .student-reviews {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        margin: 20px auto;
-        max-width: 800px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .review-form {
-        margin-bottom: 30px;
-    }
-    .rating {
-        display: flex;
-        justify-content: center;
-        margin: 10px 0;
-    }
-    .rating input {
-        display: none;
-    }
-    .star {
-        font-size: 30px;
-        cursor: pointer;
-        color: #ddd;
-    }
-    .rating input:checked ~ .star {
-        color: #ffcc00; /* Star color when selected */
-    }
-    textarea {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-        resize: none;
-    }
-    .submit-review {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .submit-review:hover {
-        background-color: #0056b3;
-    }
-    .reviews {
-        border-top: 2px solid #ddd;
-        padding-top: 20px;
-    }
-    .review {
-        margin-bottom: 15px;
-    }
-    .stars {
-        font-size: 20px;
-        color: #ffcc00; /* Star color */
-    }
+
 </style>
 
 <main>
@@ -274,7 +217,7 @@
                 <span><strong>Price:</strong> {{$course_info->price}} EGP</span>
                 <button class="register-button">Register</button>
             </div>
-            <span><strong>Course Instructor: </strong><a href="{{route('course-instructor',$course_info->user_id)}}" style="color: black"> mohamed</a> </span><br>
+            <span><strong>Course Instructor: </strong><a href="{{route('course-instructor',$course_info->user_id)}}" style="color: black"> {{$course_info->User->name}}</a> </span><br>
 
             {{-- <img src="{{asset('storage/'. $course_info->User->profile_photo_path)}}" style="width: 50px; border-radius:50%;" alt="Instructor Name"> --}}
         </div>
@@ -287,7 +230,7 @@
 
 
 
-<section class="instructors">
+{{-- <section class="instructors">
     <h2>Instructors</h2>
     <div class="instructor-container">
         <div class="instructor-card">
@@ -298,13 +241,13 @@
         </div>
 
     </div>
-</section>
+</section> --}}
 
 <aside class="sidebar">
     <button class="floating-button">Register / Buy</button>
 </aside>
 
-<section class="certificate-section">
+{{-- <section class="certificate-section">
     <h2>Course Completion Certificate</h2>
     <div class="certificate-content">
         <img src="https://via.placeholder.com/600x400" alt="Certificate" class="certificate-image">
@@ -315,49 +258,158 @@
             <p>Keep this certificate safe as it can help you in your future endeavors.</p>
         </div>
     </div>
+</section> --}}
+
+
+
+
+{{-- ---------------------------------------------------------------------------------------------- --}}
+<style>
+    .instructor-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.instructor-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.instructor-info {
+    display: flex;
+    align-items: center;
+}
+
+.instructor-photo img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.instructor-details {
+    max-width: 600px;
+}
+
+.instructor-name a {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.instructor-occupation {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.instructor-stats {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    gap: 15px;
+}
+
+.instructor-stats li {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.instructor-stats li i {
+    color: #ffbf00;
+    margin-right: 5px;
+}
+
+.instructor-bio {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.show-more {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.show-more:hover {
+    text-decoration: underline;
+}
+
+</style>
+
+<section class="instructor-section">
+    <h2 class="instructor-title">Instructor</h2>
+    <div class="instructor-info">
+        <div class="instructor-photo">
+            <img src="{{ asset('storage/' . $instructor->User->profile_photo_path) }}" alt="{{ $instructor->name }}">
+        </div>
+        <div class="instructor-details">
+            <h3 class="instructor-name">
+                <a href="{{ route('course-instructor', $instructor->id) }}">{{ $instructor->User->name }}</a>
+                <h3 class="">{{$instructor->specialization}}</h3>
+            </h3>
+            <p class="instructor-occupation">{{ $instructor->occupation }}</p>
+            <ul class="instructor-stats">
+                <li><i class="fas fa-star"></i> {{ $instructor->rating }} Instructor Rating</li>
+                <li><i class="fas fa-comments"></i> {{ $totalReviewsCount }} Reviews</li>
+                <li><i class="fas fa-users"></i>{{ $instructor->students_count }} Students</li>
+                <li><i class="fas fa-play"></i> {{ $courses->count() }} Courses</li>
+            </ul>
+            <p class="instructor-bio">{{ Str::limit($instructor->description, 150) }} <a href="{{ route('course-instructor', $course_info->user_id) }}" class="show-more">Show more</a></p>
+
+        </div>
+    </div>
 </section>
 
 
 
-<section class="student-reviews">
-    <h2>Student Reviews</h2>
-
-    <div class="review-form">
-        <h3>Rate the Course</h3>
-        <div class="rating">
-            <input type="radio" id="star1" name="rating" value="5">
-            <label for="star1" class="star">⭐</label>
-            <input type="radio" id="star2" name="rating" value="4">
-            <label for="star2" class="star">⭐</label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3" class="star">⭐</label>
-            <input type="radio" id="star4" name="rating" value="2">
-            <label for="star4" class="star">⭐</label>
-            <input type="radio" id="star5" name="rating" value="1">
-            <label for="star5" class="star">⭐</label>
-        </div>
-        <textarea placeholder="Leave a comment..." rows="4"></textarea>
-        <button class="submit-review">Submit Review</button>
-    </div>
-
-    <div class="reviews">
-        <div class="review">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>Great course! Learned a lot.</p>
-        </div>
-        <div class="review">
-            <div class="stars">⭐⭐⭐⭐</div>
-            <p>Very informative and engaging!</p>
-        </div>
-        <div class="review">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>Excellent materials and clear explanations.</p>
-        </div>
-    </div>
-</section>
+{{-- ---------------------------------------------------------------------------------------------- --}}
 
 
+
+<div class="containerr">
+
+    @include('website.layouts.reviews_section')
+</div>
 </main>
+<script>
+    // عند تحميل الصفحة، قم بإرجاع المستخدم إلى موضعه السابق
+document.addEventListener("DOMContentLoaded", function() {
+    // الحصول على موضع التمرير المخزن
+    const scrollPosition = localStorage.getItem("scrollPosition");
+
+    if (scrollPosition) {
+        // إذا كان هناك موضع مخزن، استرجعه
+        window.scrollTo(0, scrollPosition);
+    }
+});
+
+// قبل إعادة تحميل الصفحة أو إرسال البيانات، قم بحفظ موضع التمرير
+window.addEventListener("beforeunload", function() {
+    // حفظ موضع التمرير في LocalStorage
+    localStorage.setItem("scrollPosition", window.scrollY);
+});
+
+</script>
+
+
 
 @endsection
 

@@ -22,4 +22,10 @@ return $this->hasMany(Section::class);
     {
         return $this->belongsTo(Instructor::class,'user_id');
     }
+
+    public function reviews()
+    {
+        // return $this->hasMany(Review::class, 'course_id');
+        return $this->hasMany(Review::class, 'course_id', 'id');
+    }
 }

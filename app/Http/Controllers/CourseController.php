@@ -23,7 +23,7 @@ class CourseController extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg',
             'num_sections' => 'required|integer|min:1',
             'sections.*.title' => 'required|string',
-            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:40240' // 10MB max for each video
+            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:4000240' // 10MB max for each video
         ]);
 
         // Store the course image
@@ -161,7 +161,7 @@ class CourseController extends Controller
             'objectives' => 'required|string',
             'price' => 'required|numeric',
             'category' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // If a new image is uploaded
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8048', // If a new image is uploaded
         ]);
 
         $course = Course::find($id);

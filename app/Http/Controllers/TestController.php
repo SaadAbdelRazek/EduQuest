@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Instructor;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,13 +74,62 @@ class TestController extends Controller
         return redirect()->back();
     }
 
-    public function courses_details($id){
-        $course_info = Course::with('User')->findOrFail($id);
-
-        return view('website.course_details',compact('course_info'));
 
 
+
+    public function courses_details($id) {
+
+
+
+        // جلب معلومات الدورة مع بيانات المستخدم (المدرب)
+        $course_info = Course::with('user')->findOrFail($id);
+
+        // جلب المدرب بناءً على user_id المرتبط بالدورة
+        $instructor = Instructor::where('user_id', $course_info->user_id)->firstOrFail();
+
+        // جلب الدورات المرتبطة بالمدرب
+        $courses = Course::where('user_id', $instructor->user_id)->get();
+
+        // تجميع الدورات بناءً على العنوان
+        $coursesGrouped = $courses->groupBy('title');
+
+        // اختيار عنوان كل دورة بشكل فريد
+        $uniqueCourses = $coursesGrouped->map(function ($group) {
+            return $group->first(); // اختيار العنصر الأول من كل مجموعة
+        })->values();
+
+        // حساب إجمالي عدد المراجعات لكل الدورات
+        // جلب جميع الدورات المرتبطة بالمدرب
+
+
+// جمع المراجعات الخاصة بالدورات
+$reviewsCount = $courses->sum(function ($course) {
+    return $course->reviews->count(); // جمع عدد المراجعات لكل دورة
+});
+
+// إضافة المراجعات الخاصة بالمدرب نفسه إذا كان لديه مراجعات شخصية
+$instructorReviews = Review::where('user_id', $instructor->user_id)->count(); // جلب عدد المراجعات الخاصة بالمدرب
+
+// جمع العدد الكلي للمراجعات (للدورات وللمدرب نفسه)
+$totalReviewsCount = $reviewsCount + $instructorReviews;
+
+        // حساب متوسط التقييمات وعدد المراجعات للدورة المحددة
+        $averageRating = $course_info->reviews->avg('rate');
+        $totalReviews = $course_info->reviews->count();
+
+        $course = Course::findOrFail($id); // جلب الدورة باستخدام الـ id
+
+        // تمرير المتغيرات إلى العرض
+        return view('website.course_details', compact(
+            'course_info', 'instructor', 'reviewsCount','course', 'courses', 'averageRating', 'totalReviews','totalReviewsCount'
+        ));
     }
+
+
+
+
+
+    
 
 
 }

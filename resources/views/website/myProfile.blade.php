@@ -57,7 +57,16 @@
 
                         <div class="tab-pane fade active show" id="account-general">
                             <div class="card-body media align-items-center">
+
+                                @if ($user_data->profile_photo_path)
+
+
                                 <img src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt class="d-block ui-w-80" style="min-width: 100px; height:100px; border-radius:50%;">
+                                @else
+
+                                <img src="{{asset('/img/icon/default_prof_img.jpg')}}" alt class="d-block ui-w-80" style="min-width: 100px; height:100px; border-radius:50%;">
+                                @endif
+
                                 <div class="media-body ml-4">
                                     <label class="btn ">
 
@@ -156,8 +165,7 @@
             </div>
         </div>
         <div class="text-right mt-3 mb-5">
-            {{-- <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-primary">Cancel</button> --}}
+
 
         </div>
     </div>

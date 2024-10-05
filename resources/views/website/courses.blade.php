@@ -53,14 +53,81 @@
                             <p style="overflow-y: scroll; height:200px; border:1px solid rgb(209, 209, 209);border-bottom:0; padding:10px; border-radius:5px;">{{$course->description}}</p>
                             <div class="properties__footer d-flex justify-content-between align-items-center">
                                 <div class="restaurant-name">
+
                                     <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half"></i>
+                                        @switch($course->reviews_avg_rating)
+                                            @case(0.5)
+                                            <i class="fas fa-star-half"></i>
+                                                @break
+
+                                                @case(1)
+                                                <i class="fas fa-star"></i>
+
+                                                @break
+                                                @case(1.5)
+                                                <i class="fas fa-star"></i>
+
+                                                <i class="fas fa-star-half"></i>
+                                                @break
+                                                @case(2)
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+
+                                                @break
+                                                @case(2.5)
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+
+                                                <i class="fas fa-star-half"></i>
+                                                @break
+                                                @case(3)
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+
+                                                @break
+                                                @case(3.5)
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+
+                                                <i class="fas fa-star-half"></i>
+                                                @break
+                                                @case(4)
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+
+                                                @break
+                                                @case(4.5)
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half"></i>
+                                                @break
+                                                @case(5)
+
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+
+
+                                            @default
+                                            <i class="fas fa-star"></i>
+
+                                        @endswitch
+
                                     </div>
-                                    <p><span>(4.5)</span> based on 120</p>
+                                    <p><span>({{$course->reviews_avg_rating ?? 'No Ratings'}})</span> based on {{$course->reviews_count}}</p>
+
+
+                                    {{-- <p>Average Rating: {{ $course->reviews_avg_rating ?? 'No Ratings' }}</p>
+                                                <p>Number of Reviews: {{ $course->reviews_count }}</p>
+                                                <p><span>{{$review->rate}}</span> based on 120</p> --}}
                                 </div>
                                 <div class="price">
                                     <span>{{$course->price}} EGP</span>

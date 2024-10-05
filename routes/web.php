@@ -8,6 +8,8 @@ use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\VoteController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -44,15 +46,37 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 Route::middleware(['auth', 'isInstructor'])->group(function () {
     Route::get('/instructor-start', [InstructorController::class, 'index'])->name('instructor-start');
     Route::get('/instructor-dashboard', [InstructorController::class, 'index'])->name('instructor-dashboard');
-    Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
+    Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor_add_course');
+
+    Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
+    Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
+
+    Route::get('/instructor-view-course/{id}', [CourseController::class, 'edit'] )->name('course_detailss');
 
 
+    // =============== admin quiz ================
+
+    Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
+    Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
+    Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
+    Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
+    Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
+    Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
+
+    // =============== end admin quiz ================
+
+    // Route::get('/instructor-add-course', function () {
+    //     return view('website.instructor-add-course');})->name('instructor-add-course');
 });
 
 Route::middleware(['auth', 'isStudent'])->group(function () {
 
     Route::get('/instructor-start', [BeInstructorQuestionController::class, 'showQuestions'])->name('instructor-start');
     Route::post('/submit-answers', [BeInstructorAnswerController::class, 'storeAnswers'])->name('submit.answers');
+    // ========== quiz ==========
+    Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
+    // ========== end quiz ==========
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -120,24 +144,12 @@ Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
 
 
-Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
-Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
-
-Route::get('/instructor-add-course', function () {
-    return view('website.instructor-add-course');
-})->name('instructor-add-course');
 
 
 
-Route::get('/myProfile', function () {
-    return view('website.myProfile');
-})->name('myProfile');
 
-Route::get('/edit_profile', function () {
-    return view('profile.show');
-})->name('edit_profile');
 
-Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
+
 
 Route::get('/admin-pending-courses',[CourseController::class, 'showPending'])->name('pending-courses');
 Route::get('/admin-accepted-courses',[CourseController::class, 'showAccepted'])->name('accepted-courses');
@@ -160,9 +172,19 @@ Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'
 Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
 
 
-Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
-Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
-Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
-Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
-Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
-Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
+// Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
+// Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
+// Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
+// Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
+// Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
+// Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
+
+// ============================================   reviews     =======================================
+
+Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
+Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
+
+
+
+

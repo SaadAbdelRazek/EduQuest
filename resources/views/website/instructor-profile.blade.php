@@ -1,256 +1,340 @@
 @extends('website.layouts.app')
 
+
 @section('content')
 
-<style>
-    .containerr {
-    padding: 40px;
-    background-color: #f2f2f2; /* Light Gray */
-}
+    <style>
+        .containerr {
+            padding: 40px;
+            background-color: #ffffff;
+            /* Light Gray */
+            text-align: center;
 
-.containerr .profile-details {
-    display: flex;
-    align-items: center;
-    margin-bottom: 40px;
-    border-bottom: 2px solid #e0e0e0; /* Light border */
-    padding-bottom: 20px;
-}
+        }
 
-.containerr .profile-picture img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 4px solid #6c757d; /* Gray */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+        .containerr .profile-details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #e0e0e0;
+            /* Light border */
+            padding-bottom: 20px;
 
-.containerr .details {
-    margin-left: 30px;
-    background-color: #ffffff; /* White */
-    padding: 20px;
-    border-radius: 15px;
-    color: #333;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
+        }
 
-.containerr .details:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
+        .containerr .profile-picture {
 
-.containerr .details h3 {
-    margin-bottom: 10px;
-    font-size: 1.6em;
-    color: #007bff; /* Blue */
-}
 
-.containerr .about-teacher,
-.containerr .courses-taught {
-    margin-bottom: 40px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
+            text-align: center;
 
-.containerr .about-teacher {
-    background-color: #e9ecef; /* Light Gray */
-    color: #333;
-}
+        }
 
-.containerr .about-teacher h3 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    color: #007bff; /* Blue */
-}
+        .containerr .profile-picture img {
+            width: 200px;
+            max-height: 200px;
+            border-radius: 50%;
+            /* border: 4px solid #6c757d; Gray */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-.containerr .courses-taught {
-    background-color: #ffffff; /* White */
-}
+        .containerr .details {
+            text-align: center;
+            margin-left: 30px;
+            margin: auto;
+            width: 70%;
+            background-color: #ffffff;
+            /* White */
+            padding: 20px;
+            padding-top: 0;
+            border-radius: 15px;
+            color: #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-.containerr .courses-taught h3 {
-    margin-bottom: 15px;
-    font-size: 1.5em;
-    color: #007bff; /* Blue */
-}
+        .containerr .details:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
 
-.containerr .courses-taught ul {
-    list-style: none;
-    padding-left: 0;
-}
+        .containerr .details h3 {
+            margin-bottom: 10px;
+            font-size: 1.6em;
+            color: #007bff;
+            /* Blue */
+        }
 
-.containerr .courses-taught ul li {
-    background-color: #007bff; /* Blue */
-    color: #fff;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
+        .containerr .about-teacher,
+        .containerr .courses-taught {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-.containerr .courses-taught ul li:hover {
-    background-color: #0056b3; /* Darker Blue */
-}
+        .containerr .about-teacher {
+            background-color: #e9ecef;
+            /* Light Gray */
+            color: #333;
+        }
 
-.student-reviews {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        margin: 20px auto;
-        max-width: 800px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .review-form {
-        margin-bottom: 30px;
-    }
-    .rating {
-        display: flex;
-        justify-content: center;
-        margin: 10px 0;
-    }
-    .rating input {
-        display: none;
-    }
-    .star {
-        font-size: 30px;
-        cursor: pointer;
-        color: #ddd;
-    }
-    .rating input:checked ~ .star {
-        color: #ffcc00; /* Star color when selected */
-    }
-    textarea {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        margin-bottom: 10px;
-        resize: none;
-    }
-    .submit-review {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .submit-review:hover {
-        background-color: #0056b3;
-    }
-    .reviews {
-        border-top: 2px solid #ddd;
-        padding-top: 20px;
-    }
-    .review {
-        margin-bottom: 15px;
-    }
-    .stars {
-        font-size: 20px;
-        color: #ffcc00; /* Star color */
-    }
+        .containerr .about-teacher h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #007bff;
+            /* Blue */
+        }
 
-</style>
+        .containerr .courses-taught {
+            background-color: #ffffff;
+            /* White */
+        }
 
-<section class="slider-area slider-area2">
-    <div class="slider-active">
-        <!-- Single Slider -->
-        <div class="single-slider slider-height2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 col-lg-11 col-md-12">
-                        <div class="hero__caption hero__caption2">
-                            <h1 data-animation="bounceIn" data-delay="0.2s">Course instructor</h1>
-                            <!-- breadcrumb Start-->
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Course instructor</a></li>
-                                </ol>
-                            </nav>
-                            <!-- breadcrumb End -->
+        .containerr .courses-taught h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            color: #007bff;
+            /* Blue */
+        }
+
+        .containerr .courses-taught ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .containerr .courses-taught ul li {
+            background-color: #007bff;
+            /* Blue */
+            color: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .containerr .courses-taught ul li:hover {
+            background-color: #0056b3;
+            /* Darker Blue */
+        }
+
+
+    </style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+@if (session('success'))
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    @endif
+
+    @if (session('error'))
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    @endif
+
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Course instructor</h1>
+                                <!-- breadcrumb Start-->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Course instructor</a></li>
+                                    </ol>
+                                </nav>
+                                <!-- breadcrumb End -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div class="containerr">
-    <div class="profile-details">
-        <div class="profile-picture">
-            <img src="{{asset('storage/'. $course_instructor->User->profile_photo_path)}}" alt="Instructor Picture">
+    <div class="containerr">
+        <div class="profile-details">
+            <div class="details">
+                <div class="profile-picture">
+                    <img src="{{ asset('storage/' . $course_instructor->profile_photo_path) }}"
+                        alt="Instructor Picture">
+                </div>
+                <h3>I'm {{ $course_instructor->name }}</h3>
+                <p>{{ $instructor->specialization }}</p>
+                <p>Have a {{ $instructor->experience_years }} Years of Experience</p>
+                <p>Email: <a style="color: peru"
+                        href="mailto:{{ $course_instructor->email }}">{{ $course_instructor->email }}</a> </p>
+                <p>Phone: <a style="color:peru"
+                        href="tel:{{ $instructor->phone }}">{{ $instructor->phone }}</a> </p>
+                <div class="about-teacher">
+                    <h3>About Instructor</h3>
+                    <p>{{ $instructor->description }}</p>
+                </div>
+
+
+                <div class="courses-taught">
+                    <h3>Courses Taught</h3>
+
+
+                    @if ($courses->count() > 0)
+                        <ul>
+                            @foreach ($uniqueCourses as $course)
+                                <li>{{ $course->title }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+
+                        <p>No courses found for this instructor.</p>
+                    @endif
+                </div>
+
+
+            </div>
+
+
+
+
         </div>
-        <div class="details">
-            <h3>I'm {{$course_instructor->User->name}}</h3>
-            <p>{{$course_instructor->specialization}}</p>
-            <p>Have a {{$course_instructor->experience_years}} Years of Experience</p>
-            <p>Email: <a style="color: peru" href="mailto:{{$course_instructor->User->email}}">{{$course_instructor->User->email}}</a> </p>
-            <p>Phone: <a style="color:peru" href="tel:{{$course_instructor->phone}}">{{$course_instructor->phone}}</a> </p>
-        </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+        <link rel="stylesheet" href="/css/reviews.css">
+            <h2 @yield('h_1')>All Reviews for this Instructor's Courses</h2>
+            <div class="reviews">
+                @if ($course->reviews->isEmpty())
+                    <h3>No reviews available</h3>
+                @else
+                    @foreach ($course->reviews as $review)
+                        <div class="review" style="position: relative;">
+                            <p style="float:right; cursor: pointer; display: inline;" onclick="toggleEditDeleteForm({{ $review->id }})">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </p>
+                            <div class="review-header">
+                                @if ($review->user)
+                                    <img src="{{ asset('storage/' . $review->user->profile_photo_path) }}" alt="User Image" class="user-image">
+                                    <div class="review-details">
+                                        <p class="user-name">{{ $review->user->name }}</p>
+                                        <div class="stars">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= floor($review->rate))
+                                                    <i class="fas fa-star"></i>
+                                                @elseif ($i == ceil($review->rate) && fmod($review->rate, 1) == 0.5)
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                @else
+                                                    <i class="far fa-star"></i>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                        <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
+                                    </div>
+                                @else
+                                    <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="User Image" class="user-image">
+                                    <div class="review-details">
+                                        <p class="user-name">Unknown User</p>
+                                        <div class="stars">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= floor($review->rate))
+                                                    <i class="fas fa-star"></i>
+                                                @elseif ($i == ceil($review->rate) && fmod($review->rate, 1) == 0.5)
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                @else
+                                                    <i class="far fa-star"></i>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                        <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div id="review-content-{{ $review->id }}">
+                                <p class="comment">{{ $review->comment }}</p>
+                            </div>
+
+                            <div style="position: relative;">
+                                <!-- الأيقونة التي تظهر نموذج الحذف والتعديل -->
+
+                                @auth
+
+                                @if ($review->user_id == Auth::user()->id)
+                                @endauth
+                                    <!-- نموذج الحذف والتعديل -->
+                                    <div id="edit-delete-form-{{ $review->id }}" style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
+                                        <!-- زر الحذف -->
+                                        <form action="{{ route('delete_review', $review->id) }}" method="POST" onsubmit="return confirmDelete()">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button style="color: red; background-color: unset; border: none; cursor: pointer;">Delete</button>
+                                        </form>
+
+                                        <!-- زر التعديل -->
+                                        <button style="background-color: unset; border: none; cursor: pointer; color: blue;" onclick="editReview({{ $review->id }})">Edit</button>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- نموذج تعديل التعليق -->
+                        <div id="edit-review-form-{{ $review->id }}" style="display: none;">
+                            <form action="{{ route('update_review', $review->id) }}" method="POST" onsubmit="return confirmUpdate({{ $review->id }})">
+                                @csrf
+                                @method('PUT')
+                                <textarea name="comment" rows="3">{{ $review->comment }}</textarea>
+                                <button type="submit">Save</button>
+                                <button type="button" onclick="cancelEdit({{ $review->id }})">Cancel</button>
+                            </form>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+
+            <script>
+                function toggleEditDeleteForm(reviewId) {
+                    const form = document.getElementById(`edit-delete-form-${reviewId}`);
+                    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+                }
+
+                function confirmDelete() {
+                    return confirm('Are you sure you want to delete this review?');
+                }
+
+                function editReview(reviewId) {
+                    // إخفاء نص التعليق وإظهار نموذج التعديل
+                    document.getElementById(`review-content-${reviewId}`).style.display = 'none';
+                    document.getElementById(`edit-review-form-${reviewId}`).style.display = 'block';
+                }
+
+                function confirmUpdate(reviewId) {
+                    return confirm('Are you sure you want to update this review?');
+                }
+
+                function cancelEdit(reviewId) {
+                    // إعادة إظهار نص التعليق وإخفاء نموذج التعديل
+                    document.getElementById(`review-content-${reviewId}`).style.display = 'block';
+                    document.getElementById(`edit-review-form-${reviewId}`).style.display = 'none';
+                }
+            </script>
+
+
+
+
     </div>
 
-    <div class="about-teacher">
-        <h3>About the Instructor</h3>
-        <p>John is an experienced web developer with a passion for teaching students. He believes in the importance of interactive learning and has expertise in using innovative teaching methods to motivate students.</p>
-    </div>
-
-    <div class="courses-taught">
-        <h3>Courses Taught</h3>
-        <ul>
-            <li>Introduction to Programming</li>
-            <li>Advanced JavaScript</li>
-            <li>Web Development with PHP</li>
-            <li>Building Responsive Websites</li>
-        </ul>
-    </div>
-</div>
 
 
 
 
-<main>
 
 
 
-<section class="student-reviews">
-    <h2>Student Reviews</h2>
-
-    <div class="review-form">
-        <h3>Rate the Course</h3>
-        <div class="rating">
-            <input type="radio" id="star1" name="rating" value="5">
-            <label for="star1" class="star">⭐</label>
-            <input type="radio" id="star2" name="rating" value="4">
-            <label for="star2" class="star">⭐</label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3" class="star">⭐</label>
-            <input type="radio" id="star4" name="rating" value="2">
-            <label for="star4" class="star">⭐</label>
-            <input type="radio" id="star5" name="rating" value="1">
-            <label for="star5" class="star">⭐</label>
-        </div>
-        <textarea placeholder="Leave a comment..." rows="4"></textarea>
-        <button class="submit-review">Submit Review</button>
-    </div>
-
-    <div class="reviews">
-        <div class="review">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>Great course! Learned a lot.</p>
-        </div>
-        <div class="review">
-            <div class="stars">⭐⭐⭐⭐</div>
-            <p>Very informative and engaging!</p>
-        </div>
-        <div class="review">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
-            <p>Excellent materials and clear explanations.</p>
-        </div>
-    </div>
-</section>
-</main>
 
 @endsection
