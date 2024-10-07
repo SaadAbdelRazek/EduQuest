@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Instructor;
+use App\Models\Enrollment;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,6 +85,11 @@ class TestController extends Controller
         // جلب معلومات الدورة مع بيانات المستخدم (المدرب)
         $course_info = Course::with('user')->findOrFail($id);
 
+
+        $user = auth()->user();
+        $enrolledUsers = Enrollment::where('course_id', $course_info->id)->where('user_id',$user->id)->exists();
+
+
         // جلب المدرب بناءً على user_id المرتبط بالدورة
         $instructor = Instructor::where('user_id', $course_info->user_id)->firstOrFail();
 
@@ -121,7 +127,7 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
 
         // تمرير المتغيرات إلى العرض
         return view('website.course_details', compact(
-            'course_info', 'instructor', 'reviewsCount','course', 'courses', 'averageRating', 'totalReviews','totalReviewsCount'
+            'course_info', 'instructor', 'reviewsCount','course', 'courses', 'averageRating', 'totalReviews','totalReviewsCount','enrolledUsers',
         ));
     }
 

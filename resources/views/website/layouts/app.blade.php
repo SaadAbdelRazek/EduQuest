@@ -78,6 +78,7 @@
                                                     </ul>
                                                 </li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
+                                                <li><a href="{{ route('faqs') }}">FAQs</a></li>
                                                 {{-- <li><a href="{{ route('myProfile') }}">My Profile</a></li> --}}
                                                 <!-- Button -->
                                                 @if (Auth::check())

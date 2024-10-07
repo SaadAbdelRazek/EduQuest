@@ -19,7 +19,7 @@ class isStudent
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user->is_instructor == 0 ){
+        if($user){
 
             return $next($request);
         }

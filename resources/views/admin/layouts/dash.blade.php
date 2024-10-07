@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
 </head>
 <body>
@@ -23,6 +23,7 @@
                 <li><a href="{{route('users.index')}}" class="@yield('users')"><i class="fas fa-users"></i> Users</a></li>
 
                 <li><a href="{{route('faqs.index')}}" class="@yield('faqs')"><i class="fas fa-user-tie"></i> FAQs</a></li>
+                <li><a href="{{route('settings.index')}}" class="@yield('settings')"><i class="fas fa-user-tie"></i> Settings</a></li>
                 <li><a href="{{route('instructor-questions.index')}}" class="@yield('instructor-questions')"><i class="fas fa-user-tie"></i> Instructor Questions</a></li>
                 {{-- <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> --}}
@@ -43,6 +44,10 @@
             <!-- Dashboard Overview -->
             <div class="dashboard-overview">
                 <div class="overview-box purple">
+                    <h3>Categories</h3>
+                    <p>150</p>
+                </div>
+                <div class="overview-box purple">
                     <h3>Courses</h3>
                     <p>150</p>
                 </div>
@@ -53,6 +58,22 @@
                 <div class="overview-box skyblue">
                     <h3>Instructors</h3>
                     <p>{{$users->where('is_instructor',1)->count()}}</p>
+                </div>
+                <div class="overview-box purple">
+                    <h3>Reports</h3>
+                    <p>45</p>
+                </div>
+                <div class="overview-box purple">
+                    <h3>Enrollments</h3>
+                    <p>45</p>
+                </div>
+                <div class="overview-box purple">
+                    <h3>feedbacks</h3>
+                    <p>45</p>
+                </div>
+                <div class="overview-box purple">
+                    <h3>Reports</h3>
+                    <p>45</p>
                 </div>
                 <div class="overview-box purple">
                     <h3>Reports</h3>

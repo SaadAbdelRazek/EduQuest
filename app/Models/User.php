@@ -32,7 +32,10 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'is_instructor',
         'profile_photo_path',
+        'phone',
+        'address',
     ];
 
     /**

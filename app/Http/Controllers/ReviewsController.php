@@ -24,19 +24,19 @@ class ReviewsController extends Controller
     $validated = $request->validate([
         'rate' => 'required|numeric|min:1|max:5',
         'comment' => 'required|string|max:500',
-        'instructor_id' => 'required|exists:instructors,user_id', // التأكد من وجود المدرب
+        // 'instructor_id' => 'required|exists:instructors,id', // التأكد من وجود المدرب عبر معرف المدرب وليس user_id
     ]);
 
     // التحقق مما إذا كان المستخدم مسجل دخول
     $user = auth()->user();
 
-    // جلب المدرب بناءً على user_id
-    $instructor = Instructor::where('user_id', $request->instructor_id)->first();
+    // جلب المدرب بناءً على instructor_id
+    $instructor = Instructor::find($request->instructor_id);
     if (!$instructor) {
         return redirect()->back()->with('error', 'Instructor not found.');
     }
 
-    // التحقق مما إذا كان المستخدم قد قيم المدرب من قبل
+    // التحقق مما إذا كان المستخدم قد قيم المدرب من قبل لهذه الدورة
     $existingReview = Review::where('course_id', $courseId)
                              ->where('user_id', $user->id)
                              ->first();
@@ -47,44 +47,39 @@ class ReviewsController extends Controller
 
     // إضافة تقييم جديد
     $review = new Review();
-    $review->course_id = $courseId;
     $review->user_id = $user->id; // المستخدم الذي يقوم بالتقييم
+    $review->instructor_id = $instructor->id; // معرف المدرب الصحيح
+    $review->course_id = $courseId;
     $review->rate = $request->rate;
     $review->comment = $request->comment;
     $review->save();
 
     // تحديث تقييم المدرب
-    $this->updateInstructorRating($instructor->user_id);
-
-
-
-
+    $this->updateInstructorRating($instructor->id); // تمرير معرف المدرب بشكل صحيح
 
     return redirect()->back()->with('success', 'Review submitted successfully!');
 }
 
 
+
 private function updateInstructorRating($instructorId)
 {
-    // جلب جميع المراجعات الخاصة بالدورات التي يدرسها المدرب بناءً على user_id
-    $courses = Course::where('user_id', $instructorId)->pluck('id');
-
-    // جلب جميع المراجعات التي تخص تلك الدورات
-    $reviews = Review::whereIn('course_id', $courses)->orWhere('user_id',$instructorId)->get();
+    // جلب جميع المراجعات التي تخص المدرب بناءً على instructor_id
+    $reviews = Review::where('instructor_id', $instructorId)->get();
 
     if ($reviews->count() > 0) {
         // حساب متوسط التقييمات
         $averageRating = round($reviews->avg('rate') * 2) / 2;
 
         // تحديث تقييم المدرب
-        $instructor = Instructor::where('user_id', $instructorId)->first();
+        $instructor = Instructor::find($instructorId);
         if ($instructor) {
             $instructor->rating = $averageRating; // تحديث تقييم المدرب
             $instructor->save();
         }
     }
-
 }
+
 
 public function deleteReview($reviewId)
 {

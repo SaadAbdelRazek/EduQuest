@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BeInstructorAnswer;
 use App\Models\BeInstructorQuestion;
+use App\Models\Instructor;
 use Illuminate\Support\Facades\Auth;
 
 class BeInstructorAnswerController extends Controller
 {
 
-    
+
 
 
     public function store(Request $request)
@@ -60,6 +61,9 @@ class BeInstructorAnswerController extends Controller
     }
     $user = auth()->User();
 $user->is_instructor = true;
+Instructor::create([
+    'user_id' => $user_id,
+]);
 $user->save();
 
 

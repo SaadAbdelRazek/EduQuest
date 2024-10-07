@@ -29,7 +29,7 @@ class InstructorController extends Controller
     $instructor = Instructor::where('user_id', $id)->firstOrFail();
 
     // جلب الدورات المرتبطة بالمدرب
-    $courses = Course::where('user_id', $instructor->user_id)->get();
+    $courses = Course::where('instructor_id', $instructor->id)->get();
 
     // تجميع الدورات بناءً على العنوان
     $coursesGrouped = $courses->groupBy('title');
@@ -40,7 +40,7 @@ class InstructorController extends Controller
     })->values(); // إعادة ترتيب القيم لتكون مجموعة جديدة
 
     // جلب المراجعات المرتبطة بكل دورة
-    $reviews = Review::whereIn('course_id', $courses->pluck('id'))->get();
+    $reviews = Review::whereIn('course_id', $courses->pluck('id'))->orWhere('instructor_id',$instructor->id)->get();
 
 
     return view('website.instructor-profile', compact('course_instructor', 'instructor', 'courses', 'uniqueCourses', 'reviews'));

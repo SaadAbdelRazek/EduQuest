@@ -100,19 +100,22 @@ body {
 
 /* Dashboard Overview Boxes */
 .dashboard-overview {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    /* justify-content: space-between; */
     margin-bottom: 30px;
 }
 
 .overview-box {
-    width: 22%;
+    width: 15%;
+    margin: 5px;
     padding: 20px;
     border-radius: 8px;
     color: #fff;
     text-align: center;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display:inline-block;
+
 }
 
 .overview-box.purple {
@@ -468,11 +471,11 @@ button {
 
 .btn {
     display: inline-block;
-    padding: 10px 20px;
-    font-size: 0.9rem;
+    padding: 5px 10px;
+    font-size: 0.8rem;
     font-weight: 600;
     color: white;
-    background-color: #6a5acd;
+    /* background-color: #6a5acd; */
     text-transform: uppercase;
     text-decoration: none;
     border-radius: 5px;

@@ -1,6 +1,16 @@
-@extends('admin.layouts.app')
+@extends('admin.layouts.dash')
 
+@section('edit_setting')
+    active
+@endsection
+@section('activity-title')
+edit setting
+@endsection
 @section('content')
+@php
+        // Define the variable to hide the div in the layout
+        $hideSpecialDiv = true;
+    @endphp
 <body id="welcome">
 
     <!-- Main Wrapper -->

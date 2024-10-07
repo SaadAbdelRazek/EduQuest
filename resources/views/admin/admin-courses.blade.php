@@ -37,7 +37,7 @@
     <div class="text-center">
         <a href="{{ route('pending-courses') }}" class="btn-view">Show Pending Courses</a>
         <a href="{{ route('accepted-courses') }}" class="btn-accept">Show Accepted Courses</a>
-        <a href="{{ route('declined-courses') }}" class="btn">Show Declined Courses</a>
+        <a href="{{ route('declined-courses') }}" class="btn-view">Show Declined Courses</a>
     </div><br>
     <center>
         @if ($filter == 'accepted')

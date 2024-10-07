@@ -8,6 +8,7 @@ use http\Client\Response;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Instructor;
 use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -18,55 +19,69 @@ class CourseController extends Controller
 {
 
     public function store(Request $request)
-    {
-        // Validate the request
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'objectives' => 'required|string',
-            'category' => 'required|string',
-            'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpg,png,jpeg',
-            'num_sections' => 'required|integer|min:1',
-            'sections.*.title' => 'required|string',
-            'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:80240' // 10MB max for each video
+{
+    // Validate the request
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'objectives' => 'required|string',
+        'category' => 'required|string',
+        'price' => 'required|numeric',
+        'image' => 'required|image|mimes:jpg,png,jpeg',
+        'num_sections' => 'required|integer|min:1',
+        'sections.*.title' => 'required|string',
+        'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:80240' // 10MB max for each video
+    ]);
+
+    // Store the course image
+    $imagePath = $request->file('image')->store('course_images', 'public');
+
+    // Find instructor by user ID
+    $instructor = Instructor::where('user_id', auth()->id())->firstOrFail();
+
+    // Create the course
+    $course = Course::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'objectives' => $request->objectives,
+        'category' => $request->category,
+        'price' => $request->price,
+        'instructor_id' => $instructor->id, // استخدام id المدرس
+        'image' => $imagePath
+    ]);
+
+    // Loop through sections and store them
+    foreach ($request->sections as $sectionData) {
+        $section = Section::create([
+            'course_id' => $course->id,
+            'title' => $sectionData['title']
         ]);
 
-        // Store the course image
-        $imagePath = $request->file('image')->store('course_images', 'public');
-
-        // Create the course
-        $course = Course::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'objectives' => $request->objectives,
-            'category' => $request->category,
-            'price' => $request->price,
-            'image' => $imagePath
-        ]);
-
-        // Loop through sections and store them
-        foreach ($request->sections as $sectionData) {
-            $section = Section::create([
-                'course_id' => $course->id,
-                'title' => $sectionData['title']
-            ]);
-
-            // Store videos for the section
-            if (isset($sectionData['videos'])) {
-                foreach ($sectionData['videos'] as $video) {
-                    $videoPath = $video->store('section_videos', 'public');
-                    $section->videos()->create([
-                        'path' => $videoPath
-                    ]);
-                }
+        // Store videos for the section
+        if (isset($sectionData['videos'])) {
+            foreach ($sectionData['videos'] as $video) {
+                $videoPath = $video->store('section_videos', 'public');
+                $section->videos()->create([
+                    'path' => $videoPath
+                ]);
             }
         }
-        auth()->user()->courses()->save($course);
-
-        // Redirect to a success page or display a success message
-        return redirect()->back()->with('success', 'Course created successfully!');
     }
+
+    // Update user's is_instructor status if not already an instructor
+    $user = auth()->user();
+    if ($user->is_instructor == 0) {
+        $user->is_instructor = true;
+        $user->save(); // يجب حفظ التغيير في قاعدة البيانات
+    }
+
+    // Associate the course with the user
+    $user->courses()->save($course);
+
+    // Redirect to a success page or display a success message
+    return redirect()->back()->with('success', 'Course created successfully!');
+}
+
 
     public function showMyCourses()
     {

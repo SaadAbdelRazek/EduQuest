@@ -18,6 +18,7 @@
     <div class="form-group">
         <label for="title">Course Title</label>
         <input type="text" name="title" id="title" required>
+        
     </div>
     <div class="form-group">
         <label for="description">Course Description</label>

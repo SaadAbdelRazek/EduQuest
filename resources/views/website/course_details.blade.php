@@ -81,6 +81,7 @@
     }
         .floating-button {
             position: fixed;
+            z-index: 2;
             bottom: 20px;
             right: 100px;
             padding: 15px 25px;
@@ -365,7 +366,7 @@
         </div>
         <div class="instructor-details">
             <h3 class="instructor-name">
-                <a href="{{ route('course-instructor', $instructor->id) }}">{{ $instructor->User->name }}</a>
+                <a href="{{ route('course-instructor', $instructor->user_id) }}">{{ $instructor->User->name }}</a>
                 <h3 class="">{{$instructor->specialization}}</h3>
             </h3>
             <p class="instructor-occupation">{{ $instructor->occupation }}</p>
@@ -375,7 +376,7 @@
                 <li><i class="fas fa-users"></i>{{ $instructor->students_count }} Students</li>
                 <li><i class="fas fa-play"></i> {{ $courses->count() }} Courses</li>
             </ul>
-            <p class="instructor-bio">{{ Str::limit($instructor->description, 150) }} <a href="{{ route('course-instructor', $course_info->user_id) }}" class="show-more">Show more</a></p>
+            <p class="instructor-bio">{{ Str::limit($instructor->description, 150) }} <a href="{{ route('course-instructor', $instructor->user_id) }}" class="show-more">Show more</a></p>
 
         </div>
     </div>

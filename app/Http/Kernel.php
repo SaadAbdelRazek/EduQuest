@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'last_seen' => \App\Http\Middleware\last_seen::class,
         ],
 
         'api' => [
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'isInstructor' => \App\Http\Middleware\isInstructor::class,
         'isStudent' => \App\Http\Middleware\isStudent::class,
         'checkCourseSubscribe' => \App\Http\Middleware\checkCourseSubscribe::class,
+
     ];
 }

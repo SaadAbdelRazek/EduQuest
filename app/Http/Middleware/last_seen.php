@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
-
-class isInstructor
+class last_seen
 {
     /**
      * Handle an incoming request.
@@ -18,16 +18,12 @@ class isInstructor
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
-        if($user->is_instructor == 1){
 
-            return $next($request);
-        }
-        elseif($user->is_instructor == 0){
-            return $next($request);
-        }
-        else
-        return redirect()->back();
 
+        if(Auth::check()){
+            User::where('id',Auth::user()->id)->update(['last_seen'=> now()]);
+
+        }
+        return $next($request);
     }
 }
