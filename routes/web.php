@@ -1,4 +1,4 @@
-<?php<?php
+<?php
 
 use App\Http\Controllers\ContactController;use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
