@@ -24,7 +24,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'objectives' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required',
             'price' => 'required|numeric',
             'image' => 'required|image|mimes:jpg,png,jpeg',
             'num_sections' => 'required|integer|min:1',
@@ -37,10 +37,10 @@ class CourseController extends Controller
 
         // Create the course
         $course = Course::create([
+            'category_id' =>$request->category_id,
             'title' => $request->title,
             'description' => $request->description,
             'objectives' => $request->objectives,
-            'category' => $request->category,
             'price' => $request->price,
             'image' => $imagePath
         ]);
