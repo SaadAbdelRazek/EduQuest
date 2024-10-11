@@ -18,8 +18,8 @@
 
             <!-- Add Contact Info Button -->
             <h1 class="table-title">Contact Information</h1>
-            <div class="content-header" style="margin-top: 20px; text-align: right;">
-                <a href="{{ route('settings.create') }}" class="btn btn-success" style="background-color: #28a745;  padding: 10px 20px;  margin-bottom:10px;">Add Contact Info</a>
+            <div class="button-container">
+                <a href="{{ route('settings.create') }}" class="btn create-btn" ><i class="fas fa-plus"></i>Add Contact Info</a>
             </div>
             <!-- Contact Information Management Section -->
 

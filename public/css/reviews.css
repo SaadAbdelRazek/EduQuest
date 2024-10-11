@@ -64,11 +64,14 @@ textarea {
     box-sizing: border-box; /* التأكد من أن الحواف تدخل ضمن الحسابات */
 }
 
+
 .stars {
     display: inline-block;
     color: rgb(201, 173, 11);
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
+
+
 
 .review-header {
     display: flex;

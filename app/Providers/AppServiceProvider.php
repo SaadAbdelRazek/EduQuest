@@ -7,7 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\TestController;
 use App\Models\Course;
+use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Review;
+use App\Models\Instructor;
+use App\Models\Enrollment;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -34,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $view->with('user_data', Auth::user());
             }
-            
+
 
         });
 
@@ -44,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
             $all_courses = Course::withCount('reviews')  // حساب عدد التقييمات لكل كورس
                          ->withAvg('reviews', 'rate')  // حساب متوسط التقييمات
                          ->get();
+            // $instructor = Course::with('instructor')->get();
 
     // الكورسات الأرخص مع حساب متوسط التقييمات
     $cheap_courses = Course::withAvg('reviews', 'rate')
@@ -51,15 +56,37 @@ class AppServiceProvider extends ServiceProvider
                            ->limit(5)
                            ->get();
 
+                           $courses_count = Course::all()->count();
+
 
             $view->with('all_courses',$all_courses);
             $view->with('home_courses', $cheap_courses);
+            $view->with('courses_count', $courses_count);
             // $view->with('course_review', $course_review);
         });
 
         View::composer('admin.layouts.dash', function ($view) {
             $userCounts = (new TestController())->getUserCountsLastFiveDays(); // استبدل YourController باسم الكنترولر الخاص بك
             $view->with('userCounts', $userCounts);
+        });
+
+        view::composer('*', function ($view) {
+            $categories = Category::all();
+
+            $categories_count = $categories->count();
+
+            $reviews_count = Review::all()->count();
+
+            $feedbacks_count = Contact::all()->count();
+            $enrollments_count = Enrollment::all()->count();
+
+
+            $view->with('categories',$categories);
+            $view->with('categories_count',$categories_count);
+            $view->with('reviews_count',$reviews_count);
+            $view->with('feedbacks_count',$feedbacks_count);
+            $view->with('enrollments_count',$enrollments_count);
+
         });
     }
 }

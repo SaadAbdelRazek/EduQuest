@@ -2476,7 +2476,7 @@ hr {
 }
 .slider-area,
 .slider-area2 {
-    background-image: url(../img/hero/h1_hero.png);
+    background-image: url(../img/hero/header7.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -2484,6 +2484,7 @@ hr {
 .slider-area.slider-area2,
 .slider-area2.slider-area2 {
     background-image: url(../img/hero/hero2.png);
+    background: linear-gradient(to left, #d40a84 0%, #51117f 100%);
 }
 .slider-area .hero__caption,
 .slider-area2 .hero__caption {
@@ -3734,7 +3735,8 @@ hr {
     display: inline-block;
 }
 .footer-bg {
-    background: #4255a4;
+    /* background: #4255a4; */
+    background: linear-gradient(to top, #7f0c51 0%, #51117f 100%);
 }
 .login-body {
     margin: 0;
@@ -5143,9 +5145,10 @@ hr {
 .theme-colors,
 .header-sticky.sticky-bar {
     background: #c054ff;
-    background: -moz-linear-gradient(top, #c054ff 0%, #5274ff 100%);
-    background: -webkit-linear-gradient(top, #c054ff 0%, #5274ff 100%);
-    background: linear-gradient(to bottom, #c054ff 0%, #5274ff 100%);
+    background: -moz-linear-gradient(top, #d60a85 0%, #51117f 100%);
+    background: -webkit-linear-gradient(top, #d60a85 0%, #51117f 100%);
+    background: linear-gradient(to bottom, #d60a85 0%, #51117f 100%);
+
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c054ff', endColorstr='#5274ff',GradientType=0 );
 }
 .about-area1 .support-wrapper .left-content1 .about-icon {

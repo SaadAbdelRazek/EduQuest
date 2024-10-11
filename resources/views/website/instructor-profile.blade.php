@@ -163,7 +163,13 @@
         <div class="profile-details">
             <div class="details">
                 <div class="profile-picture">
+                    @if ($course_instructor->profile_photo_path)
+
                     <img src="{{ asset('storage/' . $course_instructor->profile_photo_path) }}" alt="Instructor Picture">
+                    @else
+                    <img src="{{ asset('img/icon/default_prof_img.jpg') }}" alt="Instructor Picture">
+
+                    @endif
                 </div>
                 <h3>I'm {{ $course_instructor->name }}</h3>
                 <p>{{ $instructor->specialization }}</p>
@@ -217,7 +223,7 @@
                         <div class="slider-rating">
                             <input type="range" id="rate-slider" name="rate" min="1" max="5"
                                 step="0.5" value="3" required>
-                            <span id="rating-value">3</span> / 5 <span class="stars">&#9733;</span>
+                                <span id="rating-value">3</span> / 5 <span class="stars"><i class="fas fa-star"></i></span>
                         </div>
                         <textarea name="comment" placeholder="Leave a comment..." rows="4" required></textarea>
                         <button type="submit" class="submit-review">Submit Review</button>
@@ -243,8 +249,15 @@
                                 </p>
                                 <div class="review-header">
                                     @if ($review->user)
-                                        <img src="{{ asset('storage/' . $review->user->profile_photo_path) }}"
+                                    @if ($review->user->profile_photo_path)
+
+                                    <img src="{{ asset('storage/' . $review->user->profile_photo_path) }}"
+                                        alt="User Image" class="user-image">
+                                        @else
+                                        <img src="{{ asset('img/icon/default_prof_img.jpg') }}"
                                             alt="User Image" class="user-image">
+
+                                    @endif
                                         <div class="review-details">
                                             <p class="user-name">{{ $review->user->name }}</p>
                                             <div class="stars">
@@ -451,6 +464,15 @@
                 document.getElementById(`edit-review-form-${reviewId}`).style.display = 'none';
             }
         </script>
+
+<script>
+    const slider = document.getElementById('rate-slider');
+    const ratingValue = document.getElementById('rating-value');
+
+    slider.addEventListener('input', function() {
+        ratingValue.textContent = slider.value;
+    });
+</script>
 
 
 

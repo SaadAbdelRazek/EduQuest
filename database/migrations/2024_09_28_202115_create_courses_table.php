@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('category_id')->constrained('categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('title');
             $table->text('description');
-            $table->string('category');
             $table->text('objectives')->nullable();
             $table->string('image')->nullable();
             $table->decimal('price', 8, 2);

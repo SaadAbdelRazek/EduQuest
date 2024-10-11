@@ -171,6 +171,95 @@
         color: #333;
     }
 
+    /* =================== instructor ========================= */
+
+    .instructor-section {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.instructor-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.instructor-info {
+    display: flex;
+    align-items: center;
+}
+
+.instructor-photo img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.instructor-details {
+    max-width: 600px;
+}
+
+.instructor-name a {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.instructor-occupation {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.instructor-stats {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    gap: 15px;
+}
+
+.instructor-stats li {
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.instructor-stats li i {
+    color: #ffbf00;
+    margin-right: 5px;
+}
+
+.instructor-bio {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.show-more {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.show-more:hover {
+    text-decoration: underline;
+}
+
 
 
 </style>
@@ -268,95 +357,7 @@
 
 
 {{-- ---------------------------------------------------------------------------------------------- --}}
-<style>
-    .instructor-section {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    margin-bottom: 30px;
-}
 
-.instructor-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.instructor-info {
-    display: flex;
-    align-items: center;
-}
-
-.instructor-photo img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-    object-fit: cover;
-}
-
-.instructor-details {
-    max-width: 600px;
-}
-
-.instructor-name a {
-    font-size: 22px;
-    font-weight: bold;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.instructor-occupation {
-    font-size: 16px;
-    color: #666;
-    margin-top: 5px;
-}
-
-.instructor-stats {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    display: flex;
-    gap: 15px;
-}
-
-.instructor-stats li {
-    font-size: 14px;
-    color: #666;
-    display: flex;
-    align-items: center;
-}
-
-.instructor-stats li i {
-    color: #ffbf00;
-    margin-right: 5px;
-}
-
-.instructor-bio {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #333;
-    line-height: 1.5;
-}
-
-.show-more {
-    font-size: 14px;
-    color: #007bff;
-    text-decoration: none;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-.show-more:hover {
-    text-decoration: underline;
-}
-
-</style>
 
 <section class="instructor-section">
     <h2 class="instructor-title">Instructor</h2>
@@ -373,7 +374,7 @@
             <ul class="instructor-stats">
                 <li><i class="fas fa-star"></i> {{ $instructor->rating }} Instructor Rating</li>
                 <li><i class="fas fa-comments"></i> {{ $totalReviewsCount }} Reviews</li>
-                <li><i class="fas fa-users"></i>{{ $instructor->students_count }} Students</li>
+                <li><i class="fas fa-users"></i>{{ $instructor_students }} Students</li>
                 <li><i class="fas fa-play"></i> {{ $courses->count() }} Courses</li>
             </ul>
             <p class="instructor-bio">{{ Str::limit($instructor->description, 150) }} <a href="{{ route('course-instructor', $instructor->user_id) }}" class="show-more">Show more</a></p>

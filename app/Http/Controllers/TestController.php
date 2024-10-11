@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Instructor;
 use App\Models\Enrollment;
 use App\Models\Review;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,9 +44,10 @@ class TestController extends Controller
             $users = User::all();
 
             $user_type = $data->is_admin;
+            $activities = Activity::with('user')->orderBy('created_at', 'desc')->get();
 
             if($user_type == 1){
-                return view('admin.dashboard',compact('users','userCounts'));
+                return view('admin.dashboard',compact('users','activities'));
             }
             else if($user_type == 0){
                 // return view('website.index');
@@ -63,9 +65,10 @@ class TestController extends Controller
             $users = User::all();
 
             $user_type = $data->is_admin;
+            $activities = Activity::with('user')->orderBy('created_at', 'desc')->get();
 
             if($user_type == 1){
-                return view('admin.dashboard',compact('users'));
+                return view('admin.dashboard',compact('users','activities'));
             }
             else if($user_type == 0){
                 // return view('website.index');
@@ -88,6 +91,7 @@ class TestController extends Controller
 
         $user = auth()->user();
         $enrolledUsers = Enrollment::where('course_id', $course_info->id)->where('user_id',$user->id)->exists();
+        $instructor_students = Enrollment::with('course','instructor_id',$course_info->user_id)->count();
 
 
         // جلب المدرب بناءً على user_id المرتبط بالدورة
@@ -127,7 +131,7 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
 
         // تمرير المتغيرات إلى العرض
         return view('website.course_details', compact(
-            'course_info', 'instructor', 'reviewsCount','course', 'courses', 'averageRating', 'totalReviews','totalReviewsCount','enrolledUsers',
+            'course_info', 'instructor', 'reviewsCount','course', 'courses', 'averageRating', 'totalReviews','totalReviewsCount','enrolledUsers','instructor_students',
         ));
     }
 

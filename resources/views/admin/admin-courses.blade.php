@@ -12,24 +12,7 @@
     @endphp
     <h1 class="table-title">Courses</h1>
 
-{{--    <div class="courses-container">--}}
-{{--        <!-- Course 1 -->--}}
-{{--        @foreach($courses as $course)--}}
-{{--        <div class="course-card">--}}
-{{--            <div class="course-image">--}}
-{{--                <img src="{{asset('storage/'.$course->image)}}" alt="Course 1">--}}
-{{--            </div>--}}
-{{--            <div class="course-content">--}}
-{{--                <h3 class="course-title">{{$course->title}}</h3>--}}
-{{--                <p class="course-description">{{$course->description}}</p>--}}
-{{--                <p class="course-price">{{$course->price}}</p>--}}
-{{--                <a href="{{ route('admin-view-course', $course->id) }}" class="btn-view" >View</a>--}}
-{{--                <a href="{{ route('courses.accept', $course->id) }}" class="btn-accept" >Accept</a>--}}
-{{--                <a href="{{ route('courses.decline', $course->id) }}" class="btn">Decline</a>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        @endforeach--}}
-{{--    </div>--}}
+   
 
 
 

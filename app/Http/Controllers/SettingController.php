@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class SettingController extends Controller
 {
+
+    public function __construct()
+    {
+        // تطبيق middleware على جميع الدوال باستثناء index و show
+        $this->middleware(['auth','Admin'])->except('settingshow');
+    }
+
     public function index()
     {
         $settings = Setting::all();
@@ -61,4 +69,15 @@ class SettingController extends Controller
         // Pass the settings to the view
         return view('website.contact', compact('settings')); // Replace 'your-view-name' with the actual view file name
     }
+
+    public function dashboard()
+    {
+        // Retrieve users from the database
+        $users = User::all(); // Fetch all users
+
+        // Pass the data to the new dashboard view
+        return view('admin.layouts.dash', compact('users')); // Adjusted path if necessary
+    }
+
 }
+

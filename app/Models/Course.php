@@ -8,7 +8,8 @@ class Course extends Model
 {
 use HasFactory;
 
-protected $fillable = [ 'user_id' , 'instructor_id' ,'title', 'description', 'objectives', 'category', 'price', 'image',];
+protected $fillable = [ 'user_id' , 'instructor_id' , 'category_id' ,'title', 'description' , 'category' , 'objectives', 'price', 'image',];
+// protected $fillable = ['title','category_id', 'description', 'objectives', 'category', 'price', 'image', 'user_id'];
 
 public function sections()
 {
@@ -37,5 +38,8 @@ return $this->hasMany(Section::class);
     {
         return $this->hasMany(CourseProgress::class)
             ->where('user_id', $userId);
+    }
+    public function course_category(){
+        return $this->belongsTo(Category::class,'id');
     }
 }

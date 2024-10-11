@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Instructor;
 use App\Models\Review;
@@ -16,8 +17,8 @@ class InstructorController extends Controller
     }
 
     public function add_course(){
-
-        return view('website.instructor-add-course');
+        $categories = Category::all();
+        return view('website.instructor-add-course',compact('categories'));
     }
 
     public function show_profile($id)

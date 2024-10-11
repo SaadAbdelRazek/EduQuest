@@ -44,7 +44,7 @@
                 <div class="slider-rating">
                     <input type="range" id="rate-slider" name="rate" min="1" max="5" step="0.5"
                         value="3" required>
-                    <span id="rating-value">3</span> / 5 <span class="stars">&#9733;</span>
+                    <span id="rating-value">3</span> / 5 <span class="stars"><i class="fas fa-star"></i></span>
                 </div>
                 <textarea name="comment" placeholder="Leave a comment..." rows="4" required></textarea>
                 <button type="submit" class="submit-review">Submit Review</button>

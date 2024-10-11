@@ -188,17 +188,18 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6">
+                        @foreach($categories as $category)
                         <div class="single-topic text-center mb-30">
                             <div class="topic-img">
-                                <img src="{{asset('img/gallery/topic1.png')}}" alt="">
+                                <img src="{{ asset('public/images/' . $category->image) }}" alt="">
                                 <div class="topic-content-box">
                                     <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
+                                        <h3><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        @endforeach
                         <div class="row justify-content-center">
                             <div class="col-xl-12">
                                 <div class="section-tittle text-center mt-20">
@@ -207,6 +208,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <!-- top subjects End -->
 
@@ -233,6 +235,8 @@
                             </div>
                         </div>
                 </section>
+            </div>
+            </div>
                 <!-- Services End -->
                 <!--? About Area-2 Start -->
 

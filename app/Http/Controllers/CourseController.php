@@ -7,6 +7,7 @@ use App\Models\Video;
 use http\Client\Response;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Instructor;
 use App\Models\Section;
@@ -25,12 +26,11 @@ class CourseController extends Controller
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'objectives' => 'required|string',
-        'category' => 'required|string',
         'price' => 'required|numeric',
         'image' => 'required|image|mimes:jpg,png,jpeg',
         'num_sections' => 'required|integer|min:1',
         'sections.*.title' => 'required|string',
-        'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:80240' // 10MB max for each video
+        'sections.*.videos.*' => 'required|mimes:mp4,mkv,avi|max:80000240' // 10MB max for each video
     ]);
 
     // Store the course image
@@ -44,9 +44,9 @@ class CourseController extends Controller
         'title' => $request->title,
         'description' => $request->description,
         'objectives' => $request->objectives,
-        'category' => $request->category,
         'price' => $request->price,
         'instructor_id' => $instructor->id, // استخدام id المدرس
+        'category_id' =>$request->category_id,
         'image' => $imagePath
     ]);
 
@@ -64,9 +64,10 @@ class CourseController extends Controller
                 $section->videos()->create([
                     'path' => $videoPath
                 ]);
-            }
-        }
-    }
+
+        // Validate the request
+
+    }}}
 
     // Update user's is_instructor status if not already an instructor
     $user = auth()->user();
@@ -95,13 +96,13 @@ class CourseController extends Controller
     }
     public function showAdminCourses()
     {
-        $courses = Course::where('is_accepted', 0)
-            ->get();
-        return view('admin.admin-courses', compact('courses'));
+        $courses = Course::where('is_accepted', 0)->get();
+        // $category = Category::all();
+        return view('admin.admin-courses', compact('courses','category'));
     }
     public function viewCourse($id){
         $course = Course::find($id);
-
+        $category = Category::findOrFail($course->category_id);
 
         if (!$course) {
             return redirect()->back()->with('error', 'Course not found');
@@ -117,7 +118,7 @@ class CourseController extends Controller
             $videos[$section->id] = $sectionVideos; // Store videos by section ID
         }
 
-        return view('admin.admin-view-course', compact('course', 'sections', 'videos'));
+        return view('admin.admin-view-course', compact('course', 'sections', 'videos','category'));
     }
 
     public function acceptCourse($id)
