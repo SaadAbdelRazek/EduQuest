@@ -3,17 +3,22 @@
     active
 @endsection
 @section('content')
-    <center>
-        <header>
-            <h1>Adding Quiz</h1>
-        </header>
-    </center>
 
 
-    <div class="quiz-form">
+    <div class="quiz-form" style="margin-left: 400px">
+        <center>
+            <header>
+                <h1>Adding Quiz</h1>
+            </header>
+        </center><br>
         <form method="POST" action="{{ route('quizzes.store') }}">
             @csrf
             <input type="hidden" name="course_id" value="{{ $course->id }}">
+
+            <div class="form-group">
+                <label for="title">Quiz Title:</label>
+                <input type="text" name="title"  id="title" required style="width:500px ">
+            </div>
             <!-- Number of 4-option questions -->
             <div class="form-group">
                 <label for="four-option-questions">Number of 4-option Questions:</label>

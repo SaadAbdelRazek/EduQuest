@@ -454,6 +454,9 @@
                     <div class="progress"></div>
                 </div>
                 <p><strong>{{number_format($progress, 2)  }}%</strong></p>
+               @if($progress==100 && $course->price != 0)
+                   <a href="{{route('certificate',$course->id)}}" class="submit-comment"> Get Certificate</a>
+               @endif
             @else
                <p>No Progress Yet</p>
            @endif
@@ -651,12 +654,15 @@
                         @endforeach
                     @endif
                         @foreach($quizzes as $quiz)
-                            @if($quiz->section_no==$sectionCounter++)
+                            @if($quiz->section_no==$sectionCounter)
                              <a href="{{route('quiz',$quiz->id)}}">Quiz {{$loop->iteration}}</a>
                             @endif
                         @endforeach
                 </div>
             </li>
+                @php
+                $sectionCounter++;
+                @endphp
             @endforeach
 
         </ul>

@@ -308,7 +308,11 @@
                 @if($enrolledUsers)
                     <a href="{{route('course_videos',$course_info->id)}}" class="register-button">Go To Course</a>
                 @else
-                   <a href="{{route('view.enroll.course',$course_info->id)}}" class="register-button">Buy Now</a>
+                    @if($course_info->price==0)
+                        <a href="{{route('view.free.enroll',$course_info->id)}}" class="register-button">Enroll</a>
+                    @else
+                        <a href="{{route('view.enroll.course',$course_info->id)}}" class="register-button">Buy Now</a>
+                    @endif
                 @endif
             </div>
             <span><strong>Course Instructor: </strong><a href="{{route('course-instructor',$course_info->user_id)}}" style="color: black"> {{$course_info->User->name}}</a> </span><br>

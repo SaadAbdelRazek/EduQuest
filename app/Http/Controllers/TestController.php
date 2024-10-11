@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\CourseDecline;
+use App\Models\Quiz;
+use App\Models\QuizHistory;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\User;
@@ -133,6 +136,27 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
         return view('website.course_details', compact(
             'course_info', 'instructor', 'reviewsCount','course', 'courses', 'averageRating', 'totalReviews','totalReviewsCount','enrolledUsers','instructor_students',
         ));
+    }
+
+    public function viewProfile()
+    {
+        $user = Auth::user();
+        $userEnrolledCourses=Enrollment::where('user_id',$user->id)->get('course_id');
+        $courses = Course::whereIn('id', $userEnrolledCourses)->get();
+        $quizHistory=QuizHistory::where('user_id',$user->id)->get();
+
+        $quizHist = QuizHistory::select('quiz_id')->get();
+
+        // Step 2: Extract the quiz IDs from the result
+        $quizIds = $quizHist->pluck('quiz_id'); // This will return an array of quiz IDs
+
+        // Step 3: Fetch related quizzes from the quizzes table using the quiz IDs
+        $quizzes = Quiz::whereIn('id', $quizIds)->get();
+
+        $courseDeclines = CourseDecline::with('course')
+            ->where('user_id', $user->id)
+            ->get();
+        return view('website.myProfile',compact('courses','quizHistory','quizzes','courseDeclines'));
     }
 
 

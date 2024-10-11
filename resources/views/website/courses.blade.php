@@ -159,12 +159,14 @@
         <div class="container">
             <div class="row" id="course-list">
                 @foreach ($all_courses as $index => $course)
+                @if($course->is_accepted==1 && $course->is_deleted==0)
                 <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
                     <div class="course-card">
                         <div class="course-image">
                             <a href="{{ route('course_details', $course->id) }}">
                                 <img src="{{ asset('storage/'. $course->image) }}" alt="{{ $course->title }}" class="img-fluid">
                             </a>
+
                         </div>
                         <div class="course-info p-3">
                             <h5 class="course-title">
@@ -238,9 +240,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 @endforeach
             </div>
-        </div>
+
         </div>
 
         <!-- Load More Button -->

@@ -12,7 +12,7 @@ use App\Models\Course;
 class InstructorController extends Controller
 {
     public function index(){
-        // return redirect()->route('instructor-dashboard');
+
         return view('website.instructor-dashboard');
     }
 

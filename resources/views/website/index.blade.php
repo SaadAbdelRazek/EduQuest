@@ -188,7 +188,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        @foreach($categories as $category)
+                        {{-- @foreach($categories as $category)
                         <div class="single-topic text-center mb-30">
                             <div class="topic-img">
                                 <img src="{{ asset('public/images/' . $category->image) }}" alt="">
@@ -199,7 +199,7 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+                        @endforeach --}}
                         <div class="row justify-content-center">
                             <div class="col-xl-12">
                                 <div class="section-tittle text-center mt-20">

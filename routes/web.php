@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseDeclineController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\QuizController;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     return view('website.index');
 })->name('home');
@@ -76,7 +78,7 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
     Route::post('/submit-answers', [BeInstructorAnswerController::class, 'storeAnswers'])->name('submit.answers');
 
 
-    Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor-add-course');
+    Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor_add_course');
     Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
     Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
@@ -116,15 +118,47 @@ Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCo
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/myProfile', function () {
-        return view('website.myProfile');
-    })->name('myProfile');
+    Route::get('/myProfile', [TestController::class,'viewProfile'])->name('myProfile');
 
     Route::get('/edit_profile', function () {
         return view('profile.show');
     })->name('edit_profile');
+
+
+    Route::get('/free_enroll/{id}',[CourseController::class,'viewEnrollFree'])->name('view.free.enroll');
+
+});
+Route::post('/free_submit',[CourseController::class,'enrollFree'])->name('free.enroll');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/enroll-course/{courseId}', [EnrollmentController::class, 'viewEnrollForm'])->middleware('check.payment')->name('view.enroll.course');
+    Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCourse'])->middleware('check.payment')->name('enroll.course');
+    // Route::get('/enroll-course/{courseId}', [EnrollmentController::class, 'viewEnrollForm'])->name('view.enroll.course');
+    // Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCourse'])->name('enroll.course');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/course_videos/{course_id}',[CourseController::class,'viewAllCourseDetails'])->middleware('check.enrollment:course')->name('course_videos');
+    Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->middleware('check.enrollment:course')->name('course_progress');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/quiz/{id}', [QuizController::class,'showQuizForUser'])->middleware('check.quiz.enrollment')->name('quiz');
+
+});
+
+Route::post('/quiz/{quiz_id}/submit', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
+Route::get('/quiz/{id}/user-answers', [QuizController::class, 'showUserAnswers'])->name('quiz.user_answers');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/certificate/{id}', [CourseController::class, 'certificateShow'])->middleware('check.user.certificate')->name('certificate');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->middleware('check.accepted')->name('course_details');
+});
 
 // ========================================================================================================
 
@@ -143,7 +177,7 @@ Route::get('/courses', function () {
 //     return view('website.course_details');
 // })->name('course_details');
 
-Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->name('course_details');
+
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
 
 
@@ -174,7 +208,9 @@ Route::get('/about', function () {
 //    return view('admin.dashboard');
 //
 //})->name('admin.dashboard');
-
+Route::get('/categories', function () {
+    return view('website.categories');
+})->name('categories');
 Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
 
@@ -185,14 +221,22 @@ Route::get('/home', [TestController::class, 'index'] )->name('admin');
 //Route::get('/instructor-add-courses', function () {
 //    return view('website.instructor-add-course');
 //})->name('instructor-add-course');
+Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
+Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
+Route::get('/instructor-students', [CourseController::class, 'showMyStudents'] )->name('instructor-students');
 
 
 
 
 
-
-
-
+Route::get('/admin-pending-courses',[CourseController::class, 'showPending'])->name('pending-courses');
+Route::get('/admin-accepted-courses',[CourseController::class, 'showAccepted'])->name('accepted-courses');
+Route::get('/admin-declined-courses',[CourseController::class, 'showDeclined'])->name('declined-courses');
+Route::get('/admin-view-course/{id}',[CourseController::class, 'viewCourse'])->name('admin-view-course');
+Route::get('/admin-courses/accept/{id}', [CourseController::class, 'acceptCourse'])->name('courses.accept');
+Route::get('/admin-courses/decline/{id}', [CourseController::class, 'declineCourse'])->name('courses.decline');
+Route::delete('/delete-courses/{id}', [CourseController::class, 'deleteCourse'])->name('courses.delete');
+Route::delete('/delete-courses-from-website/{id}', [CourseController::class, 'deleteCourseFromWebsite'])->name('course.website.delete');
 
 
 //Route::get('/admin/faqs', function () {
@@ -227,6 +271,7 @@ Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
+
 Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
 Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
 Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
@@ -234,8 +279,7 @@ Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('qu
 Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
 Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
 
-Route::get('/enroll-course/{courseId}', [EnrollmentController::class, 'viewEnrollForm'])->name('view.enroll.course');
-Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCourse'])->name('enroll.course');
+
 
 
 Route::get('/quiz/{id}', [QuizController::class,'showQuizForUser'])->name('quiz');
@@ -252,8 +296,5 @@ Route::resource('settings', SettingController::class);
 
 Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact');
 
-
-
-
-
-
+Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
+Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');

@@ -134,13 +134,19 @@
                 </ul>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="course-action text-center mt-4">
-                @if($course->is_accepted == 0)
-                    <a href="{{ route('courses.accept', $course->id) }}" class="btn btn-success">Accept</a>
-                    <a href="{{ route('courses.decline', $course->id) }}" class="btn btn-danger">Decline</a>
-                @elseif($course->is_accepted == 1)
-                    <a href="{{ route('courses.decline', $course->id) }}" class="btn btn-danger">Decline</a>
+            <!-- Section Videos -->
+{{--            <div class="course-section">--}}
+{{--                <h3>Videos</h3>--}}
+{{--                <div class="video-container">--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+            <div class="course-section">
+                @if($course->is_accepted==0)
+                <a href="{{ route('courses.accept', $course->id) }}" class="btn-accept" >Accept</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{ route('courses.decline', $course->id) }}" class="btn">Decline</a>
+                @elseif($course->is_accepted==1)
+                    <a href="{{ route('admin.view.decline', $course->id) }}" class="btn">Decline</a>
                 @else
                     <a href="{{ route('courses.accept', $course->id) }}" class="btn btn-success">Accept</a>
                 @endif

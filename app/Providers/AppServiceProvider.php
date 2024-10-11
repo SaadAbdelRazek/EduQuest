@@ -12,6 +12,8 @@ use App\Models\Contact;
 use App\Models\Review;
 use App\Models\Instructor;
 use App\Models\Enrollment;
+use App\Models\User;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -33,8 +35,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('*', function
-         ($view) {
+       
+        // Passing authenticated user data to all views
+        View::composer('*', function ($view) {
             if (Auth::check()) {
                 $view->with('user_data', Auth::user());
             }
@@ -42,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
+        // Passing courses data to all views
         View::composer('*', function ($view) {
 
 
@@ -60,14 +64,19 @@ class AppServiceProvider extends ServiceProvider
 
 
             $view->with('all_courses',$all_courses);
+            $cheap_courses = Course::orderBy('price', 'asc')->limit(5)->get();
+            $view->with('all_courses', Course::all());
             $view->with('home_courses', $cheap_courses);
             $view->with('courses_count', $courses_count);
             // $view->with('course_review', $course_review);
         });
 
+        // Passing user counts and all users to the admin dashboard view
         View::composer('admin.layouts.dash', function ($view) {
-            $userCounts = (new TestController())->getUserCountsLastFiveDays(); // استبدل YourController باسم الكنترولر الخاص بك
+            $userCounts = (new TestController())->getUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
+            $users = User::all(); // Fetch all users
             $view->with('userCounts', $userCounts);
+            $view->with('users', $users); // Pass users data to the view
         });
 
         view::composer('*', function ($view) {
