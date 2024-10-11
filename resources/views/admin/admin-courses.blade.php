@@ -61,7 +61,7 @@
                         <p class="course-description">{{$accept->description}}</p>
                         <p class="course-price">{{$accept->price}}</p>
                         <a href="{{ route('admin-view-course', $accept->id) }}" class="btn-view" >View</a>
-                        <a href="{{ route('courses.decline', $accept->id) }}" class="btn">Decline</a>
+                        <a href="{{ route('admin.view.decline', $accept->id) }}" class="btn">Decline</a>
                     </div>
                 </div>
             @endforeach
@@ -91,7 +91,7 @@
                         <p class="course-price">{{$pend->price}}</p>
                         <a href="{{ route('admin-view-course', $pend->id) }}" class="btn-view" >View</a>
                         <a href="{{ route('courses.accept', $pend->id) }}" class="btn-accept" >Accept</a>
-                        <a href="{{ route('courses.decline', $pend->id) }}" class="btn">Decline</a>
+                        <a href="{{ route('admin.view.decline', $pend->id) }}" class="btn">Decline</a>
                     </div>
                 </div>
             @endforeach

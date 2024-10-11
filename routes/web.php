@@ -1,6 +1,8 @@
-<?php<?php
+<?php
 
-use App\Http\Controllers\ContactController;use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseDeclineController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\QuizController;
@@ -57,16 +59,44 @@ Route::middleware(['auth', 'isStudent'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-
-    Route::get('/myProfile', function () {
-        return view('website.myProfile');
-    })->name('myProfile');
+    Route::get('/myProfile', [TestController::class,'viewProfile'])->name('myProfile');
 
     Route::get('/edit_profile', function () {
         return view('profile.show');
     })->name('edit_profile');
+
+    Route::get('/free_enroll/{id}',[CourseController::class,'viewEnrollFree'])->name('view.free.enroll');
+
+});
+Route::post('/free_submit',[CourseController::class,'enrollFree'])->name('free.enroll');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/enroll-course/{courseId}', [EnrollmentController::class, 'viewEnrollForm'])->middleware('check.payment')->name('view.enroll.course');
+    Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCourse'])->middleware('check.payment')->name('enroll.course');
 });
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/course_videos/{course_id}',[CourseController::class,'viewAllCourseDetails'])->middleware('check.enrollment:course')->name('course_videos');
+    Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->middleware('check.enrollment:course')->name('course_progress');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/quiz/{id}', [QuizController::class,'showQuizForUser'])->middleware('check.quiz.enrollment')->name('quiz');
+
+});
+
+Route::post('/quiz/{quiz_id}/submit', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
+Route::get('/quiz/{id}/user-answers', [QuizController::class, 'showUserAnswers'])->name('quiz.user_answers');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/certificate/{id}', [CourseController::class, 'certificateShow'])->middleware('check.user.certificate')->name('certificate');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->middleware('check.accepted')->name('course_details');
+});
 
 // ========================================================================================================
 
@@ -81,17 +111,10 @@ Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
 
-// Route::get('/course_details', function () {
-//     return view('website.course_details');
-// })->name('course_details');
 
-Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->name('course_details');
+
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
 
-
-Route::get('/course_videos/{course_id}',[CourseController::class,'viewAllCourseDetails'])->name('course_videos');
-Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->name('course_progress');
-//Route::post('/save-video-progress', [CourseController::class, 'saveVideoProgress'])->name('save-video-progress');
 
 Route::get('/contact', function () {
     return view('website.contact');
@@ -112,10 +135,8 @@ Route::get('/blog-details', function () {
 Route::get('/about', function () {
     return view('website.about');
 })->name('about');
-//Route::get('/admin/dashboard', function () {
-//    return view('admin.dashboard');
-//
-//})->name('admin.dashboard');
+
+
 Route::get('/categories', function () {
     return view('website.categories');
 })->name('categories');
@@ -125,20 +146,9 @@ Route::get('/home', [TestController::class, 'index'] )->name('admin');
 
 Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
 Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
-
-//Route::get('/instructor-add-courses', function () {
-//    return view('website.instructor-add-course');
-//})->name('instructor-add-course');
+Route::get('/instructor-students', [CourseController::class, 'showMyStudents'] )->name('instructor-students');
 
 
-
-Route::get('/myProfile', function () {
-    return view('website.myProfile');
-})->name('myProfile');
-
-Route::get('/edit_profile', function () {
-    return view('profile.show');
-})->name('edit_profile');
 
 Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
 
@@ -148,6 +158,8 @@ Route::get('/admin-declined-courses',[CourseController::class, 'showDeclined'])-
 Route::get('/admin-view-course/{id}',[CourseController::class, 'viewCourse'])->name('admin-view-course');
 Route::get('/admin-courses/accept/{id}', [CourseController::class, 'acceptCourse'])->name('courses.accept');
 Route::get('/admin-courses/decline/{id}', [CourseController::class, 'declineCourse'])->name('courses.decline');
+Route::delete('/delete-courses/{id}', [CourseController::class, 'deleteCourse'])->name('courses.delete');
+Route::delete('/delete-courses-from-website/{id}', [CourseController::class, 'deleteCourseFromWebsite'])->name('course.website.delete');
 
 
 //Route::get('/admin/faqs', function () {
@@ -163,21 +175,13 @@ Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'
 Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
 
 
+
 Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
 Route::get('view-course-quizzes/{course_id}',[QuizController::class, 'index'])->name('course-quizzes');
 Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDetails'])->name('view-quiz');
 Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
 Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
 Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
-
-Route::get('/enroll-course/{courseId}', [EnrollmentController::class, 'viewEnrollForm'])->name('view.enroll.course');
-Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCourse'])->name('enroll.course');
-
-
-Route::get('/quiz/{id}', [QuizController::class,'showQuizForUser'])->name('quiz');
-Route::post('/quiz/{quiz_id}/submit', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
-Route::get('/quiz/{id}/user-answers', [QuizController::class, 'showUserAnswers'])->name('quiz.user_answers');
-
 
 
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
@@ -188,4 +192,5 @@ Route::resource('settings', SettingController::class);
 
 Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact');
 
-
+Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
+Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');

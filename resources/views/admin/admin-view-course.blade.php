@@ -77,7 +77,7 @@
                 <a href="{{ route('courses.accept', $course->id) }}" class="btn-accept" >Accept</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="{{ route('courses.decline', $course->id) }}" class="btn">Decline</a>
                 @elseif($course->is_accepted==1)
-                    <a href="{{ route('courses.decline', $course->id) }}" class="btn">Decline</a>
+                    <a href="{{ route('admin.view.decline', $course->id) }}" class="btn">Decline</a>
                 @else
                     <a href="{{ route('courses.accept', $course->id) }}" class="btn-accept" >Accept</a>
                 @endif

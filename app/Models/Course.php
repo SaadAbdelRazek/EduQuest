@@ -32,4 +32,19 @@ return $this->hasMany(Section::class);
         return $this->hasMany(CourseProgress::class)
             ->where('user_id', $userId);
     }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'course_id');
+    }
+
+    public function courseDeclines()
+    {
+        return $this->hasMany(CourseDecline::class);
+    }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
 }

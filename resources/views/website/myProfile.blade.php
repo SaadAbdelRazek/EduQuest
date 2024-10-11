@@ -1,16 +1,16 @@
 @extends('website.layouts.app')
-
-
-
+@section('custom-css')
+    <link rel="stylesheet" href="{{asset('css/profile.css')}}">
+@endsection
 @section('content')
     <section class="slider-area slider-area2">
-        <div class="slider-active">
+        <div class="slider-active" style="background-color: #6200EA">
             <!-- Single Slider -->
-            <div class="single-slider slider-height2">
+            <div class="single-slider slider-height2" style="background-color: #6200EA">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-8 col-lg-11 col-md-12">
-                            <div class="hero__caption hero__caption2">
+                        <div class="col-xl-8 col-lg-11 col-md-12" >
+                            <div class="hero__caption hero__caption2" >
                                 <h1 data-animation="bounceIn" data-delay="0.2s">My Profile</h1>
 
                             </div>
@@ -21,144 +21,124 @@
         </div>
     </section>
 
-<div class="container light-style flex-grow-1 container-p-y">
-    <h4 class="font-weight-bold m-5" style="font-size: 40px">{{$user_data->name}}</h4>
-    <div class="card overflow-hidden">
-        <div class="row no-gutters row-bordered row-border-light">
-            <div class="col-md-3 pt-0">
-                <div class="list-group list-group-flush account-settings-links">
-                    <a class="list-group-item list-group-item-action " data-toggle="list"
-                        href="#account-general">General</a>
 
-                    {{-- <a class="list-group-item list-group-item-action" data-toggle="list"
-                        href="#account-change-password">Change password</a> --}}
+    <div class="profile-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <h2 style="color: white">Profile Menu</h2>
+            <ul>
+                <li><a href="#personal-info">Personal Info</a></li>
+                <li><a href="#enrolled-courses">Enrolled Courses</a></li>
+                <li><a href="#quiz-history">Latest Quizzes</a></li>
 
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                        href="#account-info">Other Informations</a>
-
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                        href="#instructor">
-                        @if ($user_data->is_instructor ==1)
-                        instructor dashboard
-                        @elseif ($user_data->is_instructor ==0)
-                        Start As Instructor
-
-
+                    @if ($user_data->is_instructor ==1)
+                        <li><a href="#instructor-link">Instructor Dashboard</a></li>
+                    @elseif ($user_data->is_instructor ==0)
+                        <li><a href="#instructor-link">Become an Instructor</a></li>
                     @endif
-                    </a>
 
+            </ul>
+        </div>
 
-
-
-                    </div>
+        <!-- Main Profile Content -->
+        <div class="main-content">
+            <!-- Personal Information Section -->
+            <div id="personal-info" class="profile-card">
+                <div class="profile-photo">
+                    <img src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt="Your Photo">
                 </div>
-                <div class="col-md-9">
-                    <div class="tab-content">
-
-                        <div class="tab-pane fade active show" id="account-general">
-                            <div class="card-body media align-items-center">
-                                <img src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt class="d-block ui-w-80" style="min-width: 100px; height:100px; border-radius:50%;">
-                                <div class="media-body ml-4">
-                                    <label class="btn ">
-
-                                        <a  href="{{ route('edit_profile') }}">change photo</a>
-                                    </label>
-                                    <label class="btn ">
-
-                                        <a  href="{{ route('edit_profile') }}">update profile</a>
-                                    </label>
-                                    {{-- <button type="button" class="btn md-btn-flat">Reset</button> --}}
-                                    @if ($user_data->profile_photo_path== null)
-
-                                        <div class="text-light small mt-1" ><p style="color: rgb(117, 117, 117); font-size:11px;">Allowed JPG, GIF or PNG. Max size of 800K</p></div>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Username</label>
-                                    <input type="text" name="first_name" value="{{ $user_data->name }}"
-                                           class="single-input" readonly>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="text" name="email" value="{{ $user_data->email }}"
-                                           class="single-input" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="account-change-password">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Current password</label>
-                                    <input type="password" name="current_password" placeholder="Current password"
-                                           required="" class="single-input">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">New password</label>
-                                    <input type="password" name="new_password" placeholder="New password" required=""
-                                           class="single-input">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Repeat new password</label>
-                                    <input type="password" name="repeat_new_password" placeholder="Repeat new password"
-                                           required="" class="single-input">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="account-info">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Bio</label>
-                                    <textarea class="single-textarea" placeholder="Write Something"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Birthday</label>
-                                    <input type="date" name="first_name" required class="single-input">
-                                </div>
-                            </div>
-
-                            <hr class="border-light m-0">
-                            <div class="card-body pb-2">
-                                <h3 class="mb-4">Other Contacts</h3>
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" name="phone" placeholder="Phone Number" class="single-input">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">LinkedIn</label>
-                                    <input type="text" name="linkedIn" placeholder="LinkedIn URL"
-                                           class="single-input">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane fade" id="instructor">
-                            <p> start your journey with EduQuest as instructor</p><br>
-                            @if ($user_data->is_instructor ==1)
-                            <a href="{{route('instructor-dashboard')}}" class="btn btn-primary">
-                                    instructor dashboard
-                                </a>
-                                @elseif ($user_data->is_instructor ==0)
-                                <a href="{{route('instructor-start')}}" class="btn btn-primary">
-                                    Start As Instructor
-                                    </a>
-
-
-                                @endif
-                        </div>
-                    </div>
+                <div class="profile-info">
+                    <h2 class="name">{{$user_data->name}}</h2>
+                    <p class="email">{{ $user_data->email }}</p>
+                </div>
+                <div class="profile-actions">
+                    <a href="{{ route('edit_profile') }}" class="edit-btn">Edit Profile</a>
                 </div>
             </div>
-        </div>
-        <div class="text-right mt-3 mb-5">
-            {{-- <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-primary">Cancel</button> --}}
+
+            <!-- Enrolled Courses Section -->
+            <div id="enrolled-courses" class="section enrolled-courses">
+                <h3>My Enrolled Courses</h3>
+                <div class="courses-grid">
+                    @foreach($courses as $course)
+                            <!-- Course Card 1 -->
+                            <div class="course-card">
+                                <div class="course-image">
+                                    <img src="{{asset('storage/'.$course->image)}}" alt="Course Image">
+                                </div>
+                                <div class="course-content">
+                                    <h2 class="course-title">{{$course->title}}</h2>
+                                    <p class="course-instructor"><span style="color: orange">Edu</span><span style="color: #6a1b9a">Quest</span></p>
+                                    <a href="{{route('course_videos',$course->id)}}" class="btn-view">View Course</a>
+                                </div>
+                            </div>
+                    @endforeach
+                </div>
+
+            </div>
+
+            <!-- Latest Quiz History Section -->
+            <div id="quiz-history" class="section quiz-history">
+                <h3>My Latest Quizzes</h3>
+                <div class="quiz-list">
+                    @php
+                    $quizCount=0;
+                    @endphp
+                    @foreach($quizHistory as $quiz )
+                    <div class="quiz-item">
+                        <p><strong>Quiz:</strong>
+                            @for($i=1;$i<2;$i++)
+                            {{$quizzes[$quizCount]->title}}
+                            @endfor
+                        </p>
+                        <p><strong>Score:</strong> {{$quiz->percentage}}%</p>
+                        <p><strong>Date:</strong> {{$quiz->created_at->format('F j, Y')}}</p>
+                        <div class="quiz-progress">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{$quiz->percentage}}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                        @php
+                            $quizCount++;
+                        @endphp
+                    @endforeach
+                    <!-- Add more quiz history as needed -->
+                </div>
+            </div>
+
+            <!-- Start as Instructor Section -->
+            <div id="instructor-link" class="section instructor-link">
+                @if ($user_data->is_instructor ==1)
+                    <a href="{{route('instructor-dashboard')}}" class="instructor-button">Your Dashboard</a>
+                @else
+                    <a href="{{route('instructor-start')}}" class="instructor-button">Start as Instructor</a>
+                @endif
+            </div>
+
+
+
+
+            <div class="notifications">
+                <h3>Notifications</h3>
+                @if($courseDeclines->isEmpty())
+                    <p>No Notifications Found.</p>
+                @else
+            <div class="quiz-list">
+                @foreach($courseDeclines as $decline)
+                    <div class="quiz-item">
+                        <p><strong>Course:</strong>
+                            {{$decline->course->title}}
+                        </p>
+                        <p><strong>Reason:</strong> {{ $decline->decline_reason }}</p>
+                        <a href="{{route('courses.edit',$decline->course->id)}}" class="btn-view">Edit</a>
+                    </div>
+                @endforeach
+            </div>
+                @endif
 
         </div>
+        </div>
     </div>
+
 @endsection

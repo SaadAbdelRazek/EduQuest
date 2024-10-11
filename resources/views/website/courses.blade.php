@@ -41,6 +41,7 @@
         <!-- Courses List -->
         <div class="row" id="course-list">
             @foreach ($all_courses as $index => $course )
+                @if($course->is_accepted==1 && $course->is_deleted==0)
             <div class="col-lg-4 course-item" @if($index >= 6) style="display: none;" @endif>
                 <div class="properties properties2 mb-30">
                     <div class="properties__card">
@@ -71,6 +72,7 @@
                     </div>
                 </div>
             </div>
+                @endif
             @endforeach
         </div>
 
