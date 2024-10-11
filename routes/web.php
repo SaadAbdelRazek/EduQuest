@@ -11,6 +11,7 @@ use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -59,7 +60,10 @@ Route::middleware(['auth', 'isStudent'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/myProfile', [TestController::class,'viewProfile'])->name('myProfile');
+
+    Route::get('/myProfile', function () {
+        return view('website.myProfile');
+    })->name('myProfile');
 
     Route::get('/edit_profile', function () {
         return view('profile.show');
@@ -111,10 +115,17 @@ Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
 
+// Route::get('/course_details', function () {
+//     return view('website.course_details');
+// })->name('course_details');
 
 
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
 
+
+Route::get('/course_videos/{course_id}',[CourseController::class,'viewAllCourseDetails'])->name('course_videos');
+Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->name('course_progress');
+//Route::post('/save-video-progress', [CourseController::class, 'saveVideoProgress'])->name('save-video-progress');
 
 Route::get('/contact', function () {
     return view('website.contact');
@@ -135,8 +146,10 @@ Route::get('/blog-details', function () {
 Route::get('/about', function () {
     return view('website.about');
 })->name('about');
-
-
+//Route::get('/admin/dashboard', function () {
+//    return view('admin.dashboard');
+//
+//})->name('admin.dashboard');
 Route::get('/categories', function () {
     return view('website.categories');
 })->name('categories');
@@ -149,6 +162,14 @@ Route::post('/instructor-add-course', [CourseController::class, 'store'])->name(
 Route::get('/instructor-students', [CourseController::class, 'showMyStudents'] )->name('instructor-students');
 
 
+
+Route::get('/myProfile', function () {
+    return view('website.myProfile');
+})->name('myProfile');
+
+Route::get('/edit_profile', function () {
+    return view('profile.show');
+})->name('edit_profile');
 
 Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
 
@@ -174,6 +195,17 @@ Route::get('/instructor-view-course/{id}/edit', [CourseController::class, 'edit'
 
 Route::post('/instructor-view-course/{id}/update', [CourseController::class, 'update'])->name('courses.update');
 
+Route::get('categories', [CategoryController::class, 'categories'])->name('categories');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('dashboard/categories', [CategoryController::class, 'categories_table'])->name('categories_table');
+Route::get('category/add',[CategoryController::class,'index_category'])->name('category_add');
+Route::post('category',[CategoryController::class,'create_category'])->name('category_data');
+Route::get("/category/delete/{id}",[CategoryController::class,'delete_category'])->name("category_delete");
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit_category'])->name('category_edit');
+Route::post('/category/update/{id}', [CategoryController::class, 'update_category'])->name('category_update');
+Route::get('/', [CategoryController::class, 'home'])->name('home');
+
+
 
 
 Route::post('/course-quiz', [QuizController::class, 'store'])->name('quizzes.store');
@@ -182,6 +214,15 @@ Route::get('view-quiz-details/{course_id}',[QuizController::class, 'viewQuizDeta
 Route::get('/quizzes/{quiz_id}/edit', [QuizController::class, 'edit'])->name('quizzes.edit');
 Route::post('/quizzes/{quiz_id}/update', [QuizController::class, 'update'])->name('quizzes.update');
 Route::delete('/quizzes/{quiz_id}/delete', [QuizController::class, 'destroy'])->name('quizzes.delete');
+
+Route::get('/enroll-course/{courseId}', [EnrollmentController::class, 'viewEnrollForm'])->name('view.enroll.course');
+Route::post('/enroll-course/{courseId}', [EnrollmentController::class, 'enrollCourse'])->name('enroll.course');
+
+
+Route::get('/quiz/{id}', [QuizController::class,'showQuizForUser'])->name('quiz');
+Route::post('/quiz/{quiz_id}/submit', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
+Route::get('/quiz/{id}/user-answers', [QuizController::class, 'showUserAnswers'])->name('quiz.user_answers');
+
 
 
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');

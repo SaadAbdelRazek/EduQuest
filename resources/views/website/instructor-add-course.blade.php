@@ -31,11 +31,10 @@
     </div>
     <div class="form-group">
         <label for="category">Category</label>
-        <select name="category" id="category" required>
-            <option value="development">Development</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
-            <option value="business">Business</option>
+        <select name="category_id" id="category" required>
+        @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{$category->name}}</option>
+        @endforeach
         </select>
     </div>
     <div class="form-group">
