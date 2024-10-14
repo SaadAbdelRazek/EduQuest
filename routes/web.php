@@ -82,9 +82,9 @@ Route::get('/courses', function () {
     return view('website.courses');
 })->name('courses');
 
-// Route::get('/course_details', function () {
-//     return view('website.course_details');
-// })->name('course_details');
+Route::get('/course_details', function () {
+    return view('website.course_details');
+})->name('course_details');
 
 Route::get('/course_details/{id}', [TestController::class, 'courses_details'] )->name('course_details');
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
