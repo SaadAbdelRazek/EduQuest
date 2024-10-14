@@ -1,6 +1,123 @@
 @extends('website.layouts.app')
 @section('content')
+<style>.courses-area {
+    background-color: rgb(255, 255, 255);
+    padding: 40px 0;
+}
 
+.section-tittle h2 {
+    color: #6200EA;
+}
+
+.course-item {
+    border: 1px solid white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.properties__img.overlay1 {
+    position: relative;
+}
+
+.properties__img.overlay1 img {
+    width: 100%;
+    height: 250px;
+}
+
+.properties__img.overlay1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.properties__caption {
+    padding: 20px;
+    background-color: white;
+}
+
+.properties__caption p {
+    color: orange;
+}
+
+.properties__caption h3 a {
+    color: orange;
+}
+
+.properties__caption .description {
+    overflow-y: scroll;
+    height: 200px;
+    border: 1px solid skyblue;
+    border-bottom: 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.properties__footer {
+    margin-top: 20px;
+}
+
+.properties__footer .rating {
+    color: orange;
+}
+
+.properties__footer .price {
+    color: #6200EA;
+}
+
+.border-btn2 {
+    display: inline-block;
+    background-color: skyblue;
+    color: orange;
+    border: 2px solid orange;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0s, color 0s;
+}
+
+.border-btn2:hover {
+    background-color: orange;
+    color: white;
+    transform: scale(1.05);
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.col-xl-7, .col-lg-8 {
+    max-width: 100%;
+    padding: 0 15px;
+}
+
+.section-tittle {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.section-tittle a {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid skyblue;
+    color: white;
+    background-color: skyblue;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0s, color 0s;
+}
+
+.section-tittle a:hover {
+    background-color: orange;
+    color: white;
+    border: 2px solid orange;
+}</style>
     <main>
         <!--? slider Area Start-->
         <section class="slider-area slider-area2">
@@ -39,39 +156,94 @@
         </div>
 
         <!-- Courses List -->
-        <div class="row" id="course-list">
-            @foreach ($all_courses as $index => $course )
-            <div class="col-lg-4 course-item" @if($index >= 6) style="display: none;" @endif>
-                <div class="properties properties2 mb-30">
-                    <div class="properties__card">
-                        <div class="properties__img overlay1">
-                            <a href="#"><img src="{{asset('storage/'. $course->image)}}" alt=""></a>
+        <div class="container">
+            <div class="row" id="course-list">
+                @foreach ($all_courses as $index => $course)
+                @if($course->is_accepted==1 && $course->is_deleted==0)
+                <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
+                    <div class="course-card">
+                        <div class="course-image">
+                            <a href="{{ route('course_details', $course->id) }}">
+                                <img src="{{ asset('storage/'. $course->image) }}" alt="{{ $course->title }}" class="img-fluid">
+                            </a>
+
                         </div>
-                        <div class="properties__caption">
-                            <p>{{$course->category}}</p>
-                            <h3><a href="{{route('course_details', $course->id)}}">{{$course->title}}</a></h3>
-                            <p style="overflow-y: scroll; height:200px; border:1px solid rgb(209, 209, 209);border-bottom:0; padding:10px; border-radius:5px;">{{$course->description}}</p>
-                            <div class="properties__footer d-flex justify-content-between align-items-center">
-                                <div class="restaurant-name">
-                                    <div class="rating">
+                        <div class="course-info p-3">
+                            <h5 class="course-title">
+                                <a href="{{ route('course_details', $course->id) }}" class="text-dark">{{ $course->title }}</a>
+                            </h5>
+                            <p class="course-instructor">{{ $instructor->name ?? 'Unknown Instructor' }}</p>
+                            <div class="course-rating d-flex align-items-center">
+                                <div class="rating-stars">
+                                    <!-- هنا ستبقى كود التقييم الخاص بك -->
+                                    @switch($course->reviews_avg_rating)
+                                        @case(0.5)
+                                        <i class="fas fa-star-half"></i>
+                                        @break
+                                        @case(1)
+                                        <i class="fas fa-star"></i>
+                                        @break
+                                        @case(1.5)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half"></i>
+                                        @break
+                                        @case(2)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        @break
+                                        @case(2.5)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half"></i>
+                                        @break
+                                        @case(3)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        @break
+                                        @case(3.5)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half"></i>
+                                        @break
+                                        @case(4)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        @break
+                                        @case(4.5)
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star-half"></i>
-                                    </div>
-                                    <p><span>(4.5)</span> based on 120</p>
+                                        @break
+                                        @case(5)
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        @break
+                                        @default
+                                        <i class="fas fa-star"></i>
+                                    @endswitch
                                 </div>
-                                <div class="price">
-                                    <span>{{$course->price}} EGP</span>
-                                </div>
+                                <span class="ml-2">({{ $course->reviews_avg_rating ?? 'No Ratings' }})</span>
                             </div>
-                            <a href="{{route('course_details',$course->id)}}" class="border-btn border-btn2">View</a>
+                            <div class="course-price mt-2">
+                                <span>{{ $course->price }} EGP</span>
+                            </div>
+                            <a href="{{ route('course_details', $course->id) }}" class="btn btn-primary mt-3 w-100">View Course</a>
                         </div>
                     </div>
                 </div>
+                @endif
+                @endforeach
             </div>
-            @endforeach
+
         </div>
 
         <!-- Load More Button -->

@@ -10,6 +10,7 @@ class ContactController extends Controller
     // Store the submitted contact message
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',

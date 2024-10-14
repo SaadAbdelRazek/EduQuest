@@ -23,6 +23,9 @@ class isInstructor
 
             return $next($request);
         }
+        elseif($user->is_instructor == 0){
+            return $next($request);
+        }
         else
         return redirect()->back();
 

@@ -14,30 +14,33 @@
                 <tr>
                     <th>Date</th>
                     <th>Activity</th>
+                    <th>User Id</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>2024-09-25</td>
-                    <td>New course added</td>
-                    <td><span class="status success">Completed</span></td>
-                </tr>
-                <tr>
-                    <td>2024-09-24</td>
-                    <td>Instructor profile updated</td>
-                    <td><span class="status warning">Pending</span></td>
-                </tr>
-                <tr>
-                    <td>2024-09-23</td>
-                    <td>Student registered</td>
-                    <td><span class="status success">Completed</span></td>
-                </tr>
-                <tr>
-                    <td>2024-09-22</td>
-                    <td>Report generated</td>
-                    <td><span class="status error">Failed</span></td>
-                </tr>
+                    @foreach($activities as $activity)
+            <tr>
+                <td>{{ $activity->created_at }}</td>
+                <td>{{ $activity->description }}</td>
+                <td>{{ $activity->user->id }}</td>
+                @if ($activity->status=='Completed')
+
+                <td><span class="status success">{{ $activity->status }}</span></td>
+                @elseif ($activity->status=='Failed')
+                <td><span class="status" style="background-color: rgb(238, 43, 43); color:white;">{{ $activity->status }}</span></td>
+                @endif
+                <td><form action="{{ route('delete_activity',$activity->id) }}" onsubmit="return confirmDelete()"
+                    method="POST" >
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">remove</button>
+                </form></td>
+                {{-- <td><a href="{{route('delete_activity',$activity->id)}}" class="btn btn-danger">remove</a></td> --}}
+            </tr>
+        @endforeach
+
                 </tbody>
             </table>
 @endsection

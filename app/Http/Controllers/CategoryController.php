@@ -23,18 +23,18 @@ class CategoryController extends Controller
     }
     public function index_category()
     {
-        return view('admin/admin-addcategory');
+        return view('admin.admin-addcategory');
     }
     public function categories_table()
     {
         $categories = Category::all();
-        return view('admin/admin-categories', compact('categories'));
+        return view('admin.admin-categories', compact('categories'));
     }
     public function create_category(Request $request){
         $request->validate([
             'name' => 'required|max:255|string|min:5',
             'description' => 'required|max:255|string|min:5',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:4096',
         ]);
         $categories = Category::all();
         $imageName = time().'.'.$request->image->extension();
@@ -46,7 +46,7 @@ class CategoryController extends Controller
         $category->description=$description;
         $category->image=$imageName;
         $category->save();
-        return redirect()->route('categories',compact('categories'));
+        return redirect()->back()->with('success','successfully added');
     }
     public function edit_category($id)
     {

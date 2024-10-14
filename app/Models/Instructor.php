@@ -10,6 +10,7 @@ class Instructor extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'phone',
         'specialization',
         'academic_degree',
@@ -22,6 +23,11 @@ class Instructor extends Model
     public function user(){
 
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'instructor_id');
     }
 
     public function courses()

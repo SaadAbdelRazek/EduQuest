@@ -32,7 +32,10 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'is_instructor',
         'profile_photo_path',
+        'phone',
+        'address',
     ];
 
     /**
@@ -64,6 +67,17 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    // public function courses()
+    // {
+    //     // return $this->hasMany(Course::class, 'user_id');
+    //     return $this->hasManyThrough(Course::class, Instructor::class, 'user_id', 'user_id');
+    // }
+
+    // public function instructors()
+    // {
+    //     return $this->hasOne(Instructor::class, 'user_id');
+    // }
+
     public function courses()
     {
         return $this->hasMany(Course::class, 'user_id');
@@ -73,6 +87,16 @@ class User extends Authenticatable
     {
         return $this->hasOne(Instructor::class, 'user_id');
     }
+
+    public function reviews()
+    {
+        // return $this->hasMany(Review::class, 'user_id');
+        return $this->hasMany(Review::class, 'user_id', 'id');
+    }
+
+
+
+
     public function enrolledCourses()
     {
         return $this->belongsToMany(Course::class, 'course_enrollments')

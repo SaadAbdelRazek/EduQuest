@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
     ];
 
     /**
@@ -36,6 +37,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'last_seen' => \App\Http\Middleware\last_seen::class,
+            \App\Http\Middleware\UserActivity::class,
         ],
 
         'api' => [
@@ -67,5 +70,12 @@ class Kernel extends HttpKernel
         'isInstructor' => \App\Http\Middleware\isInstructor::class,
         'isStudent' => \App\Http\Middleware\isStudent::class,
         'checkCourseSubscribe' => \App\Http\Middleware\checkCourseSubscribe::class,
+
+        'check.enrollment' => \App\Http\Middleware\CheckCourseEnrollment::class,
+        'check.quiz.enrollment' => \App\Http\Middleware\CheckQuiz::class,
+        'check.user.auth' => \App\Http\Middleware\CheckUserAuth::class,
+        'check.user.certificate' => \App\Http\Middleware\CheckCertificated::class,
+        'check.payment' => \App\Http\Middleware\GoToCheckout::class,
+        'check.accepted' => \App\Http\Middleware\IsAccepted::class,
     ];
 }

@@ -8,6 +8,13 @@ use App\Models\User;
 
 class SettingController extends Controller
 {
+
+    public function __construct()
+    {
+        // تطبيق middleware على جميع الدوال باستثناء index و show
+        $this->middleware(['auth','Admin'])->except('settingshow');
+    }
+
     public function index()
     {
         $settings = Setting::all();

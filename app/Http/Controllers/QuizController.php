@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizHistory;
 use App\Models\UserAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ class QuizController extends Controller
         $quiz = Quiz::create([
             'course_id' => $request->course_id,
             'section_no'=> $request->section_no,
+            'title' =>$request->title,
         ]);
 
         // Loop through the questions and store each one
@@ -197,6 +199,12 @@ class QuizController extends Controller
         // Return the result to the user
         $quizUser=Auth::user();
         $incorrect=$totalQuestions-$score;
+
+        QuizHistory::create([
+            'quiz_id' => $quiz_id,
+            'user_id' => Auth::id(),
+            'percentage' => $resultPercentage,
+        ]);
         return view('website.quiz-result', [
             'quiz' => $quiz,
             'score' => $score,

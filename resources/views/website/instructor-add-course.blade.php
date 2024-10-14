@@ -1,23 +1,26 @@
 @extends('website.layouts.instructor-dash')
-@section('courses')
+@section('add-course')
     active
 @endsection
 @section('content')
 <!-- Main Content -->
 {{--<div class="main-content">--}}
+<br>
+
+<br>
+<div class="container" style="width: 70%; margin-left: 300px">
     <center>
         <header>
             <h1>Add New Course</h1>
         </header>
     </center>
-
-<div class="container" style="width: 70%; margin-left: 300px">
 <form id="addCourseForm" action="{{ route('courses.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- Course Details -->
     <div class="form-group">
         <label for="title">Course Title</label>
         <input type="text" name="title" id="title" required>
+
     </div>
     <div class="form-group">
         <label for="description">Course Description</label>
@@ -84,4 +87,5 @@
         }
     });
 </script>
+<br><br>
 @endsection

@@ -16,12 +16,14 @@
         <li><a href="{{route('instructor-dashboard')}}" class="@yield('dashboard')">Dashboard</a></li>
         <li><a href="{{route('instructor-courses')}}" class="@yield('courses')">My Courses</a></li>
         <li><a href="{{route('instructor_add_course')}}" class="@yield('add-course')">Add Course</a></li>
-        <li><a href="#">Students</a></li>
+        <li><a href="{{route('instructor-students')}}" class="@yield('students')">Students</a></li>
         <li><a href="{{route('myProfile')}}">Return to website</a></li>
     </ul>
 </div>
 
 @yield('content')
 
+
+@yield('custom-js')
 </body>
 </html>

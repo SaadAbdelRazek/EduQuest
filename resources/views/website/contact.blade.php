@@ -60,6 +60,26 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if (Auth::user())
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name" value="{{ $user_data->name }}" readonly hidden>
+                                        @if ($errors->has('name'))
+                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" name="email" id="email" type="email" placeholder="Email" value="{{ $user_data->email }}" readonly hidden>
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                @else
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name" value="{{ old('name') }}">
@@ -76,6 +96,8 @@
                                         @endif
                                     </div>
                                 </div>
+
+                                @endif
                                 <div class="col-12">
                                     <div class="form-group">
                                         <input class="form-control" name="subject" id="subject" type="text" placeholder="Enter Subject" value="{{ old('subject') }}">

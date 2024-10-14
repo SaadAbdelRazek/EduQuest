@@ -10,8 +10,6 @@
         // Define the variable to hide the div in the layout
         $hideSpecialDiv = true;
     @endphp
-    <div class="container">
-        <h1 class="table-title">FAQs Management</h1>
 
         <!-- Create Button -->
         <div class="button-container">

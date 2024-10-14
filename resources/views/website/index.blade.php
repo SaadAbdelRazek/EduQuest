@@ -14,7 +14,15 @@
                                 <div class="hero__caption">
                                     <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
                                     <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses, certificates, and degrees online from world-class universities and companies</p>
+                                    @if (Auth::user())
+
+                                    <a href="#courses" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Browse</a>
+                                    @else
                                     <a href="{{route('register')}}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
+
+                                    @endif
+
+
                                 </div>
                             </div>
                         </div>
@@ -72,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="courses-actives">
+                <div class="courses-actives" id="courses">
                     <!-- Single -->
                     @foreach ($home_courses as $courses )
                     <div class="properties pb-20">
@@ -227,6 +235,8 @@
                             </div>
                         </div>
                 </section>
+            </div>
+            </div>
                 <!-- Services End -->
                 <!--? About Area-2 Start -->
 

@@ -28,6 +28,9 @@ return [
     |
     */
 
+    'max_file_size' => 500000, // على سبيل المثال 50MB
+
+
     'disks' => [
 
         'local' => [
