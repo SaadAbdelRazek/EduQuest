@@ -185,13 +185,6 @@
                 @else
             <div class="quiz-list">
                 @foreach($courseDeclines as $decline)
-                    <div class="quiz-item" id="notification" style="display: none;">
-                        <p><strong>Course:</strong>
-                            {{$decline->course->title}}
-                        </p>
-                        <p><strong>Reason:</strong> {{ $decline->decline_reason }}</p>
-                        <a href="{{route('courses.edit',$decline->course->id)}}" class="btn-view">Edit</a>
-                    </div>
                         <div class="quiz-item">
                             <p><strong>Course:</strong>
                                 {{$decline->course->title}}

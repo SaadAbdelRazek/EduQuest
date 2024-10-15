@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdVideoController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDeclineController;
@@ -15,9 +17,11 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityController;
-
+use App\Models\AdVideo;
+use App\Models\Developer;
 
 use App\Http\Controllers\CategoryController;
 
@@ -35,7 +39,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('website.index');
+    $adVideo = AdVideo::all();
+    $developers = Developer::all();
+    return view('website.index',compact('adVideo','developers'));
 })->name('home');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -242,6 +248,14 @@ Route::delete('/delete-courses/{id}', [CourseController::class, 'deleteCourse'])
 Route::delete('/delete-courses-from-website/{id}', [CourseController::class, 'deleteCourseFromWebsite'])->name('course.website.delete');
 
 
+Route::get('/about', [AboutController::class, 'about'])->name('about');
+Route::get('/developer/craete',[AboutController::class,'create'])->name('developer.create');
+Route::post('/developer/store',[AboutController::class,"store"])->name('developer.store');
+Route::get('/about/edit/{id}', [AboutController::class, 'edit'])->name('developer.edit');
+Route::put('/about/update/{id}',[AboutController::class,"update"])->name('developer.update');
+Route::delete('/developer/{developer}',[AboutController::class,"destroy"])->name('developer.destroy');
+
+
 //Route::get('/admin/faqs', function () {
 //    return view('admin.faqs');
 //})->name('admin-faqs');
@@ -270,7 +284,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
@@ -301,6 +315,12 @@ Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact
 
 Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
 Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
+
+Route::get('/admin-developers', [DeveloperController::class, 'index'] )->name('show.developers');
+Route::get('/admin-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
+Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
+Route::get('/about/editVideo', [AdVideoController::class, 'edit'])->name('video.edit');
+Route::put('/about/update',[AdVideoController::class,"update"])->name('video.update');
 
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');

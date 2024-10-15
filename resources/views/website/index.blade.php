@@ -1,5 +1,7 @@
 @extends('website.layouts.app')
 @section('content')
+
+
     <main>
         <!--? slider Area Start-->
         <section class="slider-area ">
@@ -14,11 +16,13 @@
                                     <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses, certificates, and degrees online from world-class universities and companies</p>
                                     @if (Auth::user())
 
-                                    <a href="#courses" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Browse</a>
-                                    @else
-                                    <a href="{{route('register')}}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
+                                <a href="#courses" class="btn hero-btn" data-animation="fadeInLeft"
+                                    data-delay="0.7s">Browse</a>
+                                @else
+                                <a href="{{route('register')}}" class="btn hero-btn" data-animation="fadeInLeft"
+                                    data-delay="0.7s">Join for Free</a>
 
-                                    @endif
+                                @endif
 
 
                                 </div>
@@ -114,70 +118,81 @@
                                 </div>
                                 <a href="{{route('courses')}}" class="border-btn border-btn2">View</a>
                             </div>
-
-                        </div>
-                    </div>
+                            </div>
                         @endif
                         @php
                         $courseCount++;
                         @endphp
-                    @endforeach
-
-                    <!-- Single -->
-
-                </div>
-                <div class="view-more-container text-center">
-                    <a href="#categories" class="view-more-btn">View More</a>
+                        @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Courses area End -->
-        <!--? About Area-1 Start -->
-        <section class="about-area1 fix pt-10">
-            <div class="support-wrapper align-items-center">
-                <div class="left-content1">
-                    <div class="about-icon">
-                        <img src="{{asset('img/icon/about.svg')}}" alt="">
-                    </div>
-                    <!-- section tittle -->
-                    <div class="section-tittle section-tittle2 mb-55">
-                        <div class="front-text">
-                            <h2 class="">Learn new skills online with top educators</h2>
-                            <p>The automated process all your website tasks. Discover tools and
-                                techniques to engage effectively with vulnerable children and young
-                                people.</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="{{asset('img/icon/right-icon.svg')}}" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="{{asset('img/icon/right-icon.svg')}}" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Join millions of people from around the world  learning together.</p>
-                        </div>
-                    </div>
+    </section>
+    <!-- ? services-area -->
+    <div class="services-area">
+        <div class="container">
+            <div class="row justify-content-sm-center">
 
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="{{asset('img/icon/right-icon.svg')}}" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Join millions of people from around the world learning together. Online learning is as easy and natural.</p>
-                        </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Courses area End -->
+    <!--? About Area-1 Start -->
+    <section class="about-area1 fix pt-10">
+        <div class="support-wrapper align-items-center">
+            <div class="left-content1">
+                <div class="about-icon">
+                    <img src="{{asset('img/icon/about.svg')}}" alt="">
+                </div>
+                <!-- section tittle -->
+                <div class="section-tittle section-tittle2 mb-55">
+                    <div class="front-text">
+                        <h2 class="">Learn new skills online with top educators</h2>
+                        <p>The automated process all your website tasks. Discover tools and
+                            techniques to engage effectively with vulnerable children and young
+                            people.</p>
                     </div>
                 </div>
-                <div class="right-content1">
-                    <!-- img -->
-                    <div class="right-img">
-                        <img src="{{asset('img/gallery/about.png')}}" alt="">
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img src="{{asset('img/icon/right-icon.svg')}}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Techniques to engage effectively with vulnerable children and young people.</p>
+                    </div>
+                </div>
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img src="{{asset('img/icon/right-icon.svg')}}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Join millions of people from around the world learning together.</p>
+                    </div>
+                </div>
+
+                <div class="single-features">
+                    <div class="features-icon">
+                        <img src="{{asset('img/icon/right-icon.svg')}}" alt="">
+                    </div>
+                    <div class="features-caption">
+                        <p>Join millions of people from around the world learning together. Online learning is as easy
+                            and natural.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-content1 ">
+                <!-- img -->
+                <div class="right-img">
+                    @foreach ($adVideo as $adVideo)
+                        <video width="700" controls>
+                            <source src="{{ asset($adVideo->video) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    @endforeach
 
                         <div class="video-icon" >
                             <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i class="fas fa-play"></i></a>
@@ -230,37 +245,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- top subjects End -->
 
-                <!--? Team -->
-                <section class="team-area section-padding40 fix">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-7 col-lg-8">
-                                <div class="section-tittle text-center mb-55">
-                                    <h2>Community experts</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="team-active">
-                            <div class="single-cat text-center">
-                                <div class="cat-icon">
-                                    <img src="{{asset('img/gallery/team1.png')}}" alt="">
-                                </div>
-                                <div class="cat-cap">
-                                    <h5><a href="{{route('contact')}}">Mr. Urela</a></h5>
-                                    <p>The automated process all your website tasks.</p>
-                                </div>
-
-                            </div>
-                        </div>
-                </section>
+                </div>
             </div>
-            </div>
-                <!-- Services End -->
-                <!--? About Area-2 Start -->
-
-                <!-- About Area End -->
+        </div>
+    </section>
     </main>
 
 
