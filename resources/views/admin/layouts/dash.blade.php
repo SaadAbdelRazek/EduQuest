@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
@@ -26,18 +28,23 @@
                             Courses</a></li>
                     <li><a href="{{ route('users.index') }}" class="@yield('users')"><i class="fas fa-users"></i>
                             Users</a></li>
+                    <li><a href="{{route('show.developers')}}" class="@yield('Developers')"><i class="fas fa-users"></i>
+                            Developers</a></li>
+                    <li><a href="{{route('adVideo-controll')}}" class="@yield('adVideo')"><i class="fas fa-users"></i>
+                            Ad Vedio</a></li>
                     <li><a href="{{ route('categories_table') }}" class="@yield('categories')"><i
                                 class="fas fa-user-tie"></i> Categories</a></li>
                     <li><a href="{{ route('faqs.index') }}" class="@yield('faqs')"><i class="fas fa-user-tie"></i>
                             FAQs</a></li>
                     <li><a href="{{ route('settings.index') }}" class="@yield('settings')"><i
                                 class="fas fa-user-tie"></i> Settings</a></li>
-                    {{-- <li><a href="/contacts" class="@yield('contacts')"><i class="fas fa-user-tie"></i> Contacts</a></li> --}}
+                    {{-- <li><a href="/contacts" class="@yield('contacts')"><i class="fas fa-user-tie"></i> Contacts</a>
+                    </li> --}}
 
                     <li><a href="{{ route('instructor-questions.index') }}" class="@yield('instructor-questions')"><i
                                 class="fas fa-user-tie"></i> Instructor Questions</a></li>
                     {{-- <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> --}}
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> --}}
                 </ul>
             </div>
 
@@ -52,112 +59,112 @@
                     </div>
                 </div>
                 @if (!isset($hideSpecialDiv) || !$hideSpecialDiv)
-                    <!-- Dashboard Overview -->
-                    <div class="dashboard-overview">
-                        <div class="overview-box purple">
-                            <h3>Categories</h3>
-                            <p>{{$categories_count}}</p>
-                        </div>
-                        <div class="overview-box purple">
-                            <h3>Courses</h3>
-                            <p>{{$courses_count}}</p>
-                        </div>
-                        <div class="overview-box orange">
-                            <h3>Students</h3>
-                            <p>{{ $users->where('is_instructor', 0)->count() }}</p>
-                        </div>
-                        <div class="overview-box skyblue">
-                            <h3>Instructors</h3>
-                            <p>{{ $users->where('is_instructor', 1)->count() }}</p>
-                        </div>
-
-                        <div class="overview-box purple">
-                            <h3>Enrollments</h3>
-                            <p>{{$enrollments_count}}</p>
-                        </div>
-                        <div class="overview-box purple">
-                            <h3>feedbacks</h3>
-                            <p>{{$feedbacks_count}}</p>
-                        </div>
-
+                <!-- Dashboard Overview -->
+                <div class="dashboard-overview">
+                    <div class="overview-box purple">
+                        <h3>Categories</h3>
+                        <p>{{$categories_count}}</p>
+                    </div>
+                    <div class="overview-box purple">
+                        <h3>Courses</h3>
+                        <p>{{$courses_count}}</p>
+                    </div>
+                    <div class="overview-box orange">
+                        <h3>Students</h3>
+                        <p>{{ $users->where('is_instructor', 0)->count() }}</p>
+                    </div>
+                    <div class="overview-box skyblue">
+                        <h3>Instructors</h3>
+                        <p>{{ $users->where('is_instructor', 1)->count() }}</p>
                     </div>
 
+                    <div class="overview-box purple">
+                        <h3>Enrollments</h3>
+                        <p>{{$enrollments_count}}</p>
+                    </div>
+                    <div class="overview-box purple">
+                        <h3>feedbacks</h3>
+                        <p>{{$feedbacks_count}}</p>
+                    </div>
+
+                </div>
 
 
 
-                    <style>
-                        /* تنسيق العنوان */
-                        h2 {
-                            text-align: center;
-                            margin-bottom: 20px;
-                        }
 
-                        /* الحاوية الرئيسية التي تضم الأعمدة */
-                        .chart-container {
-                            display: flex;
-                            justify-content: space-around;
-                            align-items: flex-end;
-                            width: 100%;
-                            height: 400px;
-                            background-color: #fff;
-                            padding: 20px;
-                            border: 1px solid #ccc;
-                            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                        }
+                <style>
+                    /* تنسيق العنوان */
+                    h2 {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
 
-                        /* الأعمدة التي تمثل كل يوم */
-                        .bar {
-                            width: 18%;
-                            background-color: #4d119b;
-                            text-align: center;
-                            color: white;
-                            display: flex;
-                            justify-content: center;
-                            align-items: flex-end;
-                            border-radius: 5px 5px 0 0;
-                        }
+                    /* الحاوية الرئيسية التي تضم الأعمدة */
+                    .chart-container {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: flex-end;
+                        width: 100%;
+                        height: 400px;
+                        background-color: #fff;
+                        padding: 20px;
+                        border: 1px solid #ccc;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                    }
 
-                        /* النصوص الموجودة أسفل الأعمدة */
-                        .bar-label {
-                            text-align: center;
-                            margin-top: 50px;
-                        }
+                    /* الأعمدة التي تمثل كل يوم */
+                    .bar {
+                        width: 18%;
+                        background-color: #4d119b;
+                        text-align: center;
+                        color: white;
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        border-radius: 5px 5px 0 0;
+                    }
 
-                        .bar:hover {
-                            background-color: #6e1adc;
-                        }
+                    /* النصوص الموجودة أسفل الأعمدة */
+                    .bar-label {
+                        text-align: center;
+                        margin-top: 50px;
+                    }
+
+                    .bar:hover {
+                        background-color: #6e1adc;
+                    }
 
 
 
-                        /* تغيير ارتفاع الأعمدة بناءً على عدد المستخدمين (التمثيل يدوي هنا) */
-                    </style>
-                    <div class="container">
-                        <h2>Login Statistics - Last 5 Days</h2>
+                    /* تغيير ارتفاع الأعمدة بناءً على عدد المستخدمين (التمثيل يدوي هنا) */
+                </style>
+                <div class="container">
+                    <h2>Login Statistics - Last 5 Days</h2>
 
-                        <!-- المخطط الذي يحتوي على الأعمدة -->
+                    <!-- المخطط الذي يحتوي على الأعمدة -->
+                    <div class="chart-container">
+                        @foreach ($userCounts as $date => $count)
+                        <div class="bar" style="height: {{ $count > 0 ? $count * 20 : 20 }}px;">
+
+                            <span class="bar-label">{{ $date }}... </span>
+                            <span class="bar-label" style="color: orange"> {{ $count }} user</span>
+                        </div>
+                        @endforeach
+
+                    </div>
+                    <div class="charts">
                         <div class="chart-container">
-                            @foreach ($userCounts as $date => $count)
-                                <div class="bar" style="height: {{ $count > 0 ? $count * 20 : 20 }}px;">
-
-                                    <span class="bar-label">{{ $date }}... </span>
-                                    <span class="bar-label" style="color: orange"> {{ $count }} user</span>
-                                </div>
-                            @endforeach
-
+                            <canvas id="studentPerformanceChart"></canvas>
+                            <h2>Student Performance</h2>
                         </div>
-                        <div class="charts">
-                            <div class="chart-container">
-                                <canvas id="studentPerformanceChart"></canvas>
-                                <h2>Student Performance</h2>
-                            </div>
-                            <div class="chart-container">
-                                <canvas id="courseCompletionChart"></canvas>
-                                <h2>Course Completion Rate</h2>
-                            </div>
+                        <div class="chart-container">
+                            <canvas id="courseCompletionChart"></canvas>
+                            <h2>Course Completion Rate</h2>
                         </div>
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                        <script>
-                            const ctx2 = document.getElementById('courseCompletionChart').getContext('2d');
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        const ctx2 = document.getElementById('courseCompletionChart').getContext('2d');
                             const courseCompletionChart = new Chart(ctx2, {
                                 type: 'pie',
                                 data: {
@@ -199,60 +206,60 @@
                                     }
                                 }
                             });
-                        </script>
-                        @endif
-                        <div class="recent-activity">
-                            <h2>@yield('activity-title')</h2>
-                            @yield('content')
-                        </div>
+                    </script>
+                    @endif
+                    <div class="recent-activity">
+                        <h2>@yield('activity-title')</h2>
+                        @yield('content')
+                    </div>
+                </div>
+
+
             </div>
 
+            <!-- Main Content -->
 
-        </div>
 
-        <!-- Main Content -->
-        
-
-        <style>
-            .charts {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                gap: 20px;
-                margin: 40px 0;
-            }
-
-            .chart-container {
-                flex: 1;
-                background-color: #f9f9f9;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
-
-            .chart-container canvas {
-                width: 100%;
-                max-width: 500px;
-                height: 300px;
-                margin-bottom: 15px;
-                /* مسافة بين الرسم والنص */
-            }
-
-            .chart-container h4 {
-                font-size: 18px;
-                font-weight: bold;
-                margin: 0;
-                color: #333;
-            }
-
-            @media (max-width: 768px) {
+            <style>
                 .charts {
-                    flex-direction: column;
-                    gap: 30px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-start;
+                    gap: 20px;
+                    margin: 40px 0;
                 }
-            }
-        </style>
+
+                .chart-container {
+                    flex: 1;
+                    background-color: #f9f9f9;
+                    padding: 20px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    text-align: center;
+                }
+
+                .chart-container canvas {
+                    width: 100%;
+                    max-width: 500px;
+                    height: 300px;
+                    margin-bottom: 15px;
+                    /* مسافة بين الرسم والنص */
+                }
+
+                .chart-container h4 {
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin: 0;
+                    color: #333;
+                }
+
+                @media (max-width: 768px) {
+                    .charts {
+                        flex-direction: column;
+                        gap: 30px;
+                    }
+                }
+            </style>
 
 
 
