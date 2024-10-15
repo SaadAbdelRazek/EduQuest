@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/reviews.css">
 @extends('website.layouts.app')
 @section('content')
@@ -433,7 +434,7 @@
     <!-- Main Video Area -->
     <div class="video-container">
         <!-- Video Player -->
-        <video id="course-video" controls>
+        <video id="course-video" controls preload="auto">
             <source id="video-source" data-id="{{ $firstVideo->id }}" src="{{ asset('storage/' . $firstVideo->path) }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -500,7 +501,7 @@
                 <h3>No reviews available</h3>
             @else
                 @foreach ($course->reviews as $review)
-                    <div class="comment" style="position: relative;">
+                    <div id="review-{{ $review->id }}" class="comment" style="position: relative;">
                         <p style="float:right; cursor: pointer; display: inline;"
                             onclick="toggleEditDeleteForm({{ $review->id }})">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -515,7 +516,9 @@
         @endif
 
         <div class="review-details">
-            <p class="user-name">{{ $review->user->name }}</p>
+            <p class="user-name">
+                {{ $review->user->name }}
+            </p>
             <div class="stars">
                 @for ($i = 1; $i <= 5; $i++)
                     @if ($i <= floor($review->rate))
@@ -527,7 +530,9 @@
                     @endif
                 @endfor
             </div>
-            <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
+            <span class="review_date">
+                {{ $review->created_at->diffForHumans() }}
+            </span>
         </div>
     @else
         <!-- Default user image and unknown name if no user is associated with the review -->
@@ -551,7 +556,7 @@
 
                         </div>
 
-                        <div id="review-content-{{ $review->id }}" >
+                        <div class="review-content-{{ $review->id }}" >
                             <p >{{ $review->comment }}</p>
                         </div>
 
@@ -559,12 +564,10 @@
                             @if ($review->user_id == Auth::user()->id)
                                 <div id="edit-delete-form-{{ $review->id }}"
                                     style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
-                                    <form action="{{ route('delete_review', $review->id) }}" method="POST"
-                                        onsubmit="return confirmDelete()">
+                                    <form action="{{ route('delete_review', $review->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button
-                                            style="color: red; background-color: unset; border: none; cursor: pointer;">Delete</button>
+                                        <button style="color: red; background-color: unset; border: none; cursor: pointer;" onclick="deleteReview({{ $review->id }})">Delete</button>
                                     </form>
                                     <button style="background-color: unset; border: none; cursor: pointer; color: blue;"
                                         onclick="editReview({{ $review->id }})">Edit</button>
@@ -587,15 +590,16 @@
             @endif
         </div>
     </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             function toggleEditDeleteForm(reviewId) {
                 const form = document.getElementById(`edit-delete-form-${reviewId}`);
                 form.style.display = form.style.display === 'none' ? 'block' : 'none';
             }
 
-            function confirmDelete() {
-                return confirm('Are you sure you want to delete this review?');
-            }
+            // function confirmDelete() {
+            //     return confirm('Are you sure you want to delete this review?');
+            // }
 
             function editReview(reviewId) {
                 document.getElementById(`review-content-${reviewId}`).style.display = 'none';
@@ -621,14 +625,9 @@
             });
         </script>
 
-        <script>
-            function confirmDelete() {
-                return confirm('Are you sure you want to remove the comment?');
-            }
-        </script>
 
 
-        
+
     </div>
 
     <div class="sidebar">
@@ -670,7 +669,7 @@
 
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     // script.js
@@ -761,6 +760,139 @@
 
 
 
+
+</script>
+{{----------------------------submit no refresh------------------------------------------}}
+<script>
+    function generateStars(rate) {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= Math.floor(rate)) {
+                stars += '<i class="fas fa-star"></i>';
+            } else if (i === Math.ceil(rate) && (rate % 1) === 0.5) {
+                stars += '<i class="fas fa-star-half-alt"></i>';
+            } else {
+                stars += '<i class="far fa-star"></i>';
+            }
+        }
+        return stars;
+    }
+
+    $(document).ready(function() {
+        // Handle review submission
+        $('.review-form').on('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            let formData = $(this).serialize(); // Serialize the form data
+            let actionUrl = $(this).attr('action'); // Get the form action URL
+
+            $.ajax({
+                type: 'POST',
+                url: actionUrl,
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        // Add the new review to the comment list dynamically
+                        $('.comment-list').prepend(`
+                        <div class="comment">
+                            <div class="review-header">
+                                <!-- Display user profile photo -->
+                                <img src="${response.review.user_image}" alt="User Image" class="user-image" />
+
+                                <div class="review-details">
+                                    <p class="user-name">${response.review.user}</p>
+                                    <div class="stars">${generateStars(response.review.rate)}</div>
+                                    <span class="review_date">${response.review.created_at}</span>
+                                </div>
+
+                                <!-- Three-dot menu for edit and delete -->
+                                <p class="options" style="float:right; cursor: pointer; display: inline;" onclick="toggleEditDeleteForm(${response.review.id})">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </p>
+                                <div id="edit-delete-form-${response.review.id}" style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
+                                    <form action="/delete-review/${response.review.id}" method="POST" onsubmit="return deleteReview()">
+                                        @csrf
+                        @method('DELETE')
+                        <button style="color: red; background-color: unset; border: none; cursor: pointer;">Delete</button>
+                    </form>
+                    <button style="background-color: unset; border: none; cursor: pointer; color: blue;" onclick="editReview(${response.review.id})">Edit</button>
+                                </div>
+                            </div>
+
+                            <div class="review-content">
+                                <p>${response.review.comment}</p>
+                            </div>
+                        </div>
+                    `);
+                        // Clear the form after submission
+                        $('.review-form')[0].reset();
+                    }
+                },
+                error: function() {
+                    alert('Failed to submit review.');
+                }
+            });
+        });
+    });
+
+
+    function deleteReview(reviewId) {
+        if (confirm('Are you sure you want to delete this review?')) {
+            $.ajax({
+                url: '/delete-review/' + reviewId,  // The URL to send the request
+                type: 'DELETE',
+                data: {
+                    "_token": "{{ csrf_token() }}",  // Include CSRF token for security
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Remove the review from the page
+                        $('#review-' + reviewId).remove();
+                        alert(response.message);
+                    } else {
+                        alert('Failed to delete the review.');
+                    }
+                },
+                error: function(xhr) {
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        }
+    }
+
+    function editReview(reviewId) {
+        $(`#edit-review-form-${reviewId}`).show();
+        $(`#review-content-${reviewId}`).hide();
+    }
+
+    function cancelEdit(reviewId) {
+        $(`#edit-review-form-${reviewId}`).hide();
+        $(`#review-content-${reviewId}`).show();
+    }
+
+    function confirmUpdate(reviewId) {
+        let formData = $(`#edit-review-form-${reviewId}`).find('form').serialize();
+        let actionUrl = $(`#edit-review-form-${reviewId}`).find('form').attr('action');
+
+        $.ajax({
+            type: 'PUT',
+            url: actionUrl,
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    // Update the review content dynamically
+                    $(`#review-content-${reviewId}`).html(response.review.comment);
+                    $(`#edit-review-form-${reviewId}`).hide();
+                    $(`#review-content-${reviewId}`).show();
+                }
+            },
+            error: function() {
+                alert('Failed to update review.');
+            }
+        });
+
+        return false; // Prevent form submission
+    }
 
 </script>
 

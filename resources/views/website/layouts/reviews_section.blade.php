@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/reviews.css">
 
 
@@ -17,7 +18,7 @@
     </div>
 @endif
 <h2 @yield('h_1')>Student Reviews</h2>
-<section class="student-reviews">
+<section class="student-reviews" id="student-reviews">
 
     {{-- @if (session('success'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -38,12 +39,11 @@
             <h3 @yield('h_2')>Reviews</h3>
         @else
             <h3 @yield('h_2')>Rate the Course</h3>
-            <form action="{{ route('sub_review', $course->id) }}" method="POST" class="review-form">
+            <form id="review-form" action="{{ route('sub_review', $course->id) }}" method="POST" class="review-form">
                 @csrf
                 <input type="hidden" name="instructor_id" value="{{ $instructor->id }}">
                 <div class="slider-rating">
-                    <input type="range" id="rate-slider" name="rate" min="1" max="5" step="0.5"
-                        value="3" required>
+                    <input type="range" id="rate-slider" name="rate" min="1" max="5" step="0.5" value="3" required>
                     <span id="rating-value">3</span> / 5 <span class="stars"><i class="fas fa-star"></i></span>
                 </div>
                 <textarea name="comment" placeholder="Leave a comment..." rows="4" required></textarea>
@@ -108,8 +108,8 @@
 
                     </div>
 
-                    <div id="review-content-{{ $review->id }}">
-                        <p class="comment">{{ $review->comment }}</p>
+                    <div id="review-{{ $review->id }}" class="review">
+                        <!-- review content here -->
                     </div>
 
                     @auth
@@ -143,6 +143,7 @@
             @endforeach
         @endif
     </div>
+    <div id="response-message" style="display: none;"></div>
 
     <script>
         function toggleEditDeleteForm(reviewId) {
@@ -183,4 +184,4 @@
             return confirm('Are you sure you want to remove the comment?');
         }
     </script>
-</section
+</section>

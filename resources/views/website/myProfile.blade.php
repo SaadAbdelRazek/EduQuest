@@ -36,14 +36,14 @@
                     @elseif ($user_data->is_instructor ==0)
                         <li><a href="#instructor-link">Become an Instructor</a></li>
                     @endif
-
+                <li><a href="#notification">Notifications</a></li>
             </ul>
         </div>
 
         <!-- Main Profile Content -->
         <div class="main-content">
             <!-- Personal Information Section -->
-            <div id="personal-info" class="profile-card">
+            <div class="profile-card" id="personal-info">
                 <div class="profile-photo">
                     <img src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt="Your Photo">
                 </div>
@@ -57,68 +57,127 @@
             </div>
 
             <!-- Enrolled Courses Section -->
-            <div id="enrolled-courses" class="section enrolled-courses">
+            <div id="enrolled-courses"></div><br>
+            <div class="section enrolled-courses">
                 <h3>My Enrolled Courses</h3>
                 <div class="courses-grid">
+                    @php
+                    $cardCount=0;
+                    @endphp
                     @foreach($courses as $course)
+                        @if($cardCount>2)
                             <!-- Course Card 1 -->
-                            <div class="course-card">
-                                <div class="course-image">
+                            <div class="course-card-o" style="display: none;" id="item">
+                                <div class="course-image-o">
                                     <img src="{{asset('storage/'.$course->image)}}" alt="Course Image">
                                 </div>
-                                <div class="course-content">
-                                    <h2 class="course-title">{{$course->title}}</h2>
-                                    <p class="course-instructor"><span style="color: orange">Edu</span><span style="color: #6a1b9a">Quest</span></p>
+                                <div class="course-content-o">
+                                    <h2 class="course-title-o">{{$course->title}}</h2>
+                                    <p class="course-instructor-o"><span style="color: orange">Edu</span><span style="color: #6a1b9a">Quest</span></p>
                                     <a href="{{route('course_videos',$course->id)}}" class="btn-view">View Course</a>
                                 </div>
                             </div>
-                    @endforeach
-                </div>
+                                @else
+                                    <div class="course-card-o">
 
+                                <div class="course-image-o">
+                                    <img src="{{asset('storage/'.$course->image)}}" alt="Course Image">
+                                </div>
+                                <div class="course-content-o">
+                                    <h2 class="course-title-o">{{$course->title}}</h2>
+                                    <p class="course-instructor-o"><span style="color: orange">Edu</span><span style="color: #6a1b9a">Quest</span></p>
+                                    <a href="{{route('course_videos',$course->id)}}" class="btn-view">View Course</a>
+                                </div>
+                            </div>
+                                @endif
+                                    @php
+                                    $cardCount++;
+                                    @endphp
+                    @endforeach
+                </div><br>
+                <div >
+                    @if($cardCount==4 && $totalCourses >= $cardCount)
+                        <button class="show-more-courses" id="show-more-btn">Show More <i class="fas fa-chevron-down"></i> </button>
+                    @endif
+                </div>
             </div>
 
             <!-- Latest Quiz History Section -->
-            <div id="quiz-history" class="section quiz-history">
+            <div id="quiz-history"></div><br>
+            <div class="section quiz-history">
                 <h3>My Latest Quizzes</h3>
                 <div class="quiz-list">
                     @php
                     $quizCount=0;
+                    $count=0;
                     @endphp
                     @foreach($quizHistory as $quiz )
-                    <div class="quiz-item">
+                        @if($quizCount>1)
+                    <div class="quiz-item" style="display: none;" id="quizItem">
                         <p><strong>Quiz:</strong>
-                            @for($i=1;$i<2;$i++)
-                            {{$quizzes[$quizCount]->title}}
-                            @endfor
+                            {{-- @for($i=0;$i<1;$i++) --}}
+                            {{$quizzes[$count]->title}}
+                            {{-- @endfor --}}
                         </p>
                         <p><strong>Score:</strong> {{$quiz->percentage}}%</p>
                         <p><strong>Date:</strong> {{$quiz->created_at->format('F j, Y')}}</p>
                         <div class="quiz-progress">
                             <div class="progress-bar">
-                                <div class="progress" style="width: {{$quiz->percentage}}%;"></div>
+                                <div class="progress" style="width: {{$quiz->percentage}}%"></div>
                             </div>
                         </div>
                     </div>
+                        @else
+                            <div class="quiz-item">
+                                <p><strong>Quiz:</strong>
+                                    {{-- @for($i=0;$i<1;$i++) --}}
+                                    {{$quizzes[$count]->title}}
+                                    {{-- @endfor --}}
+                                </p>
+                                <p><strong>Score:</strong> {{$quiz->percentage}}%</p>
+                                <p><strong>Date:</strong> {{$quiz->created_at->format('F j, Y')}}</p>
+                                <div class="quiz-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: {{$quiz->percentage}}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         @php
-                            $quizCount++;
+                        $quizCount++;
                         @endphp
                     @endforeach
                     <!-- Add more quiz history as needed -->
-                </div>
-            </div>
-
-            <!-- Start as Instructor Section -->
-            <div id="instructor-link" class="section instructor-link">
-                @if ($user_data->is_instructor ==1)
-                    <a href="{{route('instructor-dashboard')}}" class="instructor-button">Your Dashboard</a>
-                @else
-                    <a href="{{route('instructor-start')}}" class="instructor-button">Start as Instructor</a>
+                </div><br>
+                @if($quizCount==3 && $totalQuizzes >= $quizCount)
+                    <button class="show-more-courses" id="show-more-quizzes">Show More <i class="fas fa-chevron-down"></i> </button>
                 @endif
             </div>
 
 
 
+            <div class="cart-item1" style="height: 200px">
+                <img src="{{asset('img/instructor.jpg')}}" alt="" class="course-thumbnail1">
+                <div class="course-details1">
+                    @if ($user_data->is_instructor !=1)
+                        <h3 class="course-title1">Start as Instructor</h3>
+                        <p class="course-instructor1">Start your career as instructor in EduQuest Platform</p>
+                    @else
+                        <h3 class="course-title1">your Dashboard</h3>
+                        <p class="course-instructor1">Keep Going in your career as instructor in EduQuest Platform</p>
+                    @endif
+                </div>
+                <div class="cart-actions1">
+                    @if ($user_data->is_instructor ==1)
+                        <a href="{{route('instructor-dashboard')}}" class="instructor-button">Your Dashboard</a>
+                    @else
+                        <a href="{{route('instructor-start')}}" class="instructor-button">Start as Instructor</a>
+                    @endif
+                </div>
+            </div>
 
+
+            <div id="notification"></div>
             <div class="notifications">
                 <h3>Notifications</h3>
                 @if($courseDeclines->isEmpty())
@@ -126,19 +185,50 @@
                 @else
             <div class="quiz-list">
                 @foreach($courseDeclines as $decline)
-                    <div class="quiz-item">
+                    <div class="quiz-item" id="notification" style="display: none;">
                         <p><strong>Course:</strong>
                             {{$decline->course->title}}
                         </p>
                         <p><strong>Reason:</strong> {{ $decline->decline_reason }}</p>
                         <a href="{{route('courses.edit',$decline->course->id)}}" class="btn-view">Edit</a>
                     </div>
+                        <div class="quiz-item">
+                            <p><strong>Course:</strong>
+                                {{$decline->course->title}}
+                            </p>
+                            <p><strong>Reason:</strong> {{ $decline->decline_reason }}</p>
+                            <a href="{{route('courses.edit',$decline->course->id)}}" class="btn-view">Edit</a>
+                        </div>
                 @endforeach
             </div>
                 @endif
-
         </div>
         </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const items = document.querySelectorAll("#item");
+            const showMoreBtn = document.getElementById("show-more-btn");
+            // Add click event listener to "Show More" button
+            showMoreBtn.addEventListener("click", function () {
+                items.forEach(item => {
+                    item.style.display = "block"; // Show all items
+                });
+                showMoreBtn.style.display = "none"; // Hide the button after showing all items
+            });
+
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const quizItems = document.querySelectorAll(".quiz-item"); // Select all quiz items by class
+            const showMoreQuiz = document.getElementById("show-more-quizzes");
+            showMoreQuiz.addEventListener("click", function () {
+                quizItems.forEach(quizItem => {
+                    quizItem.style.display = "block"; // Show all items
+                });
+                showMoreQuiz.style.display = "none"; // Hide the button after showing all items
+            });
+        });
+    </script>
 @endsection

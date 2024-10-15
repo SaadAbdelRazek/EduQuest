@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDeclineController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
@@ -267,7 +270,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
@@ -298,3 +301,19 @@ Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact
 
 Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
 Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
+
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+//-----------cart-----------------
+Route::middleware('auth')->group(function () {
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/items', [CartController::class, 'getCartItems'])->name('view.cart');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart/checkout',[CartController::class, 'viewCheckout'])->name('checkout');
+});
+//--------------favourites-------------------
+Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
+Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
+Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');

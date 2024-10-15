@@ -1,7 +1,5 @@
 @extends('website.layouts.app')
 @section('content')
-
-
     <main>
         <!--? slider Area Start-->
         <section class="slider-area ">
@@ -82,7 +80,14 @@
                 </div>
                 <div class="courses-actives" id="courses">
                     <!-- Single -->
+                    @php
+                    $courseCount=0;
+                    @endphp
                     @foreach ($home_courses as $courses )
+                        @if($courseCount==3)
+                            @break;
+                        @endif
+                        @if($courses->is_accepted==1 && $courses->is_deleted==0)
                     <div class="properties pb-20">
                         <div class="properties__card">
                             <div class="properties__img overlay1">
@@ -112,12 +117,18 @@
 
                         </div>
                     </div>
+                        @endif
+                        @php
+                        $courseCount++;
+                        @endphp
                     @endforeach
 
                     <!-- Single -->
 
                 </div>
-                <a href="{{route('courses')}}" class="border-btn border-btn2">Find out more</a>
+                <div class="view-more-container text-center">
+                    <a href="#categories" class="view-more-btn">View More</a>
+                </div>
             </div>
         </div>
         <!-- Courses area End -->
@@ -177,8 +188,8 @@
         </section>
         <!-- About Area End -->
         <!--? top subjects Area Start -->
-        <div class="topic-area section-padding40">
-            <div class="container">
+        <div class="topic-area section-padding40" id="categories">
+            <div class="container" >
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
                         <div class="section-tittle text-center mb-55">
@@ -187,28 +198,37 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        {{-- @foreach($categories as $category)
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="{{ asset('public/images/' . $category->image) }}" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></h3>
+                    @php
+                        $counter = 0;
+                    @endphp
+                    @foreach($categories as $category)
+                        @if($counter == 4)
+                            @break
+                        @endif
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-topic text-center mb-30">
+                                <div class="topic-img">
+                                    <img src="{{ asset('public/images/' . $category->image) }}" alt="">
+                                    <div class="topic-content-box">
+                                        <div class="topic-content">
+                                            <h3><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></h3>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endforeach --}}
-                        <div class="row justify-content-center">
-                            <div class="col-xl-12">
-                                <div class="section-tittle text-center mt-20">
-                                    {{-- <a href="{{route('categories')}}" class="border-btn">View More Subjects</a> --}}
-                                </div>
-                            </div>
+                            @php
+                                $counter++;
+                            @endphp
+                    @endforeach
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-12">
+                        <div class="section-tittle text-center mt-20">
+                            <a href="{{route('categories')}}" class="view-more-btn">View All</a>
                         </div>
                     </div>
-
                 </div>
                 <!-- top subjects End -->
 
