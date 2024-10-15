@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use http\Client\Response;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Review;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Instructor;
@@ -20,6 +21,13 @@ use Illuminate\Http\Exceptions\PostTooLargeException;
 
 class CourseController extends Controller
 {
+
+    public function index(){
+        // $courses = Course::all();
+        $rate = Course::withAvg('reviews', 'rate')->first();
+
+        return view('website.courses',compact('rate'));
+    }
 
     public function store(Request $request)
 {
@@ -156,19 +164,20 @@ class CourseController extends Controller
 
     public function showAccepted()
     {
-        $accepted = Course::where('is_accepted', 1)->get();
+        // $accepted = Course::where('is_accepted', 1)->get();
+        $accepted = $accepted = Course::with(['instructor.user'])->where('is_accepted', 1)->get();
         return view('admin.admin-courses', ['filter' => 'accepted', 'accepted' => $accepted]);
     }
 
     public function showDeclined()
     {
-        $declined = Course::where('is_accepted', 2)->get();
+        $declined = Course::with(['instructor.user'])->where('is_accepted', 2)->get();
         return view('admin.admin-courses', ['filter' => 'declined', 'declined' => $declined]);
     }
 
     public function showPending()
     {
-        $pending = Course::where('is_accepted', 0)->get();
+        $pending = Course::with(['instructor.user'])->where('is_accepted', 0)->get();
         return view('admin.admin-courses', ['filter' => 'pending', 'pending' => $pending]);
     }
 

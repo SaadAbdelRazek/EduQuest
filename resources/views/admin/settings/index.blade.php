@@ -14,13 +14,13 @@
 <body>
 
     <!-- Main Wrapper -->
+    <div class="button-container">
+        <a href="{{ route('settings.create') }}" class="btn create-btn" ><i class="fas fa-plus"></i>Add Contact Info</a>
+    </div>
     <div id="container" class="container">
 
             <!-- Add Contact Info Button -->
             <h1 class="table-title">Contact Information</h1>
-            <div class="button-container">
-                <a href="{{ route('settings.create') }}" class="btn create-btn" ><i class="fas fa-plus"></i>Add Contact Info</a>
-            </div>
             <!-- Contact Information Management Section -->
 
                     <table class="styled-table" >
@@ -39,11 +39,11 @@
                                     <td>{{ $setting->phone }}</td>
                                     <td>{{ $setting->email }}</td>
                                     <td>
-                                        <a href="{{ route('settings.edit', $setting) }}" class="btn btn-info" style="  ">Edit</a>
+                                        <a href="{{ route('settings.edit', $setting) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="edit"><i class="fas fa-edit"></i></a>
                                         <form action="{{ route('settings.destroy', $setting) }}" method="POST" style="display:inline; ">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger" type="submit" style="">Delete</button>
+                                            <button class="btn btn-danger" type="submit" data-bs-toggle="tooltip" data-bs-placement="top" title="remove"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

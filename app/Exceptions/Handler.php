@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -13,7 +15,7 @@ class Handler extends ExceptionHandler
      * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
      */
     protected $levels = [
-        //
+        // يمكنك إضافة مستويات معينة للخطأ هنا
     ];
 
     /**
@@ -22,7 +24,7 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        // استثناءات التي لا تحتاج إلى التسجيل
     ];
 
     /**
@@ -43,8 +45,19 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        // $this->renderable(function (Throwable $e, Request $request) {
+            // إذا كان خطأ HttpException (مثل 404 أو 500)
+            // if ($e instanceof HttpException) {
+                // إذا كانت الصفحة السابقة غير متاحة أو NULL، سيتم إعادة التوجيه إلى الـ Dashboard
+                // return $request->headers->get('referer')
+                    // ? redirect()->back()->with('error', 'Something went wrong. Please try again.')
+                    // : redirect()->route('dashboard')->with('error', 'Something went wrong.');
+            // }
+
+            // في حالة خطأ غير معالج
+            // return $request->headers->get('referer')
+                // ? redirect()->back()->with('error', 'Something went wrong.')
+                // : redirect()->route('dashboard')->with('error', 'Something went wrong.');
+        // });
     }
 }

@@ -53,6 +53,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('/category/update/{id}', [CategoryController::class, 'update_category'])->name('category_update');
 
     Route::delete('/dashboard/delete-activity/{id}', [ActivityController::class, 'delete_activity'])->name('delete_activity');
+    Route::delete('/dashboard/delete-all-activity', [ActivityController::class, 'delete_activity_all'])->name('delete_activity_all');
 
     Route::resource('/dashboard/faqs', FaqController::class);
     Route::resource('/dashboard/instructor-questions', BeInstructorQuestionController::class);
@@ -169,9 +170,12 @@ Route::get('/elements', function () {
 Route::get('/book-details', function () {
     return view('website.book-details');
 })->name('book-details');
-Route::get('/courses', function () {
-    return view('website.courses');
-})->name('courses');
+
+// Route::get('/courses', function () {
+//     return view('website.courses');
+// })->name('courses');
+
+Route::get('courses', [CourseController::class, 'index'])->name('courses');
 
 // Route::get('/course_details', function () {
 //     return view('website.course_details');

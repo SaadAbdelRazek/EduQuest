@@ -50,8 +50,8 @@ class CategoryController extends Controller
     }
     public function edit_category($id)
     {
-        $categories = Category::find($id);
-        return view('admin/admin-editcategory', compact('categories'));
+        $category = Category::findOrFail($id);
+        return view('admin/admin-editcategory', compact('category'));
     }
     public function update_category(Request $request, $id)
     {
@@ -60,7 +60,7 @@ class CategoryController extends Controller
                 'description' => 'required|max:255|string|min:5',
                 'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             ]);
-            $category = Category::find($id);
+            $category = Category::findOrFail($id);
             $category->name = $request->input('name');
             $category->description = $request->input('description');
             if ($request->hasFile('image')) {
