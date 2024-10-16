@@ -32,6 +32,7 @@ class Instructor extends Model
 
     public function courses()
     {
-        return $this->hasMany(Course::class,'user_id');
+        // return $this->hasMany(Course::class,'user_id');
+        return $this->hasMany(Course::class,'instructor_id');
     }
 }

@@ -23,7 +23,7 @@ body {
 /* Sidebar */
 .sidebar {
     width: 20%;
-    background-color: #6200EA;
+    background: linear-gradient(45deg, #51117f, #d60a85);
     padding: 30px;
     border-radius: 15px;
     color: white;
@@ -87,7 +87,7 @@ body {
 .profile-info .name {
     font-size: 28px;
     font-weight: 700;
-    color: #6200EA;
+    color: #c20b84;
 }
 
 .profile-info .email {
@@ -101,7 +101,7 @@ body {
 }
 
 .edit-btn {
-    background-color: #00C7FF;
+    background-color: #d00a85;
     border: none;
     padding: 10px 20px;
     color: white;
@@ -110,7 +110,7 @@ body {
 }
 
 .edit-btn:hover {
-    background-color: #00a3cc;
+    background-color: #8b3871;
 }
 
 /* Enrolled Courses */
@@ -200,7 +200,7 @@ body {
 
 .quiz-progress .progress {
     height: 100%;
-    background-color: #6200EA;
+    background-color: #a30d83;
     border-radius: 5px;
 }
 
@@ -230,7 +230,7 @@ body {
 
 /* Instructor Link */
 .instructor-button {
-    background-color: #FF8800;
+    background-color: #e89435;
     color: white;
     padding: 15px 30px;
     border-radius: 5px;
@@ -305,7 +305,7 @@ body {
 
 /* View Button */
 .btn-view {
-    background-color: #6200EA; /* Purple */
+    background-color: #c0549d; /* Purple */
     color: white;
     padding: 10px 20px;
     text-decoration: none;
@@ -315,7 +315,7 @@ body {
 }
 
 .btn-view:hover {
-    background-color: #ff9f67; /* Hover color */
+    background-color: #8a346f; /* Hover color */
 }
 
 /* Responsive Design */

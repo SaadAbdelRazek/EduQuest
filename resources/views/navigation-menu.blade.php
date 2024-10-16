@@ -1,8 +1,8 @@
-<nav x-data="{ open: false }" class="" style="background: linear-gradient(to right, #51177b, #530268); height:80px; color:white;" >
+<nav x-data="{ open: false }" class="" style="background-color:#2d3035; height:80px; color:white;" >
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" >
         <div class="flex justify-between h-16">
-            <div class="flex" style="margin-left: -130px;">
+            <div class="flex" >
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center" >
                     <a href="{{ route('dashboard') }}" >

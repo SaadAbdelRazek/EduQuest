@@ -1,6 +1,6 @@
 @extends('admin.layouts.dash')
 
-@section('edit_setting')
+@section('settings')
     active
 @endsection
 @section('activity-title')
@@ -25,19 +25,29 @@ edit setting
                 <form action="{{ route('settings.update', $setting) }}" method="POST">
                     @csrf
                     @method('PUT')
+                    <div class="form-group">
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" value="{{ $setting->address }}" required>
                     </div>
+                    </div>
+                    <div class="form-group">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
                         <input type="text" class="form-control" id="phone" name="phone" value="{{ $setting->phone }}" required>
                     </div>
+                    </div>
+                    <div class="form-group">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{ $setting->email }}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                    <div class="form-actions">
+
+                        <button type="submit" class="submit-btn">Update</button>
+                        {{-- <button type="reset" class="reset-btn">reset</button> --}}
+                    </div>
                 </form>
             </section>
 

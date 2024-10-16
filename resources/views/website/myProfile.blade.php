@@ -1,20 +1,27 @@
 @extends('website.layouts.app')
+
 @section('custom-css')
-    <link rel="stylesheet" href="{{asset('css/profile.css')}}">
+
+<link rel="stylesheet" href="{{asset('css/profile.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endsection
 @section('content')
     <section class="slider-area slider-area2">
-        <div class="slider-active" style="background-color: #6200EA">
+        <div class="slider-active" >
             <!-- Single Slider -->
-            <div class="single-slider slider-height2" style="background-color: #6200EA">
+            <div class="single-slider slider-height2" >
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-8 col-lg-11 col-md-12" >
+
                             <div class="hero_caption hero_caption2" >
-                                <h1 data-animation="bounceIn" data-delay="0.2s">My Profile</h1>
+                                <h1 data-animation="fadeInLeft" data-delay="0.2s">My Profile</h1>
+
 
                             </div>
                         </div>
+                        <img src="{{asset('img/hero/prof.png')}}" style="width: 200px; margin-top:150px; margin-left:150px;" alt="">
                     </div>
                 </div>
             </div>
@@ -33,8 +40,13 @@
 
                     @if ($user_data->is_instructor ==1)
                         <li><a href="#instructor-link">Instructor Dashboard</a></li>
-                    @elseif ($user_data->is_instructor ==0)
+                        @elseif ($user_data->is_instructor ==0)
                         <li><a href="#instructor-link">Become an Instructor</a></li>
+                        @endif
+
+                        @if ($user_data->is_admin == 1)
+                        <li><a href="#instructor-link">Admin Dashboard</a></li>
+
                     @endif
                 <li><a href="#notification">Notifications</a></li>
             </ul>
@@ -50,6 +62,8 @@
                 <div class="profile-info">
                     <h2 class="name">{{$user_data->name}}</h2>
                     <p class="email">{{ $user_data->email }}</p>
+                    <p class="email"><i class="fas fa-solid fa-phone"></i> {{ $user_data->phone }}</p>
+                    <p class="email"><i class="fas fa-solid fa-map"></i> {{ $user_data->address }}</p>
                 </div>
                 <div class="profile-actions">
                     <a href="{{ route('edit_profile') }}" class="edit-btn">Edit Profile</a>
@@ -103,6 +117,7 @@
             </div>
 
             <!-- Latest Quiz History Section -->
+            <!-- Latest Quiz History Section -->
             <div id="quiz-history"></div><br>
             <div class="section quiz-history">
                 <h3>My Latest Quizzes</h3>
@@ -152,7 +167,7 @@
                 @if($quizCount==3 && $totalQuizzes >= $quizCount)
                     <button class="show-more-courses" id="show-more-quizzes">Show More <i class="fas fa-chevron-down"></i> </button>
                 @endif
-            </div>
+            </div>
 
 
 

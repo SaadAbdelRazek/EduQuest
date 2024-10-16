@@ -36,11 +36,11 @@
                     <td>{{ $faq->question }}</td>
                     <td>{{ $faq->answer }}</td>
                     <td>
-                        <a href="{{ route('faqs.edit', $faq->id) }}" class="btn edit-btn">Edit</a>
+                        <a href="{{ route('faqs.edit', $faq->id) }}" class="btn edit-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="edit"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('faqs.destroy', $faq->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="remove"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

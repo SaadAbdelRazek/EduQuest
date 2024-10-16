@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TestController extends Controller
 {
-    public function getUserCountsLastFiveDays()
+    public function getNewUserCountsLastFiveDays()
 {
     $counts = [];
     for ($i = 0; $i < 5; $i++) {
@@ -26,6 +26,24 @@ class TestController extends Controller
         $count = DB::table('users')
             ->whereDate('created_at', $date)
             ->count();
+        // تخزين العدد في المصفوفة مع ضمان أنه رقم
+        $counts[$date->format('Y-m-d')] = (int) $count; // تحويله إلى عدد صحيح
+    }
+    return $counts;
+}
+
+
+public function getUserCountsLastFiveDays()
+{
+    $counts = [];
+    for ($i = 0; $i < 5; $i++) {
+        $date = Carbon::today()->subDays($i);
+
+        // استخدام count() للحصول على عدد المستخدمين الذين سجلوا دخولهم في ذلك اليوم
+        $count = DB::table('users')
+            ->whereDate('last_seen', $date) // استخدام last_login بدلاً من created_at
+            ->count();
+
         // تخزين العدد في المصفوفة مع ضمان أنه رقم
         $counts[$date->format('Y-m-d')] = (int) $count; // تحويله إلى عدد صحيح
     }

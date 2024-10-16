@@ -189,14 +189,12 @@
                 <div class="right-img">
                     @foreach ($adVideo as $adVideo)
                         <video width="700" controls>
-                            <source src="{{ asset($adVideo->video) }}" type="video/mp4">
+                            <source src="{{ asset('videos/' . $adVideo->video) }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     @endforeach
 
-                        <div class="video-icon" >
-                            <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i class="fas fa-play"></i></a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
