@@ -7277,3 +7277,54 @@ h1 {
         font-size: 14px;
     }
 }
+
+
+/* Gallery section styling */
+.gallery-section {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.gallery-title {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Gallery row to align images in a row */
+.gallery-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.gallery-item {
+    flex: 1 1 300px;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect to scale image */
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .gallery-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+
