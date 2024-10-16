@@ -37,9 +37,6 @@
 
 
 
-
-
-
         <div class="form-actions">
             <button type="submit" class="submit-btn">Add</button>
             <button type="reset" id="reset-btn" class="reset-btn">reset</button>

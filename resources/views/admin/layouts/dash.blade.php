@@ -154,7 +154,8 @@
             </div>
             <div class="photo" id="photo">
                 <a href="{{ route('myProfile', $user_data->id) }}">
-                    <img src="{{ asset('storage/' . $user_data->profile_photo_path) }}" alt="{{$user_data->name}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="view your profile">
+                    <img src="{{ asset('storage/' . $user_data->profile_photo_path) }}" alt="{{ $user_data->name }}"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="view your profile">
                 </a>
                 <div class="in-photo">
 
@@ -175,6 +176,12 @@
                             class="fas fa-users"></i><span>Users</span></a></li>
                 <li><a href="{{ route('categories_table') }}" class="@yield('categories')"><i
                             class="fas fa-th-list"></i><span>Categories</span></a></li>
+                <li><a href="{{ route('show.developers') }}" class="@yield('Developers')"><i
+                            class="fas fa-solid fa-code"></i><span>Developers</a></li></span>
+
+                <li><a href="{{ route('adVideo-controll') }}" class="@yield('adVideo')"><i
+                            class="fas fa-video"></i><span>Ad Vedio</a></li></span>
+
                 <li><a href="{{ route('faqs.index') }}" class="@yield('faqs')"><i
                             class="fas fa-question-circle"></i><span>FAQs</span></a></li>
                 <li><a href="{{ route('settings.index') }}" class="@yield('settings')"><i
@@ -361,7 +368,6 @@
                     }
 
                     /* الأعمدة التي تمثل كل يوم */
-
                 </style>
 
 
@@ -405,58 +411,57 @@
 
                     const ctx1 = document.getElementById('studentPerformanceChart').getContext('2d');
 
-// تحويل الـ userCounts و newUserCounts من PHP إلى JavaScript
-const userCounts = @json($userCounts);
-const newUserCounts = @json($newUserCounts);
+                    // تحويل الـ userCounts و newUserCounts من PHP إلى JavaScript
+                    const userCounts = @json($userCounts);
+                    const newUserCounts = @json($newUserCounts);
 
-// استخراج التواريخ والأعداد من الـ userCounts
-const labels = Object.keys(userCounts); // التواريخ
-const loginData = Object.values(userCounts); // الأعداد الخاصة بتسجيل الدخول
-const registrationData = Object.values(newUserCounts); // الأعداد الخاصة بالتسجيلات الجديدة
+                    // استخراج التواريخ والأعداد من الـ userCounts
+                    const labels = Object.keys(userCounts); // التواريخ
+                    const loginData = Object.values(userCounts); // الأعداد الخاصة بتسجيل الدخول
+                    const registrationData = Object.values(newUserCounts); // الأعداد الخاصة بالتسجيلات الجديدة
 
-const maxValue = Math.max(...loginData, ...registrationData);
-const adjustedMax = maxValue + 10;
+                    const maxValue = Math.max(...loginData, ...registrationData);
+                    const adjustedMax = maxValue + 10;
 
-const studentPerformanceChart = new Chart(ctx1, {
-    type: 'bar',
-    data: {
-        labels: labels, // وضع التواريخ كـ labels
-        datasets: [
-            {
-                label: 'Number of Logins',
-                data: loginData, // وضع الأعداد الخاصة بتسجيل الدخول
-                backgroundColor: '#864ad8',
-                borderColor: '#6200EA',
-                borderWidth: 1,
-                barThickness: 30, // يمكنك تعديل سماكة الأعمدة
-                barBorderRadius:3,
-            },
-            {
-                label: 'New Registrations',
-                data: registrationData, // بيانات التسجيل الجديدة
-                backgroundColor: '#28a745', // لون مميز
-                borderColor: '#218838', // لون الحدود
-                borderWidth: 1,
-                barThickness: 30, // سماكة أعمدة التسجيل الجديدة أقل
-                barBorderRadius:3,
-                type: 'bar', // التأكيد على أن هذه البيانات هي بيانات Bar
-            }
-        ]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true, // يبدأ من الصفر
-                max: adjustedMax, // الحد الأقصى هو 20
-                stepSize: 1, // التأكد من أن الأرقام صحيحة (بدون كسور)
-                ticks: {
-                    callback: function(value) {
-                        return Number.isInteger(value) ? value : null; // عرض الأرقام الصحيحة فقط
-                    }
-                }
-            }
-        }
-    }
+                    const studentPerformanceChart = new Chart(ctx1, {
+                        type: 'bar',
+                        data: {
+                            labels: labels, // وضع التواريخ كـ labels
+                            datasets: [{
+                                    label: 'Number of Logins',
+                                    data: loginData, // وضع الأعداد الخاصة بتسجيل الدخول
+                                    backgroundColor: '#864ad8',
+                                    borderColor: '#6200EA',
+                                    borderWidth: 1,
+                                    barThickness: 30, // يمكنك تعديل سماكة الأعمدة
+                                    barBorderRadius: 3,
+                                },
+                                {
+                                    label: 'New Registrations',
+                                    data: registrationData, // بيانات التسجيل الجديدة
+                                    backgroundColor: '#28a745', // لون مميز
+                                    borderColor: '#218838', // لون الحدود
+                                    borderWidth: 1,
+                                    barThickness: 30, // سماكة أعمدة التسجيل الجديدة أقل
+                                    barBorderRadius: 3,
+                                    type: 'bar', // التأكيد على أن هذه البيانات هي بيانات Bar
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true, // يبدأ من الصفر
+                                    max: adjustedMax, // الحد الأقصى هو 20
+                                    stepSize: 1, // التأكد من أن الأرقام صحيحة (بدون كسور)
+                                    ticks: {
+                                        callback: function(value) {
+                                            return Number.isInteger(value) ? value : null; // عرض الأرقام الصحيحة فقط
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                     });
                 </script>
@@ -568,54 +573,51 @@ const studentPerformanceChart = new Chart(ctx1, {
     </script>
 
     {{-- ============ users filtr =============== --}}
-<script>
-    // وظيفة لتصفية الجدول بناءً على الفلتر المختار
-    function filterTable() {
-        var filter = document.getElementById("filter").value.toLowerCase(); // قراءة الفلتر المحدد
-        var rows = document.querySelectorAll("#userTable tbody tr"); // التأكد من أننا نحدد الصفوف فقط
+    <script>
+        // وظيفة لتصفية الجدول بناءً على الفلتر المختار
+        function filterTable() {
+            var filter = document.getElementById("filter").value.toLowerCase(); // قراءة الفلتر المحدد
+            var rows = document.querySelectorAll("#userTable tbody tr"); // التأكد من أننا نحدد الصفوف فقط
 
-        // تخزين الفلتر المحدد في localStorage
-        localStorage.setItem('selected-filter', filter);
+            // تخزين الفلتر المحدد في localStorage
+            localStorage.setItem('selected-filter', filter);
 
-        // تصفية الصفوف بناءً على الفلتر
-        rows.forEach(function(row) {
-            var role = row.getAttribute("data-role").toLowerCase(); // استخراج الدور من البيانات
+            // تصفية الصفوف بناءً على الفلتر
+            rows.forEach(function(row) {
+                var role = row.getAttribute("data-role").toLowerCase(); // استخراج الدور من البيانات
 
-            // الفلتر لجميع المستخدمين
-            if (filter === "all") {
-                row.style.display = ""; // عرض جميع الصفوف
-            }
-            // فلترة بناءً على الدور
-            else if (filter === "students" && role === "student") {
-                row.style.display = ""; // عرض الصفوف التي تحتوي على الطالب
-            }
-            else if (filter === "instructors" && role === "instructor") {
-                row.style.display = ""; // عرض الصفوف التي تحتوي على المدرس
-            }
-            else if (filter === "admins" && role === "admin") {
-                row.style.display = ""; // عرض الصفوف التي تحتوي على المشرف
-            }
-            else {
-                row.style.display = "none"; // إخفاء الصفوف التي لا تحتوي على الدور المحدد
-            }
-        });
-    }
-
-    // عند تحميل الصفحة، استرجاع الفلتر المخزن وتطبيقه
-    window.onload = function() {
-        var storedFilter = localStorage.getItem('selected-filter'); // استرجاع الفلتر المخزن
-        if (storedFilter) {
-            // تعيين قيمة الفلتر في العنصر <select>
-            document.getElementById('filter').value = storedFilter;
-
-            // تصفية الجدول باستخدام الفلتر المخزن
-            filterTable();
+                // الفلتر لجميع المستخدمين
+                if (filter === "all") {
+                    row.style.display = ""; // عرض جميع الصفوف
+                }
+                // فلترة بناءً على الدور
+                else if (filter === "students" && role === "student") {
+                    row.style.display = ""; // عرض الصفوف التي تحتوي على الطالب
+                } else if (filter === "instructors" && role === "instructor") {
+                    row.style.display = ""; // عرض الصفوف التي تحتوي على المدرس
+                } else if (filter === "admins" && role === "admin") {
+                    row.style.display = ""; // عرض الصفوف التي تحتوي على المشرف
+                } else {
+                    row.style.display = "none"; // إخفاء الصفوف التي لا تحتوي على الدور المحدد
+                }
+            });
         }
-    };
 
-    // إضافة حدث عند تغيير الفلتر
-    document.getElementById('filter').addEventListener('change', filterTable);
-</script>
+        // عند تحميل الصفحة، استرجاع الفلتر المخزن وتطبيقه
+        window.onload = function() {
+            var storedFilter = localStorage.getItem('selected-filter'); // استرجاع الفلتر المخزن
+            if (storedFilter) {
+                // تعيين قيمة الفلتر في العنصر <select>
+                document.getElementById('filter').value = storedFilter;
+
+                // تصفية الجدول باستخدام الفلتر المخزن
+                filterTable();
+            }
+        };
+
+        // إضافة حدث عند تغيير الفلتر
+        document.getElementById('filter').addEventListener('change', filterTable);
+    </script>
 
 
     {{-- ======== end user filter  !!============ --}}
@@ -623,16 +625,15 @@ const studentPerformanceChart = new Chart(ctx1, {
 
     {{-- ================= toolpit  (عرض رسالة توضيحية عند الوقوف على زر) ======= --}}
     <script>
-
         // تفعيل الـ tooltip
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
 
 
-{{-- -------------------------------------------------------------------------- --}}
+    {{-- -------------------------------------------------------------------------- --}}
 </body>
 
 </html>

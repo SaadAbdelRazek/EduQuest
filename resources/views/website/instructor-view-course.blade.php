@@ -2,6 +2,7 @@
 @section('courses')
     active
 @endsection
+
 @section('content')
     <body>
     <div class="container" style="width: 70%; margin-left: 300px">

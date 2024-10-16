@@ -48,11 +48,15 @@ class CategoryController extends Controller
         $category->save();
         return redirect()->back()->with('success','successfully added');
     }
+
+
     public function edit_category($id)
     {
         $category = Category::findOrFail($id);
         return view('admin/admin-editcategory', compact('category'));
     }
+
+
     public function update_category(Request $request, $id)
     {
             $request->validate([
@@ -82,6 +86,6 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         $courses = Course::where("category_id",$id)->get();
-        return view('website/category-courses', compact('category', 'courses',"is_empty"));
+        return view('website/category-courses', compact('category', 'courses'));
     }
 }
