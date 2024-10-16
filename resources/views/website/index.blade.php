@@ -252,25 +252,25 @@
     </section>
 
 
-        <section class="gallery-section">
-            <div class="section-tittle text-center mb-55">
-                <h2>Our Gallery</h2>
-            </div>
-            <div class="gallery-row">
-                <div class="gallery-item" style="max-width:800px; max-height:400px">
-                    <img src="{{asset('img/gal1.jpg')}}" alt="Gallery Image 1" >
-                </div>
-                <div class="gallery-item" style="max-width:800px; max-height:400px">
-                    <img src="{{asset('img/gal2.png')}}" alt="Gallery Image 2" >
-                </div>
-                <div class="gallery-item" style="max-width:800px; max-height:400px">
-                    <img src="{{asset('img/gal3.png')}}" alt="Gallery Image 3">
-                </div>
-                <div class="gallery-item" style="max-width:800px; max-height:400px">
-                    <img src="{{asset('img/gal4.avif')}}" alt="Gallery Image 4">
-                </div>
-            </div>
-        </section><br><br>
+{{--        <section class="gallery-section">--}}
+{{--            <div class="section-tittle text-center mb-55">--}}
+{{--                <h2>Our Gallery</h2>--}}
+{{--            </div>--}}
+{{--            <div class="gallery-row">--}}
+{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
+{{--                    <img src="{{asset('img/gal1.jpg')}}" alt="Gallery Image 1" >--}}
+{{--                </div>--}}
+{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
+{{--                    <img src="{{asset('img/gal2.png')}}" alt="Gallery Image 2" >--}}
+{{--                </div>--}}
+{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
+{{--                    <img src="{{asset('img/gal3.png')}}" alt="Gallery Image 3">--}}
+{{--                </div>--}}
+{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
+{{--                    <img src="{{asset('img/gal4.avif')}}" alt="Gallery Image 4">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </section><br><br>--}}
 
     </main>
 
