@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdVideoController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDeclineController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
@@ -21,6 +24,7 @@ use App\Models\AdVideo;
 use App\Models\Developer;
 
 use App\Http\Controllers\CategoryController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -320,6 +324,24 @@ Route::get('/dashboard-developers', [DeveloperController::class, 'index'] )->nam
 Route::get('/dashboard-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
 Route::get('/dashboard-adVideo-add', [AdVideoController::class, 'add_video'] )->name('adVideo-add');
 Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
+
 Route::get('/about/editVedio/{id}', [AdVideoController::class, 'edit'])->name('video.edit');
 Route::put('/about/update/{id}',[AdVideoController::class,"update"])->name('video.update');
 Route::delete('dashboard/advideo/delete/{id}',[AdVideoController::class , "delete_video"])->name('delete_advideo');
+
+
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+//-----------cart-----------------
+Route::middleware('auth')->group(function () {
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/items', [CartController::class, 'getCartItems'])->name('view.cart');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart/checkout',[CartController::class, 'viewCheckout'])->name('checkout');
+});
+//--------------favourites-------------------
+Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
+Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
+Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');

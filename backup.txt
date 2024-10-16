@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdVideoController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDeclineController;
 use App\Http\Controllers\EnrollmentController;
@@ -12,12 +14,13 @@ use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityController;
-
+use App\Models\AdVideo;
+use App\Models\Developer;
 
 use App\Http\Controllers\CategoryController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +35,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('website.index');
+    $adVideo = AdVideo::all();
+    $developers = Developer::all();
+    return view('website.index',compact('adVideo','developers'));
 })->name('home');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -243,6 +248,14 @@ Route::delete('/delete-courses/{id}', [CourseController::class, 'deleteCourse'])
 Route::delete('/delete-courses-from-website/{id}', [CourseController::class, 'deleteCourseFromWebsite'])->name('course.website.delete');
 
 
+Route::get('/about', [AboutController::class, 'about'])->name('about');
+Route::get('/developer/craete',[AboutController::class,'create'])->name('developer.create');
+Route::post('/developer/store',[AboutController::class,"store"])->name('developer.store');
+Route::get('/about/edit/{id}', [AboutController::class, 'edit'])->name('developer.edit');
+Route::put('/about/update/{id}',[AboutController::class,"update"])->name('developer.update');
+Route::delete('/developer/{developer}',[AboutController::class,"destroy"])->name('developer.destroy');
+
+
 //Route::get('/admin/faqs', function () {
 //    return view('admin.faqs');
 //})->name('admin-faqs');
@@ -302,3 +315,11 @@ Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact
 
 Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
 Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
+
+Route::get('/dashboard-developers', [DeveloperController::class, 'index'] )->name('show.developers');
+Route::get('/dashboard-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
+Route::get('/dashboard-adVideo-add', [AdVideoController::class, 'add_video'] )->name('adVideo-add');
+Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
+Route::get('/about/editVedio/{id}', [AdVideoController::class, 'edit'])->name('video.edit');
+Route::put('/about/update/{id}',[AdVideoController::class,"update"])->name('video.update');
+Route::delete('dashboard/advideo/delete/{id}',[AdVideoController::class , "delete_video"])->name('delete_advideo');

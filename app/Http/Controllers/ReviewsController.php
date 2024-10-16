@@ -55,9 +55,22 @@ class ReviewsController extends Controller
     $review->save();
 
     // تحديث تقييم المدرب
-    $this->updateInstructorRating($instructor->id); // تمرير معرف المدرب بشكل صحيح
+    $this->updateInstructorRating($instructor->id);
+    $userImage = $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : asset('/img/icon/default_prof_img.jpg');
 
-    return redirect()->back()->with('success', 'Review submitted successfully!');
+    // تمرير معرف المدرب بشكل صحيح
+
+    return response()->json([
+        'success' => true,
+        'review' => [
+            'id'=>$review->id,
+            'user' => $user->name,
+            'rate' => $review->rate,
+            'comment' => $review->comment,
+            'created_at' => $review->created_at->diffForHumans(),
+            'user_image' => $userImage
+        ]
+    ]);
 }
 
 
@@ -83,30 +96,37 @@ private function updateInstructorRating($instructorId)
 
 public function deleteReview($reviewId)
 {
-    // جلب المراجعة بناءً على المعرف
-    $review = Review::find($reviewId);
 
-    // التحقق مما إذا كانت المراجعة موجودة
-    if (!$review) {
-        // إذا لم يتم العثور على المراجعة، يمكنك التعامل مع الحالة هنا
-        return redirect()->back()->with('error', 'Review not found.');
-    }
 
-    // إذا كانت المراجعة موجودة، قم بحذفها
-    $review->delete();
+        // Find the review by its ID
+        $review = Review::findOrFail($reviewId);
 
-    // تحديث تقييم المدرب بعد الحذف
-    $this->updateInstructorRating($review->course->user_id);
+        // Check if the user has permission to delete this review
+        if (auth()->user()->id !== $review->user_id) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized to delete this review.'
+            ], 403);
+        }
 
-    return redirect()->back()->with('success', 'Review deleted successfully.');
+        // Delete the review
+        $review->delete();
+
+        // Return success response
+        return response()->json([
+            'success' => true,
+            'message' => 'Review deleted successfully!'
+        ]);
+
+
+
 }
 
 public function update_review(Request $request,$id){
     $rev = Review::findOrFail($id);
     $rev->comment = $request->comment;
     $rev->save();
-    return redirect()->back();
-
+    return response()->json(['success' => true, 'message' => 'Review updated successfully!']);
 }
 
 
@@ -115,13 +135,13 @@ public function delete_review($id)
 {
     // البحث عن التقييم وحذفه
     $review = Review::find($id);
-    $review->delete();
+//    $review->delete();
 
     // تحديث تقييم المدرب بعد حذف التقييم
     $this->updateInstructorRating($review->course->user_id);
 
     // إعادة توجيه المستخدم إلى صفحة المراجعات
-    return redirect()->back()->with('success', 'Review deleted successfully!');
+    return response()->json(['success' => true, 'message' => 'Review deleted successfully!']);
 }
 
 
