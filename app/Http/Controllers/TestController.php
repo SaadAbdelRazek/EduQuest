@@ -161,6 +161,7 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
         $user = Auth::user();
         $userEnrolledCourses=Enrollment::where('user_id',$user->id)->get('course_id');
         $courses = Course::whereIn('id', $userEnrolledCourses)->get();
+
         $totalCourses=count($courses);
         $quizHistory=QuizHistory::where('user_id',$user->id)->get();
         $totalQuizzes=count($quizHistory);

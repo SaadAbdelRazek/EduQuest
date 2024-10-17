@@ -30,7 +30,7 @@ class AboutController extends Controller
     public function update(Request $request, $id){
         $developer=Developer::findOrFail($id);
         if ($request->hasFile('image')) {
-            
+
             // $product = Product::findOrFail($id);
             // $productImage = $request->file('image');
             $image =  time() . '.' . $request->image->extension();
@@ -66,7 +66,7 @@ class AboutController extends Controller
 
         return view('admin.createDeveloper', [
             'users' => $users,
-            
+
     ]);
     }
 
@@ -115,9 +115,9 @@ class AboutController extends Controller
 
         return to_route('show.developers', $id);
     }
-    
 
-    
-   
+
+
+
 
 }

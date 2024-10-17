@@ -389,12 +389,15 @@
                     const courseCompletionChart = new Chart(ctx2, {
                         type: 'pie',
                         data: {
-                            labels: ['Instructor', 'student', 'mezo'],
+                            labels: ['Courses In Favourite', 'Courses In Cart', 'Courses enrolled'],
                             datasets: [{
-                                label: 'Course Completion Rate',
-                                data: [{{ $users->where('is_instructor', 0)->count() }},
-                                    {{ $users->where('is_instructor', 1)->count() }},
-                                    5,
+                                label: [
+                                    'total',
+                                ],
+                                data: [{{ $favourites_count }},
+                                    {{ $cart_count }},
+                                    {{ $enrollments_count }},
+
                                 ],
                                 backgroundColor: ['#6200EA', '#ff9f67', 'green'],
                                 borderColor: ['#6200EA', '#ff9f67', 'green'],
@@ -634,6 +637,44 @@
 
 
     {{-- -------------------------------------------------------------------------- --}}
+
+
+    <script>
+        // استهداف المدخل وحاوية الصورة
+        // استهداف المدخل، حاوية الصورة وزر إعادة التعيين
+        var fileInput = document.getElementById('image');
+        var previewImg = document.getElementById('preview-img');
+        var resetBtn = document.getElementById('reset-btn');
+
+        // عندما يختار الأدمن صورة
+        fileInput.addEventListener('change', function() {
+            var file = this.files[0];
+
+            // التأكد من اختيار صورة
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // عرض الصورة المختارة في الحاوية
+                    previewImg.src = e.target.result;
+                    previewImg.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                previewImg.style.display = 'none'; // إخفاء الصورة إذا لم يتم اختيار ملف
+            }
+        });
+
+        // عند الضغط على زر إعادة التعيين
+        resetBtn.addEventListener('click', function() {
+            // إعادة تعيين حقل الإدخال
+            fileInput.value = null;
+
+            // إخفاء الصورة
+            previewImg.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>

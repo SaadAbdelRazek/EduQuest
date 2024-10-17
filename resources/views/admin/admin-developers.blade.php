@@ -35,26 +35,26 @@ Developers
                 <td>{{ $developer->role }}</td>
                 <td>
                     <div>
-                        <a class="m-1" href="{{$developer->facebook}}"><i class="fab fa-facebook-f"></i></a>
-                        <a class="m-1" href="{{$developer->linkedin}}"><i class="fab fa-linkedin"></i></a>
-                        <a class="m-1" href="mailto:{{$developer->twitter}}"><i class="fa-solid fa-envelope"></i></i></a>
-                        <a class="m-1" href="{{$developer->github}}"><i class="fab fa-github"></i></a>
+                        <a class="m-1" href="{{$developer->facebook}}"><i class="fab fa-facebook" style="color: white"></i></a>
+                        <a class="m-1" href="{{$developer->linkedin}}"><i class="fab fa-linkedin" style="color: white"></i></a>
+                        <a class="m-1" href="mailto:{{$developer->twitter}}"><i class="fas fa-envelope" style="color: white"></i></a>
+                        <a class="m-1" href="{{$developer->github}}"><i class="fab fa-github" style="color: white"></i></a>
                     </div>
                 </td>
                 <td >
                     <div class="d-flex ">
                         <div >
                             <a href="{{route('developer.edit',$developer->id)}}"
-                                class="genric-btn success w-50 mt-5 me-3"><i class="fa-solid fa-pen-to-square"></i></a>
+                                class="btn edit-btn"><i class="fas fa-edit"></i></a>
                         </div>
                         <form action="{{route('developer.destroy',$developer->id)}}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="genric-btn danger w-50"><i class="fa-solid fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                         </form>
                     </div>
                 </td>
-                
+
             </tr>
             @endforeach
         </tbody>

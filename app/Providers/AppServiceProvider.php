@@ -12,6 +12,8 @@ use App\Models\Contact;
 use App\Models\Review;
 use App\Models\Instructor;
 use App\Models\Enrollment;
+use App\Models\Favourite;
+use App\Models\Cart;
 use App\Models\User;
 
 
@@ -40,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             if (Auth::check()) {
                 $view->with('user_data', Auth::user());
+            }
+            else{
+                return view('auth.login');
             }
 
 
@@ -76,6 +81,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer('admin.layouts.dash', function ($view) {
             $userCounts = (new TestController())->getUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
             $newUserCounts = (new TestController())->getNewUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
+            // $userCounts = (new InstructorController())->getUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
+            // $newUserCounts = (new InstructorController())->getNewUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
             $users = User::all(); // Fetch all users
             $view->with('userCounts', $userCounts);
             $view->with('newUserCounts', $newUserCounts);
@@ -92,12 +99,17 @@ class AppServiceProvider extends ServiceProvider
             $feedbacks_count = Contact::all()->count();
             $enrollments_count = Enrollment::all()->count();
 
+            $favourites_count = Favourite::all()->count();
+            $cart_count = Cart::all()->count();
+
 
             $view->with('categories',$categories);
             $view->with('categories_count',$categories_count);
             $view->with('reviews_count',$reviews_count);
             $view->with('feedbacks_count',$feedbacks_count);
             $view->with('enrollments_count',$enrollments_count);
+            $view->with('favourites_count',$favourites_count);
+            $view->with('cart_count',$cart_count);
 
         });
     }
