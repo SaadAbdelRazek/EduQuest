@@ -38,7 +38,7 @@
 
 <body>
     <!-- ? Preloader Start -->
-    <div id="preloader-active">
+    {{-- <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
@@ -69,11 +69,11 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                                                <li><a href="#services-section">Services</a></li>
                                                 <li><a href="{{ route('categories') }}">Categories</a>
                                                 </li>
-                                                <li><a href="{{ route('courses') }}">Courses</a></li>
-                                                <li><a href="{{ route('about') }}">About</a></li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
+                                                <li><a href="{{ route('about') }}">About</a></li>
                                                 <li><a href="{{ route('faqs') }}">FAQs</a></li>
                                                 <li>
                                                     <form action="{{route('search')}}" method="GET">
@@ -90,25 +90,40 @@
                                                     <p><img class="submenu"
                                                         src="{{ asset('storage/' . $user_data->profile_photo_path) }}"
                                                         alt class="d-block ui-w-80"
-                                                        style="width:50px; border-radius:50%; height:50px;"></p>
+                                                        style="width:50px; border-radius:50%; height:50px; object-fit: cover;"></p>
                                                     @else
                                                     <p><img class="submenu"
                                                         src="{{ asset('/img/icon/default_prof_img.jpg') }}"
                                                         alt class="d-block ui-w-80"
-                                                        style="width:50px; border-radius:50%; height:50px;"></p>
+                                                        style="width:50px; border-radius:50%; height:50px; object-fit: cover;"></p>
                                                     @endif
 
 
-                                                        <ul class="submenu" style="width:fit-content; ">
-                                                            <li><a href="{{ route('myProfile') }}">Profile</a></li>
-                                                            <li><a href="{{ route('view.cart') }}">Cart</a></li>
-                                                            <li><a href="{{ route('view.favourites') }}">Favourites</a></li>
-                                                            <li><a href="{{ route('logout') }}"
-                                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                                    Logout
-                                                                </a></li>
-                                                            <form id="logout-form" action="{{ route('logout') }}"
-                                                                method="POST" style="display: none;">
+                                                        <ul class="submenu" style="width:fit-content; min-width:130px ">
+
+                                                                <li>
+                                                                    <a href="{{ route('myProfile') }}">
+                                                                        <i class="fas fa-user"></i> Profile
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('view.cart') }}">
+                                                                        <i class="fas fa-shopping-cart"></i> Cart
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('view.favourites') }}">
+                                                                        <i class="fas fa-heart"></i>Favourite
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                                                    </a>
+                                                                </li>
+
+
+                                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                                 @csrf
                                                             </form>
 
@@ -178,11 +193,11 @@
                                 <div class="footer-tittle">
                                     <h4>Our solutions</h4>
                                     <ul>
-                                        <li><a href="#">Courses</a></li>
-                                        <li><a href="#">Different Fields</a></li>
-                                        <li><a href="#">Good Instructors</a></li>
-                                        <li><a href="#">Strong Developers</a></li>
-                                        <li><a href="#">Secure Data</a></li>
+                                        <li><a href="#services-section">Courses</a></li>
+                                        <li><a href="#services-section">Different Fields</a></li>
+                                        <li><a href="#services-section">Good Instructors</a></li>
+                                        <li><a href="#services-section">Strong Developers</a></li>
+                                        <li><a href="#services-section">Secure Data</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -192,11 +207,11 @@
                                 <div class="footer-tittle">
                                     <h4>EduQuest Links</h4>
                                     <ul>
-                                        <li><a href="#">Categories</a></li>
+                                        <li><a href="{{route('categories')}}">Categories</a></li>
                                         <li><a href="#">Courses</a></li>
-                                        <li><a href="#">FAQs</a></li>
-                                        <li><a href="#">Developers</a></li>
-                                        <li><a href="#">Contact us</a></li>
+                                        <li><a href="{{route('faqs')}}">FAQs</a></li>
+                                        <li><a href="{{route('about')}}">Developers</a></li>
+                                        <li><a href="{{route('contact')}}">Contact us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -213,7 +228,7 @@
                             <div class="col-xl-12 ">
                                 <div class="footer-copy-right text-center">
                                     <p>
-                                       Copy Rights for EduQuest Team || DEPI Project
+                                       CopyRights for EduQuest Team || DEPI Project
                                     </p>
                                 </div>
                             </div>

@@ -2297,7 +2297,7 @@ hr {
     color: #367fff;
 }
 .main-header .main-menu ul ul.submenu > li > a:hover {
-    color: #c86fff;
+    color: #9625dc;
     background: none;
     padding-left: 13px !important;
 }
@@ -2329,6 +2329,8 @@ hr {
     visibility: visible;
     opacity: 1;
     top: 100%;
+    border-radius: 10px;
+    left: -40px;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .header-right-btn {
@@ -7280,4 +7282,235 @@ h1 {
     .instructor-bio {
         font-size: 14px;
     }
+}
+
+
+/* Gallery section styling */
+.gallery-section {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.gallery-title {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Gallery row to align images in a row */
+.gallery-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.gallery-item {
+    flex: 1 1 300px;
+    max-width: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect to scale image */
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .gallery-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Gallery Slider */
+.gallery-slider {
+    position: relative;
+    width: 95%; /* Increased the width of the container */
+    max-width: 1200px; /* Allows for a larger max width */
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slider-item {
+    min-width: 350px; /* Increased the width of each item */
+    height: 250px; /* Increased the height of each item */
+    margin-right: 15px; /* Slightly bigger margin for better spacing */
+}
+
+.slider-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* Keeps the rounded corners */
+}
+
+/* Navigation buttons */
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 12px; /* Slightly bigger padding for larger buttons */
+    cursor: pointer;
+    font-size: 20px; /* Slightly bigger font for the icons */
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 15px; /* Increased distance from the left side */
+}
+
+.next-btn {
+    right: 15px; /* Increased distance from the right side */
+}
+
+/* Optional: Hover effect for buttons */
+.prev-btn:hover, .next-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+@media (max-width: 480px) {
+    .slider-item {
+        min-width: 220px; /* Even smaller for mobile screens */
+        height: 180px;
+    }
+
+    .prev-btn, .next-btn {
+        padding: 8px;
+        font-size: 16px;
+    }
+}
+
+/* Services Section */
+.services-section {
+    background-color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/*.section-title {*/
+/*    font-size: 2.5rem;*/
+/*    margin-bottom: 40px;*/
+/*    color: #333;*/
+/*    text-transform: uppercase;*/
+/*}*/
+
+.service-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.service-item {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px;
+    width: calc(20% - 30px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon {
+    font-size: 3rem;
+    color: #d40a84;
+    margin-bottom: 15px;
+}
+
+.service-item h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .service-item {
+        width: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 480px) {
+    .service-item {
+        width: calc(100% - 30px);
+    }
+
+    .service-icon {
+        font-size: 2.5rem;
+    }
+
+    .service-item h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/*Subscribe*/
+.subscribe-section {
+    text-align: center;
+    margin-top: 50px;
+}
+.subscribe-form {
+    display: inline-block;
+    margin: 0 auto;
+}
+.subscribe-form input[type="email"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.subscribe-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.subscribe-form button:hover {
+    background-color: #45a049;
 }

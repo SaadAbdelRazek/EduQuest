@@ -10,6 +10,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
@@ -123,7 +124,7 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
 Route::middleware(['auth', 'isStudent'])->group(function () {
 
     Route::get('/course_videos/{course_id}',[CourseController::class,'viewAllCourseDetails'])->name('course_videos');
-Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->name('course_progress');
+    Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->name('course_progress');
     // ========== quiz ==========
     Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
     // ========== end quiz ==========
@@ -188,7 +189,7 @@ Route::get('/book-details', function () {
 //     return view('website.courses');
 // })->name('courses');
 
-Route::get('courses', [CourseController::class, 'index'])->name('courses');
+Route::get('courses/{category}', [CourseController::class, 'index'])->name('courses');
 
 // Route::get('/course_details', function () {
 //     return view('website.course_details');
@@ -349,3 +350,8 @@ Route::middleware('auth')->group(function () {
 Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
 Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
 Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');
+
+
+Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
+

@@ -45,7 +45,7 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li class="active"><a href="{{ route('home') }}">Home</a></li>
-                                            <li><a href="{{ route('courses') }}">Courses</a></li>
+                                            <li><a href="{{ route('categories') }}">Categories</a></li>
                                             <li><a href="{{ route('about') }}">About</a></li>
                                             <li><a href="{{ route('blog') }}">Blog</a>
                                                 <ul class="submenu">
