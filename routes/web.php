@@ -293,7 +293,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
