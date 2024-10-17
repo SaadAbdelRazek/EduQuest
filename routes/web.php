@@ -22,6 +22,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityController;
 use App\Models\AdVideo;
 use App\Models\Developer;
+use App\Models\Course;
 
 use App\Http\Controllers\CategoryController;
 
@@ -41,7 +42,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $adVideo = AdVideo::all();
     $developers = Developer::all();
-    return view('website.index',compact('adVideo','developers'));
+    $rate = Course::withAvg('reviews', 'rate')->first();
+    return view('website.index',compact('adVideo','developers','rate'));
 })->name('home');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

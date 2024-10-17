@@ -341,7 +341,7 @@ class CourseController extends Controller
         $user = auth()->user();
         $course = Course::where('id', $id)->first();
         $instructor = User::where('id', $course->user_id)->first();
-        $date = CourseProgress::where('course_id', $id)->where('user_id', $instructor->id)->latest()->first();
+        $date = CourseProgress::where('course_id', $id)->where('user_id', $user->id)->latest()->first();
         $currentDate = $date->created_at;
         return view('website.certificate', compact('course', 'user', 'instructor', 'currentDate'));
     }

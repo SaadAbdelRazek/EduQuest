@@ -3,6 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -35,10 +36,11 @@ return $this->hasMany(Section::class);
         return $this->belongsToMany(User::class, 'course_enrollments')
             ->withTimestamps(); // Links course with users via enrollments
     }
-    public function progressForUser($userId)
+    public function progressForUser()
     {
+        $userId = auth()->user();
         return $this->hasMany(CourseProgress::class)
-            ->where('user_id', $userId);
+            ->where('user_id', $userId->id);
     }
 
     public function enrollments()

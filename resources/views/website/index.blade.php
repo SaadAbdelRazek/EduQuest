@@ -84,48 +84,62 @@
                 </div>
                 <div class="courses-actives" id="courses">
                     <!-- Single -->
-                    @php
-                    $courseCount=0;
-                    @endphp
                     @foreach ($home_courses as $courses )
-                        @if($courseCount==3)
-                            @break;
-                        @endif
-                        @if($courses->is_accepted==1 && $courses->is_deleted==0)
+                    @if ($courses->is_accepted == 1 && $courses->is_deleted == 0)
                     <div class="properties pb-20">
                         <div class="properties__card">
                             <div class="properties__img overlay1">
-                                <a href="#"><img src="{{asset('storage/'. $courses->image)}}" alt=""></a>
+                                <a href="{{ route('course_details', $courses->id) }}"><img src="{{asset('storage/'. $courses->image)}}" alt=""></a>
                             </div>
                             <div class="properties__caption">
                                 <p>{{$courses->category}}</p>
-                                <h3><a href="#">{{$courses->title}}</a></h3>
-                                <p> {{$courses->objectives}} </p>
-                                <div class="properties__footer d-flex justify-content-between align-items-center">
-                                    <div class="restaurant-name">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half"></i>
-                                        </div>
-                                        <p><span>(4.5)</span> based on 120</p>
+                                <h3><a href="{{ route('course_details', $courses->id) }}">{{$courses->title}}</a></h3>
+                                <a href="{{route('course-instructor', $courses->instructor->user_id)}}" style="color: gray">{{ $courses->instructor->user->name ?? 'Unknown Instructor' }}</a></p>
+                                {{-- <p> {{$courses->objectives}} </p> --}}
+                                <div class="properties__footer d-flex justify-content-between align-items-start">
+                                    <div class="rating-stars">
+                                        <!-- هنا ستبقى كود التقييم الخاص بك -->
+                                        @php
+                                            $roundedRate = round($rate->reviews_avg_rate * 2) / 2; // تقريب لأقرب نصف
+                                        @endphp
+
+                                        @if ($roundedRate >= 0.5)
+                                            <i class="fas fa-star{{ $roundedRate >= 1 ? '' : '-half' }}"></i>
+                                        @endif
+                                        @if ($roundedRate >= 1.5)
+                                            <i class="fas fa-star{{ $roundedRate >= 2 ? '' : '-half' }}"></i>
+                                        @endif
+                                        @if ($roundedRate >= 2.5)
+                                            <i class="fas fa-star{{ $roundedRate >= 3 ? '' : '-half' }}"></i>
+                                        @endif
+                                        @if ($roundedRate >= 3.5)
+                                            <i class="fas fa-star{{ $roundedRate >= 4 ? '' : '-half' }}"></i>
+                                        @endif
+                                        @if ($roundedRate >= 4.5)
+                                            <i class="fas fa-star{{ $roundedRate == 5 ? '' : '-half' }}"></i>
+                                        @endif
+                                        <span
+                                        class="ml-2">({{ $rate->reviews_avg_rate ?? 'No Ratings' }})</span>
                                     </div>
+
                                     <div class="price">
                                         <span>{{$courses->price}}EGP</span>
                                     </div>
                                 </div>
-                                <a href="{{route('courses')}}" class="border-btn border-btn2">View</a>
+                                {{-- <a href="{{route('courses')}}" class="border-btn border-btn2">View</a> --}}
                             </div>
-                            </div>
-                        @endif
-                        @php
-                        $courseCount++;
-                        @endphp
-                        @endforeach
+
                         </div>
                     </div>
+                    @endif
+                    @endforeach
+
+                    <!-- Single -->
+
+                </div>
+                <div style="text-align: center">
+
+                    <a href="{{route('courses')}}" class="view-more-btn" style="text-align: center">Find out more</a>
                 </div>
             </div>
         </div>
@@ -194,7 +208,7 @@
                         </video>
                     @endforeach
 
-                        
+
                     </div>
                 </div>
             </div>

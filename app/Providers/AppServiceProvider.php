@@ -43,9 +43,9 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $view->with('user_data', Auth::user());
             }
-            else{
-                return view('auth.login');
-            }
+            // else{
+            //     return view('auth.login');
+            // }
 
 
         });

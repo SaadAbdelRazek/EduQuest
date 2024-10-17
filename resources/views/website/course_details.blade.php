@@ -5,9 +5,6 @@
 <main>
 
 
-
-
-
 <section class="slider-area slider-area2">
     <div class="slider-active">
         <!-- Single Slider -->
@@ -66,15 +63,18 @@
             </div>
 
             <div class="course-image">
-                <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image">
+                <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image" style="max-height: unset; max-width: 100%">
             </div>
         </div>
     </section>
 
 
-
-<aside class="sidebar">
-    <button class="floating-button">Register / Buy</button>
+    <aside class="sidebar">
+    @if($course_info->price==0)
+    <a href="{{route('view.free.enroll',$course_info->id)}}" class="floating-button">Enroll</a>
+@else
+    <a href="{{route('view.enroll.course',$course_info->id)}}" class="floating-button">Buy Now</a>
+@endif
 </aside>
 
     <section class="certificate-section">

@@ -65,14 +65,33 @@
                 <div class="profile-photo">
                     <img src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt="Your Photo">
                 </div>
+                @if ($instructor)
                 <div class="profile-info">
                     <h2 class="name">{{$user_data->name}}</h2>
-                    <p class="email">{{ $user_data->email }}</p>
-                    <p class="email"><i class="fas fa-solid fa-phone"></i> {{ $user_data->phone }}</p>
-                    <p class="email"><i class="fas fa-solid fa-map"></i> {{ $user_data->address }}</p>
+                    <p class="email"><i class="fas fa-envelope"></i> <a href="mailto:{{ $user_data->email }}" style="color: gray">{{ $user_data->email }}</a></p>
+                    <p class="phone"><i class="fas fa-phone-alt"></i> {{ $instructor->phone }}</p>
+                    <p class="bio"><i class="fas fa-user"></i> {{ $instructor->bio }}</p>
+                    <p class="university"><i class="fas fa-university"></i> {{ $instructor->university_name }}</p>
+                    <p class="experience"><i class="fas fa-calendar-alt"></i> {{ $instructor->experience_years }} Years of Experience</p>
+                    <p class="specialization"><i class="fas fa-briefcase"></i> {{ $instructor->specialization }}</p>
+                    <p class="description"><i class="fas fa-info-circle"></i> {{ $instructor->description }}</p>
+                    <p class="address"><i class="fas fa-map-marker-alt"></i> {{ $user_data->address }}</p>
                 </div>
+
+
+                @else{
+                    <div class="profile-info">
+                        <h2 class="name">{{$user_data->name}}</h2>
+                        <p class="email">{{ $user_data->email }}</p>
+                        <p class="email"><i class="fas fa-solid fa-phone"></i> {{ $user_data->phone }}</p>
+                        <p class="email"><i class="fas fa-solid fa-map"></i> {{ $user_data->address }}</p>
+                    </div>
+                }
+                @endif
+
                 <div class="profile-actions">
-                    <a href="{{ route('edit_profile') }}" class="edit-btn">Edit Profile</a>
+                    <a href="{{ route('edit_profile') }}" class="edit-btn">Edit basic Profile</a>
+                    <a href="{{ route('instructor_dashboard_info') }}" class="edit-btn">Edit Instructor Profile</a>
                     @if ($user_data->is_admin == 1)
                     <a href="{{route('dashboard')}}" class="edit-btn">Admin Dashboard</a>
                 @endif

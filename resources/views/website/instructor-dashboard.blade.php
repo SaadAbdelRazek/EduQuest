@@ -7,7 +7,13 @@
 <div class="main-content">
 
 
+
     <div class="container" style=" margin-left: 50px">
+        @if ($instructor->academic_degree == null || $instructor->bio==null || $instructor->description==null || $instructor->phone == null || $instructor->specialization==null || $instructor->university_name==null || $instructor->experience_years==null)
+            <div>
+                <p><a href="{{route('instructor_dashboard_info')}}">click to add instructor info to increase your reach</a></p>
+            </div>
+        @endif
 
         <center>
             <header>
@@ -41,11 +47,11 @@
 
             <div class="charts">
                 <div class="chart-container">
-                    <h2>Student Performance</h2>
+                    <h2>Enrollments/Logins</h2>
                     <canvas id="studentPerformanceChart"></canvas>
                 </div>
                 <div class="chart-container">
-                    <h2>Course Completion Rate</h2>
+                    <h2>Courses Profits</h2>
                     <canvas id="courseCompletionChart"></canvas>
                 </div>
             </div>
@@ -113,23 +119,41 @@ const studentPerformanceChart = new Chart(ctx1, {
 
 
 
-const ctx2 = document.getElementById('courseCompletionChart').getContext('2d');
-const courseCompletionChart = new Chart(ctx2, {
-    type: 'pie',
-    data: {
-        labels: ['Not Completed', 'Completed'],
-        datasets: [{
-            label: 'Course Completion Rate',
-            data: [70, 30],
-            backgroundColor: ['#5d0189','#28a745' ],
-            borderColor: [ '#5d0189', '#28a745'],
-            borderWidth: 1,
-        }]
-    },
-    options: {
-        responsive: true,
+const courseNames = @json($course_names); // أسماء الكورسات
+    const courseProfits = @json($course_profits); // أرباح الكورسات
+
+    // دالة لتوليد لون عشوائي بصيغة HEX
+    function generateRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
-});
+
+    // توليد ألوان عشوائية لكل كورس
+    const backgroundColors = Array.from({ length: courseNames.length }, generateRandomColor);
+    const borderColors = Array.from({ length: courseNames.length }, generateRandomColor);
+
+    // إعداد الرسم البياني
+    const ctx2 = document.getElementById('courseCompletionChart').getContext('2d');
+    const courseCompletionChart = new Chart(ctx2, {
+        type: 'pie', // نوع الرسم البياني هو Pie
+        data: {
+            labels: courseNames, // أسماء الكورسات كـ labels
+            datasets: [{
+                label: 'Course Profits', // عنوان البيانات
+                data: courseProfits, // بيانات الأرباح لكل كورس
+                backgroundColor: backgroundColors, // ألوان الخلفية المولدة
+                borderColor: borderColors, // ألوان الحدود المولدة
+                borderWidth: 1, // عرض الحدود
+            }]
+        },
+        options: {
+            responsive: true, // الرسم البياني متجاوب
+        }
+    });
 </script>
     {{-- @section('custom-js') --}}
         {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}

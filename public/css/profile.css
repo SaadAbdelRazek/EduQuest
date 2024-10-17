@@ -62,7 +62,7 @@ body {
 /* Profile Card */
 .profile-card {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-between;
     margin-bottom: 30px;
     padding: 20px;

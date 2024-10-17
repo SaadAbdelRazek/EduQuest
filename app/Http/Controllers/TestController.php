@@ -161,6 +161,7 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
         $user = Auth::user();
         $userEnrolledCourses=Enrollment::where('user_id',$user->id)->get('course_id');
         $courses = Course::whereIn('id', $userEnrolledCourses)->get();
+        $instructor = Instructor::where('user_id',$user->id)->first();
 
         $totalCourses=count($courses);
         $quizHistory=QuizHistory::where('user_id',$user->id)->get();
@@ -177,7 +178,7 @@ $totalReviewsCount = $reviewsCount + $instructorReviews;
         $courseDeclines = CourseDecline::with('course')
             ->where('user_id', $user->id)
             ->get();
-        return view('website.myProfile',compact('courses','quizHistory','quizzes','courseDeclines','totalCourses','totalQuizzes'));
+        return view('website.myProfile',compact('instructor','courses','quizHistory','quizzes','courseDeclines','totalCourses','totalQuizzes'));
     }
 
 

@@ -34,23 +34,7 @@
     </div>
 @endif --}}
 
-    @auth
-        @if ($instructor->user_id == $user_data->id)
-            <h3 @yield('h_2')>Reviews</h3>
-        @else
-            <h3 @yield('h_2')>Rate the Course</h3>
-            <form id="review-form" action="{{ route('sub_review', $course->id) }}" method="POST" class="review-form">
-                @csrf
-                <input type="hidden" name="instructor_id" value="{{ $instructor->id }}">
-                <div class="slider-rating">
-                    <input type="range" id="rate-slider" name="rate" min="1" max="5" step="0.5" value="3" required>
-                    <span id="rating-value">3</span> / 5 <span class="stars"><i class="fas fa-star"></i></span>
-                </div>
-                <textarea name="comment" placeholder="Leave a comment..." rows="4" required></textarea>
-                <button type="submit" class="submit-review">Submit Review</button>
-            </form>
-        @endif
-    @endauth
+
 
     <div class="reviews">
         @if ($course->reviews->isEmpty())
@@ -108,8 +92,8 @@
 
                     </div>
 
-                    <div id="review-{{ $review->id }}" class="review">
-                        <!-- review content here -->
+                    <div id="review-{{ $review->id }}" class="comment">
+                        <span class="comment">{{$review->comment}}</span>
                     </div>
 
                     @auth

@@ -21,7 +21,12 @@
         </div>
     @endif
 
-        <form class="container" action="{{route('instructor_info_update', $instructor->id)}}" method="POST">
+    <center>
+        <header>
+            <h1>Additional instructor info</h1>
+        </header>
+    </center>
+        <form action="{{route('instructor_info_update', $instructor->id)}}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -36,6 +41,10 @@
             <div class="form-group">
                 <label class="form-label">university name</label>
                 <input type="text" name="university" value="{{ $instructor->university_name }}" class="single-input">
+            </div>
+            <div class="form-group">
+                <label class="form-label">experience years</label>
+                <input type="text" name="experience" value="{{ $instructor->experience_years }}" class="single-input">
             </div>
             <div class="form-group">
                 <label class="form-label">Bio</label>
@@ -53,7 +62,7 @@
 
 
 
-            <button class="btn edit-btn">Update</button>
+            <button class="submit-btn">Update</button>
         </form>
 
     </div>

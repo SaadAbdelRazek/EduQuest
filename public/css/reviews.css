@@ -34,7 +34,7 @@ textarea {
 
 .submit-review {
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #a90d83;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -44,7 +44,7 @@ textarea {
 }
 
 .submit-review:hover {
-    background-color: #218838;
+    background-color: #8d0a6c;
 }
 
 .reviews {
