@@ -89,6 +89,8 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
 
 
     Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor_add_course');
+    Route::get('/instructor-dashboard/info', [InstructorController::class, 'instructor_info'])->name('instructor_dashboard_info');
+    Route::put('/instructor-dashboard/info-update/{id}', [InstructorController::class, 'instructor_info_update'])->name('instructor_info_update');
     Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
     Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
@@ -256,7 +258,7 @@ Route::get('/about', [AboutController::class, 'about'])->name('about');
 Route::get('/developer/craete',[AboutController::class,'create'])->name('developer.create');
 Route::post('/developer/store',[AboutController::class,"store"])->name('developer.store');
 Route::get('/about/edit/{id}', [AboutController::class, 'edit'])->name('developer.edit');
-Route::put('/about/update/{id}',[AboutController::class,"update"])->name('developer.update');
+Route::put('/about/update/{idd}',[AboutController::class,"update"])->name('developer.update');
 Route::delete('/developer/{developer}',[AboutController::class,"destroy"])->name('developer.destroy');
 
 

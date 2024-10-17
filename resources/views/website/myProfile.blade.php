@@ -7,21 +7,27 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endsection
 @section('content')
+<main>
     <section class="slider-area slider-area2">
-        <div class="slider-active" >
+        <div class="slider-active">
             <!-- Single Slider -->
-            <div class="single-slider slider-height2" >
+            <div class="single-slider slider-height2">
                 <div class="container">
                     <div class="row">
-                        <div class="col-xl-8 col-lg-11 col-md-12" >
-
-                            <div class="hero_caption hero_caption2" >
-                                <h1 data-animation="fadeInLeft" data-delay="0.2s">My Profile</h1>
-
-
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">My Profile</h1>
+                                <!-- breadcrumb Start-->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">my profile</a></li>
+                                    </ol>
+                                </nav>
+                                <!-- breadcrumb End -->
                             </div>
                         </div>
-                        <img src="{{asset('img/hero/prof.png')}}" style="width: 200px; margin-top:150px; margin-left:150px;" alt="">
+                        <img src="{{asset('img/hero/prof.png')}}" style="width: 220px; max-height:180px ; margin-top:150px; margin-left:120px;" alt="">
                     </div>
                 </div>
             </div>
@@ -67,6 +73,9 @@
                 </div>
                 <div class="profile-actions">
                     <a href="{{ route('edit_profile') }}" class="edit-btn">Edit Profile</a>
+                    @if ($user_data->is_admin == 1)
+                    <a href="{{route('dashboard')}}" class="edit-btn">Admin Dashboard</a>
+                @endif
                 </div>
             </div>
 
@@ -239,4 +248,5 @@
             });
         });
     </script>
+</main>
 @endsection

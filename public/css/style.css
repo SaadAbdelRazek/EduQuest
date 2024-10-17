@@ -214,6 +214,7 @@ h6 a {
 ul {
     margin: 0px;
     padding: 0px;
+    width: max-content;
 }
 li {
     list-style: none;
@@ -6593,9 +6594,9 @@ h1 {
 }
 
 .course-instructor {
-    font-size: 16px;
+    font-size: 13px;
     color: #777;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
 }
 
 .course-price {
@@ -6896,10 +6897,10 @@ h1 {
 }
 
 .course-title {
-    font-size: 36px;
+    font-size: 20px;
     font-weight: bold;
     color: #51117f;
-    margin-bottom: 15px;
+    margin-bottom: 2px;
 }
 
 .description, .objectives {
@@ -6910,10 +6911,10 @@ h1 {
 }
 
 .course-price {
-    font-size: 24px;
+    font-size: 15px;
     color: #d40a84;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .course-actions {
@@ -6978,7 +6979,9 @@ h1 {
 /* Course Image */
 .course-image img {
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
+    max-height: 150px;
+    min-height: 150px;
     height: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

@@ -23,10 +23,7 @@
             <label class="form-label">Role</label>
             <input type="text" name="role" value="{{ $developer->role }}" class="single-input">
         </div>
-        <div class="form-group "">
-            <label class=" form-label">Image</label>
-            <input type="file" name="image" value="{{ asset($developer->image) }}" class="single-input">
-        </div>
+
         <div class="form-group">
             <label class="form-label">Facebook Link</label>
             <input type="text" name="facebook" value="{{ $developer->facebook }}" class="single-input">
@@ -43,6 +40,18 @@
             <label class="form-label">Github Link</label>
             <input type="text" name="github" value="{{ $developer->github }}" class="single-input">
         </div>
+
+        <div class="form-group">
+            <label for="image" class="custom-file-upload">
+                <i class="fas fa-upload"></i> Upload Image
+            </label>
+            <input id="image" name="image" type="file" accept="image/*" value="{{ $developer->image }}"/>
+        </div>
+
+        <div id="image-preview" style="margin-top: 10px; width:200px;">
+            <img id="preview-img" src="{{asset($developer->image)}}" alt="Preview" style="max-width: 100%; ">
+        </div>
+
         <button class="m-3 w-25 btn btn-primary">Update</button>
     </form>
 @endsection
