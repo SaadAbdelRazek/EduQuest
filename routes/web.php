@@ -313,7 +313,11 @@ Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'view
 Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
 
 Route::get('/admin-developers', [DeveloperController::class, 'index'] )->name('show.developers');
+
 Route::get('/admin-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
-Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
-Route::get('/about/editVedio', [AdVideoController::class, 'edit'])->name('video.edit');
-Route::put('/about/update',[AdVideoController::class,"update"])->name('video.update');
+Route::get('/admin-adVideo-controll-create',[AdVideoController::class,'create'])->name('adVideo.create');
+Route::post('/admin-adVideo-controll-store', [AdVideoController::class, 'store'] )->name('adVideo.store');
+Route::get('admin-adVideo-controll-edit/{id}', [AdVideoController::class, 'edit'])->name('video.edit');
+Route::put('admin-adVideo-controll-update/{id}',[AdVideoController::class,"update"])->name('video.update');
+Route::delete('/admin-adVideo-controll-destroy/{id}',[AdVideoController::class,"destroy"])->name('adVideo.destroy');
+

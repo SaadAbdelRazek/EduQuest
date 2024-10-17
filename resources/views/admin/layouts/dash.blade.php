@@ -30,7 +30,7 @@
                             Users</a></li>
                     <li><a href="{{route('show.developers')}}" class="@yield('Developers')"><i class="fas fa-users"></i>
                             Developers</a></li>
-                    <li><a href="{{route('adVideo-controll')}}" class="@yield('adVideo')"><i class="fas fa-users"></i>
+                    <li><a href="{{route('adVideo-controll')}}" class="@yield('AdVideo')"><i class="fas fa-users"></i>
                             Ad Vedio</a></li>
                     <li><a href="{{ route('categories_table') }}" class="@yield('categories')"><i
                                 class="fas fa-user-tie"></i> Categories</a></li>

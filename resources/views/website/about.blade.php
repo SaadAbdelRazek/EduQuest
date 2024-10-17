@@ -79,9 +79,11 @@
                 <div class="section-tittle section-tittle2 mb-55">
                     <div class="front-text">
                         <h2 class="">Learn new skills online with top educators</h2>
-                        <p>The automated process all your website tasks. Discover tools and
-                            techniques to engage effectively with vulnerable children and young
-                            people.</p>
+                        <p>At EduQuest, we believe that education is the key to success 
+                            and personal development. We offer diverse courses to meet the 
+                            needs of all learners, whether you’re a student, professional, 
+                            or looking to expand your knowledge. Join us today and 
+                            start your educational journey!</p>
                     </div>
                 </div>
                 <div class="single-features">
@@ -123,8 +125,8 @@
                     </video>
 
                     <div class="video-icon">
-                        <a class="popup-video btn-icon" href="{{asset($adVideo->video) }}"><i
-                                class="fas fa-play"></i></a>
+                        <a class="popup-video btn-icon" href="{{asset($adVideo->video) }}">
+                            <i class="fas fa-play"></i></a>
                     </div>
 
                 </div>

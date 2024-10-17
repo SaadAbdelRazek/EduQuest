@@ -37,7 +37,7 @@ Developers
                     <div>
                         <a class="m-1" href="{{$developer->facebook}}"><i class="fab fa-facebook-f"></i></a>
                         <a class="m-1" href="{{$developer->linkedin}}"><i class="fab fa-linkedin"></i></a>
-                        <a class="m-1" href="mailto:{{$developer->twitter}}"><i class="fa-solid fa-envelope"></i></i></a>
+                        <a class="m-1" href="mailto:{{$developer->email}}"><i class="fa-solid fa-envelope"></i></i></a>
                         <a class="m-1" href="{{$developer->github}}"><i class="fab fa-github"></i></a>
                     </div>
                 </td>
