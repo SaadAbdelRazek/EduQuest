@@ -25,7 +25,11 @@
             <label for="file-upload" class="custom-file-upload">
                 <i class="fas fa-upload"></i> Upload Image
             </label>
+<<<<<<< HEAD
             <input id="file-upload" type="file" accept="image/*" name="image" />
+=======
+            <input id="file-upload" name="image" type="file" accept="image/*" />
+>>>>>>> 20366e91557f8d62361d666e76c22a46e7b0f4af
         </div>
 
         <!-- حاوية لعرض الصورة المختارة -->

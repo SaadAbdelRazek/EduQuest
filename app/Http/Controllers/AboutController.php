@@ -15,6 +15,8 @@ class AboutController extends Controller
     {
         $adVideo = AdVideo::all();
         $developers = Developer::all();
+        // $adVideo = AdVideo::latest();
+        // $developers = Developer::all();
         if (!$adVideo) {
             // إذا لم يتم العثور على فيديو، يمكنك عرض رسالة أو محتوى بديل
             return view('website.about')->with('message', 'لم يتم العثور على فيديو.');
@@ -30,7 +32,7 @@ class AboutController extends Controller
     public function update(Request $request, $id){
         $developer=Developer::findOrFail($id);
         if ($request->hasFile('image')) {
-            
+
             // $product = Product::findOrFail($id);
             // $productImage = $request->file('image');
             $image =  time() . '.' . $request->image->extension();
@@ -66,7 +68,7 @@ class AboutController extends Controller
 
         return view('admin.createDeveloper', [
             'users' => $users,
-            
+
     ]);
     }
 
@@ -115,9 +117,9 @@ class AboutController extends Controller
 
         return to_route('show.developers', $id);
     }
-    
 
-    
-   
+
+
+
 
 }

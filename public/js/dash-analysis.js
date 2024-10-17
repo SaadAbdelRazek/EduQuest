@@ -37,3 +37,4 @@ const courseCompletionChart = new Chart(ctx2, {
         responsive: true,
     }
 });
+

@@ -21,13 +21,12 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityController;
-use App\Mail\TestEmail;
 use App\Models\AdVideo;
 use App\Models\Developer;
+use App\Models\Course;
 
 use App\Http\Controllers\CategoryController;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +43,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $adVideo = AdVideo::all();
     $developers = Developer::all();
-    return view('website.index',compact('adVideo','developers'));
+    $rate = Course::withAvg('reviews', 'rate')->first();
+    return view('website.index',compact('adVideo','developers','rate'));
 })->name('home');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -92,6 +92,8 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
 
 
     Route::get('/instructor-dashboard/add-course', [InstructorController::class, 'add_course'])->name('instructor_add_course');
+    Route::get('/instructor-dashboard/info', [InstructorController::class, 'instructor_info'])->name('instructor_dashboard_info');
+    Route::put('/instructor-dashboard/info-update/{id}', [InstructorController::class, 'instructor_info_update'])->name('instructor_info_update');
     Route::get('/instructor-courses', [CourseController::class, 'showMyCourses'] )->name('instructor-courses');
     Route::post('/instructor-add-course', [CourseController::class, 'store'])->name('courses.store');
 
@@ -122,7 +124,7 @@ Route::middleware(['auth', 'isInstructor'])->group(function () {
 Route::middleware(['auth', 'isStudent'])->group(function () {
 
     Route::get('/course_videos/{course_id}',[CourseController::class,'viewAllCourseDetails'])->name('course_videos');
-Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->name('course_progress');
+    Route::post('/course_videos/{course_id}',[CourseController::class,'markVideoAsCompleted'])->name('course_progress');
     // ========== quiz ==========
     Route::get('/course-quiz/{id}',[CourseController::class,'viewCourseQuiz'])->name('course-quiz');
     // ========== end quiz ==========
@@ -187,7 +189,7 @@ Route::get('/book-details', function () {
 //     return view('website.courses');
 // })->name('courses');
 
-Route::get('/courses/{category}', [CourseController::class, 'index'])->name('courses');
+Route::get('courses', [CourseController::class, 'index'])->name('courses');
 
 // Route::get('/course_details', function () {
 //     return view('website.course_details');
@@ -259,7 +261,7 @@ Route::get('/about', [AboutController::class, 'about'])->name('about');
 Route::get('/developer/craete',[AboutController::class,'create'])->name('developer.create');
 Route::post('/developer/store',[AboutController::class,"store"])->name('developer.store');
 Route::get('/about/edit/{id}', [AboutController::class, 'edit'])->name('developer.edit');
-Route::put('/about/update/{id}',[AboutController::class,"update"])->name('developer.update');
+Route::put('/about/update/{idd}',[AboutController::class,"update"])->name('developer.update');
 Route::delete('/developer/{developer}',[AboutController::class,"destroy"])->name('developer.destroy');
 
 
@@ -291,7 +293,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
@@ -349,8 +351,6 @@ Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->n
 Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
 Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');
 
-
-// subscription
 
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 

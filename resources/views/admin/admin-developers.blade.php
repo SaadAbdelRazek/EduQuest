@@ -45,16 +45,16 @@ Developers
                     <div class="d-flex ">
                         <div >
                             <a href="{{route('developer.edit',$developer->id)}}"
-                                class="genric-btn success w-50 mt-5 me-3"><i class="fa-solid fa-pen-to-square"></i></a>
+                                class="btn edit-btn"><i class="fas fa-edit"></i></a>
                         </div>
                         <form action="{{route('developer.destroy',$developer->id)}}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="genric-btn danger w-50"><i class="fa-solid fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                         </form>
                     </div>
                 </td>
-                
+
             </tr>
             @endforeach
         </tbody>

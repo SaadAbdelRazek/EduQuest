@@ -14,28 +14,12 @@ $hideSpecialDiv = true;
 <form class="container h-100" action="{{ route('video.update', $adVideo->id ) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-
-    <!-- حقل الوصف -->
-    <div class="form-group">
-        <label class="form-label">Description</label>
-        <textarea name="description" cols="30" rows="3" class="form-control">{{ $adVideo->description }}</textarea>
-    </div>
-
-    <div class="form-group">
-        <label class="form-label">Video</label>
-        <input type="file" name="video" accept="video/*" id="videoInput" class="form-control" style="display:block;">
-    </div>
-
-    <!-- عنصر الفيديو لعرض الفيديو المختار -->
-    <div class="form-group">
-        <video id="videoPreview" width="320" height="240" controls style="display:none;">
-            <source id="videoSource" src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
-    <!-- زر التحديث -->
+    
+    {{-- <textarea name="description" id="" cols="30" rows="10">{{$adVideo->description}}</textarea> --}}
+    <input type="file" name="video" value="{{asset('img/.$adVideo->video')}}" >
+    <label class="form-label">Video</label>
     <button class="m-3 w-25 btn btn-danger">Update</button>
+    
 </form>
 @if($adVideo->video)
     <div class="form-group">
