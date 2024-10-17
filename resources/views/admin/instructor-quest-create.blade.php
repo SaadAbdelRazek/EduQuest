@@ -1,5 +1,5 @@
 @extends('admin.layouts.dash')
-@section('instructor_question_create')
+@section('instructor-questions')
     active
 @endsection
 @section('activity-title')
@@ -22,17 +22,27 @@ instructor_question_create
                 <input type="text" name="question" id="question" class="form-control" required>
             </div>
 
-
+            <div class="choices-group">
+            <div class="form-group">
             <div class="col-md-3">
-                <input type="text" name="choice1" id="choice1" class="form-control" placeholder="Enter choice 1" required>
+                <label for="choice1">choice 1</label>
+                <input type="text" name="choice1" id="choice1" class="form-control"  required>
+            </div>
             </div>
 
+            <div class="form-group">
             <div class="col-md-3">
-                <input type="text" name="choice2" id="choice2" class="form-control" placeholder="Enter choice 2" required>
+                <label for="choice2">choice 2</label>
+                <input type="text" name="choice2" id="choice2" class="form-control"  required>
+            </div>
             </div>
 
+            <div class="form-group">
             <div class="col-md-3">
-                <input type="text" name="choice3" id="choice3" class="form-control" placeholder="Enter choice 3" required>
+                <label for="choice3">choice 3</label>
+                <input type="text" name="choice3" id="choice3" class="form-control"  required>
+            </div>
+            </div>
             </div>
 
 

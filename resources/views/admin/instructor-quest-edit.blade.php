@@ -1,5 +1,5 @@
 @extends('admin.layouts.dash')
-@section('instructor_question_edit')
+@section('instructor-questions')
     active
 @endsection
 @section('activity-title')
@@ -23,15 +23,31 @@ instructor_question_edit
                 <input type="text" name="question" id="question" class="form-control" value="{{ $data->question_title }}" required>
             </div>
 
+            <div class="choices-group">
+            <div class="form-group">
             <div class="col-md-3">
+                <label for="choice1">choice 1</label>
                 <input type="text" name="choice1" id="choice1" value="{{ $data->choice1 }}" class="form-control" placeholder="Enter choice 1" required>
-                <input type="text" name="choice2" id="choice2" value="{{ $data->choice2 }}" class="form-control" placeholder="Enter choice 2" required>
-                <input type="text" name="choice3" id="choice3" value="{{ $data->choice3 }}" class="form-control" placeholder="Enter choice 3" required>
             </div>
+        </div>
+        <div class="form-group">
+        <div class="col-md-3">
+            <label for="choice2">choice 2</label>
+            <input type="text" name="choice2" id="choice2" value="{{ $data->choice2 }}" class="form-control" placeholder="Enter choice 2" required>
+        </div>
+        </div>
+            <div class="form-group">
+            <div class="col-md-3">
+                <label for="choice3">choice 3</label>
+            <input type="text" name="choice3" id="choice3" value="{{ $data->choice3 }}" class="form-control" placeholder="Enter choice 3" required>
+        </div>
+        </div>
+        </div>
+
 
             <div class="form-actions">
                 <button type="submit" class="submit-btn">Submit</button>
-                <button type="reset" class="reset-btn">Reset</button>
+                {{-- <button type="reset" class="reset-btn">Reset</button> --}}
             </div>
         </form>
     </div>

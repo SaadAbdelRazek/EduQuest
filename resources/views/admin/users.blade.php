@@ -3,7 +3,7 @@
     active
 @endsection
 @section('activity-title')
-    
+
     users
 @endsection
 
@@ -48,6 +48,20 @@
                 font-size: 14px;
                 font-weight: bold;
             }
+
+            .filter{
+                text-align: right;
+            }
+            .filter select{
+                background-color: #31353b;
+                color: white;
+                border: none;
+                cursor: pointer;
+
+            }
+            .filter label{
+                color: #c8c8c8;
+            }
         </style>
 
 @if (session('message'))
@@ -57,95 +71,93 @@
         </div>
 
     @endif
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    {{-- <th>ID</th> --}}
-                    <th>Name</th>
-                    <th>role</th>
-                    <th>last seen</th>
-                    <th>status</th>
-                    <th>Actions</th>
+    <div class="filter">
+        <select name="filter" id="filter" onchange="filterTable()">
+            <option value="all">All</option>
+            <option value="students">Students</option>
+            <option value="instructors">Instructors</option>
+            <option value="admins">Admins</option>
+        </select>
+        <label for="filter"><i class="fas fa-filter"></i></label>
+    </div>
+
+    <table id="userTable" class="styled-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>created at</th>
+                <th>Role</th>
+                <th>Last Seen</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data as $data)
+            <tr data-role="{{ strtolower($data->is_admin == 1 ? 'admin' : ($data->is_instructor == 1 ? 'instructor' : 'student')) }}">
+
+
+                    <td>{{ $data->name }}</td>
+                    <td>{{ $data->created_at }}</td>
+                    <td>
+                        @if ($data->is_admin == 1)
+                            admin
+                        @elseif ($data->is_instructor == 0 && $data->is_admin == 0)
+                            student
+
+                        @elseif ($data->is_instructor == 1 && $data->is_admin == 0)
+                            instructor
+                        @endif
+                    </td>
+                    <td>
+                        @php
+                            if ($data->last_seen !== null) {
+                                $diffInMinutes = Carbon\Carbon::now()->diffInMinutes(Carbon\Carbon::parse($data->last_seen));
+                                $status = $diffInMinutes <= 2 ? 'Online' : 'Offline';
+                                $statusColor = $diffInMinutes <= 2 ? 'green-500' : 'red-500';
+                            } else {
+                                $status = 'Status Unavailable';
+                                $statusColor = 'gray-500';
+                            }
+                        @endphp
+
+                        @if($data->last_seen !== null)
+                            {{ Carbon\Carbon::parse($data->last_seen)->diffForHumans() }}
+                        @else
+                            Not available
+                        @endif
+                    </td>
+                    <td>
+                        <span class="bg-2 {{ $statusColor }}">
+                            {{ $status }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{{ route('dashboard.user_data', $data->id) }}" class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="view"><i class="fas fa-eye"></i></a>
+                        {{-- <form action="{{ route('users.destroy', $data->id) }}" onsubmit="return confirmDelete()" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        </form> --}}
+
+                        @if ($data->is_admin == 0)
+                            <a href="{{ route('dashboard.add_admin', $data->id) }}" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="add admin"><i class="fas fa-plus"></i></a>
+                        @elseif ($data->is_admin == 1)
+                            <a href="{{ route('dashboard.drop_admin', $data->id) }}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="remove admin"><i class="fas fa-trash"></i></a>
+                        @endif
+                    </td>
+
+
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $data)
-                    <tr>
-                        {{-- <td>{{ $data->id }}</td> --}}
-                        <td>{{ $data->name }}</td>
-                        <td>
-                            @if ($data->is_instructor == 1 && $data->is_admin == 1)
-                                admin , instructor
-                            @elseif ($data->is_instructor == 0 && $data->is_admin == 0)
-                                student
-                            @elseif ($data->is_instructor == 0 && $data->is_admin == 1)
-                                admin
-                            @elseif ($data->is_instructor == 1 && $data->is_admin == 0)
-                                instructor
-                            @else
-                                student
-                            @endif
-
-                        </td>
-                        <td>
-                            @php
-                                // التحقق إذا كانت قيمة last_seen غير null
-                                if ($data->last_seen !== null) {
-                                    // حساب الفرق بين الوقت الحالي ووقت آخر ظهور
-                                    $diffInMinutes = Carbon\Carbon::now()->diffInMinutes(Carbon\Carbon::parse($data->last_seen));
-
-                                    // تحديد الحالة بناءً على الفرق
-                                    $status = $diffInMinutes <= 2 ? 'Online' : 'Offline';
-                                    $statusColor = $diffInMinutes <= 2 ? 'green-500' : 'red-500';
-                                } else {
-                                    // إذا كانت last_seen تساوي null
-                                    $status = 'Status Unavailable';  // أو أي نص آخر تفضله
-                                    $statusColor = 'gray-500';  // لون رمادي للحالة غير المتاحة
-                                }
-                            @endphp
-
-                            <!-- عرض الفرق في الوقت إن وجدت last_seen -->
-                            @if($data->last_seen !== null)
-                                {{
-                                    Carbon\Carbon::parse($data->last_seen)->diffForHumans()
-                                }}
-                            @else
-                                Not available
-                            @endif
-                        </td>
-
-                        <td>
-                            <!-- عرض الحالة مع لون مختلف لكل حالة -->
-                            <span class="bg-2 {{ $statusColor }}">
-                                {{ $status }}
-                            </span>
-                        </td>
-                        <td>
-                            <a href="{{ route('dashboard.user_data', $data->id) }}" class="btn edit-btn">more</a>
+            @endforeach
+        </tbody>
+    </table>
 
 
-                            <form action="{{ route('users.destroy', $data->id) }}" onsubmit="return confirmDelete()"
-                                method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">remove</button>
-                            </form>
-
-                            @if ($data->is_admin==0)
-
-                            <a href="{{ route('dashboard.add_admin', $data->id) }}" class="btn btn-primary">add admin</a>
 
 
-                                        @elseif ($data->is_admin==1)
 
-                                        <a href="{{ route('dashboard.drop_admin', $data->id) }}" class="btn btn-danger">drop admin</a>
-                                        @endif
 
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
     <script>
         function confirmDelete() {

@@ -15,6 +15,8 @@ class AboutController extends Controller
     {
         $adVideo = AdVideo::all();
         $developers = Developer::all();
+        // $adVideo = AdVideo::latest();
+        // $developers = Developer::all();
         if (!$adVideo) {
             // إذا لم يتم العثور على فيديو، يمكنك عرض رسالة أو محتوى بديل
             return view('website.about')->with('message', 'لم يتم العثور على فيديو.');

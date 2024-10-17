@@ -119,14 +119,14 @@
                     @foreach ($adVideo as $adVideo)
 
                     @endforeach
-                    <video width="600" controls>
-                        <source src="{{ asset($adVideo->video) }}" type="video/mp4">
+                    <video width="700" controls>
+                        <source src="{{ asset('videos/' . $adVideo->video) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
 
                     <div class="video-icon">
-                        <a class="popup-video btn-icon" href="{{asset($adVideo->video) }}">
-                            <i class="fas fa-play"></i></a>
+                        <a class="popup-video btn-icon" href="{{asset($adVideo->video) }}"><i
+                            class="fas fa-play"></i></a>
                     </div>
 
                 </div>
@@ -157,7 +157,7 @@
                         <div>
                             <a class="m-1" href="{{$developer->facebook}}"><i class="fab fa-facebook-f"></i></a>
                             <a class="m-1" href="{{$developer->linkedin}}"><i class="fab fa-linkedin"></i></a>
-                            <a class="m-1" href="{{$developer->twitter}}"><i class="fa-solid fa-envelope"></i></i></a>
+                            <a class="m-1" href="{{$developer->twitter}}"><i class="fa-solid fa-envelope"></i></a>
                             <a class="m-1" href="{{$developer->github}}"><i class="fab fa-github"></i></a>
                         </div>
 

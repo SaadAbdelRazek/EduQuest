@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-       
+
         // Passing authenticated user data to all views
         View::composer('*', function ($view) {
             if (Auth::check()) {
@@ -49,9 +49,10 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
 
 
-            $all_courses = Course::withCount('reviews')  // حساب عدد التقييمات لكل كورس
+            $all_courses = Course::with((['instructor.user']))->withCount('reviews')  // حساب عدد التقييمات لكل كورس
                          ->withAvg('reviews', 'rate')  // حساب متوسط التقييمات
                          ->get();
+
             // $instructor = Course::with('instructor')->get();
 
     // الكورسات الأرخص مع حساب متوسط التقييمات
@@ -74,8 +75,10 @@ class AppServiceProvider extends ServiceProvider
         // Passing user counts and all users to the admin dashboard view
         View::composer('admin.layouts.dash', function ($view) {
             $userCounts = (new TestController())->getUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
+            $newUserCounts = (new TestController())->getNewUserCountsLastFiveDays(); // Fetch user counts for admin dashboard
             $users = User::all(); // Fetch all users
             $view->with('userCounts', $userCounts);
+            $view->with('newUserCounts', $newUserCounts);
             $view->with('users', $users); // Pass users data to the view
         });
 

@@ -30,7 +30,7 @@
 
             <div class="form-actions">
                 <button type="submit" class="submit-btn">Submit</button>
-                <button type="reset" class="reset-btn">Reset</button>
+                {{-- <button type="reset" class="reset-btn">Reset</button> --}}
             </div>
         </form>
     </div>

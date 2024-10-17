@@ -21,7 +21,8 @@ return $this->hasMany(Section::class);
     }
     public function instructor()
     {
-        return $this->belongsTo(Instructor::class,'user_id');
+        // return $this->belongsTo(Instructor::class,'user_id');
+        return $this->belongsTo(Instructor::class,'instructor_id');
     }
 
     public function reviews()

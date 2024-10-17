@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdVideoController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseDeclineController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
@@ -21,6 +24,7 @@ use App\Models\AdVideo;
 use App\Models\Developer;
 
 use App\Http\Controllers\CategoryController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,6 +62,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::post('/category/update/{id}', [CategoryController::class, 'update_category'])->name('category_update');
 
     Route::delete('/dashboard/delete-activity/{id}', [ActivityController::class, 'delete_activity'])->name('delete_activity');
+    Route::delete('/dashboard/delete-all-activity', [ActivityController::class, 'delete_activity_all'])->name('delete_activity_all');
 
     Route::resource('/dashboard/faqs', FaqController::class);
     Route::resource('/dashboard/instructor-questions', BeInstructorQuestionController::class);
@@ -174,13 +179,16 @@ Route::get('/elements', function () {
 Route::get('/book-details', function () {
     return view('website.book-details');
 })->name('book-details');
-Route::get('/courses', function () {
-    return view('website.courses');
-})->name('courses');
 
-Route::get('/course_details', function () {
-    return view('website.course_details');
-})->name('course_details');
+// Route::get('/courses', function () {
+//     return view('website.courses');
+// })->name('courses');
+
+Route::get('courses', [CourseController::class, 'index'])->name('courses');
+
+// Route::get('/course_details', function () {
+//     return view('website.course_details');
+// })->name('course_details');
 
 
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
@@ -313,11 +321,25 @@ Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'view
 Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
 
 Route::get('/admin-developers', [DeveloperController::class, 'index'] )->name('show.developers');
-
 Route::get('/admin-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
-Route::get('/admin-adVideo-controll-create',[AdVideoController::class,'create'])->name('adVideo.create');
-Route::post('/admin-adVideo-controll-store', [AdVideoController::class, 'store'] )->name('adVideo.store');
-Route::get('admin-adVideo-controll-edit/{id}', [AdVideoController::class, 'edit'])->name('video.edit');
-Route::put('admin-adVideo-controll-update/{id}',[AdVideoController::class,"update"])->name('video.update');
-Route::delete('/admin-adVideo-controll-destroy/{id}',[AdVideoController::class,"destroy"])->name('adVideo.destroy');
+Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
+Route::get('/about/editVedio', [AdVideoController::class, 'edit'])->name('video.edit');
+Route::put('/about/update',[AdVideoController::class,"update"])->name('video.update');
 
+
+
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+//-----------cart-----------------
+Route::middleware('auth')->group(function () {
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/items', [CartController::class, 'getCartItems'])->name('view.cart');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart/checkout',[CartController::class, 'viewCheckout'])->name('checkout');
+});
+//--------------favourites-------------------
+Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
+Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
+Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');

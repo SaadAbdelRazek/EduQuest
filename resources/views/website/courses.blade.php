@@ -133,7 +133,7 @@
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="{{route('courses')}}">Services</a></li>
+                                            <li class="breadcrumb-item"><a href="{{route('courses')}}">Courses</a></li>
                                         </ol>
                                     </nav>
                                     <!-- breadcrumb End -->
@@ -172,7 +172,7 @@
                             <h5 class="course-title">
                                 <a href="{{ route('course_details', $course->id) }}" class="text-dark">{{ $course->title }}</a>
                             </h5>
-                            <p class="course-instructor">{{ $instructor->name ?? 'Unknown Instructor' }}</p>
+                            <p class="course-instructor">{{ $course->instructor->user->name ?? 'Unknown Instructor' }}</p>
                             <div class="course-rating d-flex align-items-center">
                                 <div class="rating-stars">
                                     <!-- هنا ستبقى كود التقييم الخاص بك -->
@@ -231,7 +231,7 @@
                                         <i class="fas fa-star"></i>
                                     @endswitch
                                 </div>
-                                <span class="ml-2">({{ $course->reviews_avg_rating ?? 'No Ratings' }})</span>
+                                <span class="ml-2">({{ $rate->reviews_avg_rate  ?? 'No Ratings' }})</span>
                             </div>
                             <div class="course-price mt-2">
                                 <span>{{ $course->price }} EGP</span>

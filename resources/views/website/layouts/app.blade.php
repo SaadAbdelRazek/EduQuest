@@ -28,9 +28,10 @@
     <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     @yield('custom-css')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </head>
@@ -58,7 +59,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="{{ route('home') }}"><img src="{{asset('img/hero/logo.png')}}" style="" alt=""></a>
+                                    <a href="{{route('home')}}"><img src="{{asset('img/hero/logo.png')}}" style="" alt=""></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10">
@@ -68,17 +69,18 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                                                <li><a href="{{ route('categories') }}">Categories</a>
+                                                </li>
                                                 <li><a href="{{ route('courses') }}">Courses</a></li>
                                                 <li><a href="{{ route('about') }}">About</a></li>
-                                                <li><a href="{{ route('blog') }}">Blog</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="{{ route('blog') }}">Blog</a></li>
-                                                        <li><a href="{{ route('blog-details') }}">Blog Details</a></li>
-                                                        <li><a href="{{ route('elements') }}">Elements</a></li>
-                                                    </ul>
-                                                </li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
                                                 <li><a href="{{ route('faqs') }}">FAQs</a></li>
+                                                <li>
+                                                    <form action="{{route('search')}}" method="GET">
+                                                        <input type="text" name="query" placeholder="Search..." class="search-input">
+                                                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                                                    </form>
+                                                </li>
                                                 {{-- <li><a href="{{ route('myProfile') }}">My Profile</a></li> --}}
                                                 <!-- Button -->
                                                 @if (Auth::check())
@@ -99,6 +101,8 @@
 
                                                         <ul class="submenu" style="width:fit-content; ">
                                                             <li><a href="{{ route('myProfile') }}">Profile</a></li>
+                                                            <li><a href="{{ route('view.cart') }}">Cart</a></li>
+                                                            <li><a href="{{ route('view.favourites') }}">Favourites</a></li>
                                                             <li><a href="{{ route('logout') }}"
                                                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                                     Logout
@@ -174,11 +178,11 @@
                                 <div class="footer-tittle">
                                     <h4>Our solutions</h4>
                                     <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
+                                        <li><a href="#">Courses</a></li>
+                                        <li><a href="#">Different Fields</a></li>
+                                        <li><a href="#">Good Instructors</a></li>
+                                        <li><a href="#">Strong Developers</a></li>
+                                        <li><a href="#">Secure Data</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -186,31 +190,18 @@
                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
-                                    <h4>Support</h4>
+                                    <h4>EduQuest Links</h4>
                                     <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
+                                        <li><a href="#">Categories</a></li>
+                                        <li><a href="#">Courses</a></li>
+                                        <li><a href="#">FAQs</a></li>
+                                        <li><a href="#">Developers</a></li>
+                                        <li><a href="#">Contact us</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Company</h4>
-                                    <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -222,14 +213,7 @@
                             <div class="col-xl-12 ">
                                 <div class="footer-copy-right text-center">
                                     <p>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                        Copyright &copy;
-                                        <script>
-                                            document.write(new Date().getFullYear());
-                                        </script> All rights reserved | This template is made with <i
-                                            class="fa fa-heart" aria-hidden="true"></i> by <a
-                                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                       Copy Rights for EduQuest Team || DEPI Project
                                     </p>
                                 </div>
                             </div>
@@ -310,6 +294,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('custom-js')
 </body>
 

@@ -1,11 +1,10 @@
-
 <x-form-section submit="updateProfileInformation">
     <x-slot name="title">
         {{ __('Profile Information') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Update your account\'s profile information and email address.') }}
+        {{ __('Update your account\'s profile information, email address, phone number, and address.') }}
     </x-slot>
 
     <x-slot name="form">
@@ -82,6 +81,21 @@
                 @endif
             @endif
         </div>
+
+        <!-- Phone -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="phone" value="{{ __('Phone') }}" />
+            <x-input id="phone" name="phone" type="tel" class="mt-1 block w-full" wire:model.defer="state.phone" />
+            <x-input-error for="phone" class="mt-2" />
+        </div>
+
+        <!-- Address -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="address" value="{{ __('Address') }}" />
+            <x-input id="address" name="address" type="text" class="mt-1 block w-full" wire:model.defer="state.address" />
+            <x-input-error for="address" class="mt-2" />
+        </div>
+
     </x-slot>
 
     <x-slot name="actions">

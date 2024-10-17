@@ -11,17 +11,15 @@
         $hideSpecialDiv = true;
     @endphp
 
+<!-- Create Button -->
+<div class="button-container">
+    <a href="{{ route('instructor-questions.create') }}" class="btn create-btn"><i class="fas fa-plus"></i> Create New Question</a>
+</div>
+<!-- Create Button -->
     <div class="container">
         <h1 class="table-title">Instructor Questions Management</h1>
 
-        <!-- Create Button -->
-        <div class="button-container">
-            {{-- <a href="{{ route('faqs.create') }}" class="btn create-btn"><i class="fas fa-plus"></i> Create New FAQ</a> --}}
-        </div>
-        <!-- Create Button -->
-        <div class="button-container">
-            <a href="{{ route('instructor-questions.create') }}" class="btn create-btn"><i class="fas fa-plus"></i> Create New Question</a>
-        </div>
+
         <!-- Data Table -->
         <table class="styled-table">
             <thead>
@@ -45,11 +43,11 @@
                     {{-- <td>{{ $faq->question }}</td>
                     <td>{{ $faq->answer }}</td> --}}
                     <td>
-                        <a href="{{ route('instructor-questions.edit', $data->id) }}" class="btn edit-btn">Edit</a>
+                        <a href="{{ route('instructor-questions.edit', $data->id) }}" class="btn edit-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="edit"><i class="fas fa-edit"></i></a>
                         <form action="{{route('instructor-questions.destroy',$data->id)}}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="remove"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>
