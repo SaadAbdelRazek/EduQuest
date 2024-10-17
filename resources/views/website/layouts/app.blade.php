@@ -69,11 +69,11 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li class="active"><a href="{{ route('home') }}">Home</a></li>
+                                                <li><a href="#services-section">Services</a></li>
                                                 <li><a href="{{ route('categories') }}">Categories</a>
                                                 </li>
-                                                <li><a href="{{ route('courses') }}">Courses</a></li>
-                                                <li><a href="{{ route('about') }}">About</a></li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
+                                                <li><a href="{{ route('about') }}">About</a></li>
                                                 <li><a href="{{ route('faqs') }}">FAQs</a></li>
                                                 <li>
                                                     <form action="{{route('search')}}" method="GET">
@@ -178,11 +178,11 @@
                                 <div class="footer-tittle">
                                     <h4>Our solutions</h4>
                                     <ul>
-                                        <li><a href="#">Courses</a></li>
-                                        <li><a href="#">Different Fields</a></li>
-                                        <li><a href="#">Good Instructors</a></li>
-                                        <li><a href="#">Strong Developers</a></li>
-                                        <li><a href="#">Secure Data</a></li>
+                                        <li><a href="#services-section">Courses</a></li>
+                                        <li><a href="#services-section">Different Fields</a></li>
+                                        <li><a href="#services-section">Good Instructors</a></li>
+                                        <li><a href="#services-section">Strong Developers</a></li>
+                                        <li><a href="#services-section">Secure Data</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -192,11 +192,11 @@
                                 <div class="footer-tittle">
                                     <h4>EduQuest Links</h4>
                                     <ul>
-                                        <li><a href="#">Categories</a></li>
+                                        <li><a href="{{route('categories')}}">Categories</a></li>
                                         <li><a href="#">Courses</a></li>
-                                        <li><a href="#">FAQs</a></li>
-                                        <li><a href="#">Developers</a></li>
-                                        <li><a href="#">Contact us</a></li>
+                                        <li><a href="{{route('faqs')}}">FAQs</a></li>
+                                        <li><a href="{{route('about')}}">Developers</a></li>
+                                        <li><a href="{{route('contact')}}">Contact us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                             <div class="col-xl-12 ">
                                 <div class="footer-copy-right text-center">
                                     <p>
-                                       Copy Rights for EduQuest Team || DEPI Project
+                                       CopyRights for EduQuest Team || DEPI Project
                                     </p>
                                 </div>
                             </div>

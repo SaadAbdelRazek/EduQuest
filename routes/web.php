@@ -10,6 +10,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\BeInstructorQuestionController;
 use App\Http\Controllers\BeInstructorAnswerController;
@@ -20,11 +21,13 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ActivityController;
+use App\Mail\TestEmail;
 use App\Models\AdVideo;
 use App\Models\Developer;
 
 use App\Http\Controllers\CategoryController;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -184,7 +187,7 @@ Route::get('/book-details', function () {
 //     return view('website.courses');
 // })->name('courses');
 
-Route::get('courses', [CourseController::class, 'index'])->name('courses');
+Route::get('/courses/{category}', [CourseController::class, 'index'])->name('courses');
 
 // Route::get('/course_details', function () {
 //     return view('website.course_details');
@@ -288,7 +291,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
@@ -345,3 +348,10 @@ Route::middleware('auth')->group(function () {
 Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
 Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
 Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');
+
+
+// subscription
+
+Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
+

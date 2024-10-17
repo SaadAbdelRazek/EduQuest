@@ -2,428 +2,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/css/reviews.css">
+<link rel="stylesheet" href="{{asset('css/course_videos.css')}}">
 @extends('website.layouts.app')
 @section('content')
 
-
-<style>
-    .sidebar {
-        width: 30%;
-        background-color: #2e2e3a;
-        height: 580px; /* Sidebar is limited to a specific height */
-        overflow-y: auto;
-        padding: 20px;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        margin-left: 20px; /* Spacing between sidebar and video */
-    }
-
-    .sidebar-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .sidebar-logo img {
-        width: 60px;
-    }
-
-    .sidebar ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .sidebar li {
-        margin-bottom: 10px;
-    }
-
-    .sidebar a {
-        display: block;
-        text-decoration: none;
-        color: #fff;
-        font-size: 16px;
-        padding: 12px;
-        background-color: #333344;
-        border-radius: 8px;
-        transition: background 0.3s ease, color 0.3s ease;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .sidebar a:hover {
-        background-color: #575787;
-        color: #e0e0e0;
-    }
-
-    .sidebar a.active {
-        background: linear-gradient(135deg, #d41872, #6a1b9a);
-        color: white;
-    }
-
-    .sidebar a i {
-        margin-right: 10px;
-        font-size: 18px;
-    }
-
-    .sidebar .section-header {
-        display: flex;
-        justify-content: space-between;
-        cursor: pointer;
-        background-color: #4c4c61;
-        padding: 12px;
-        border-radius: 8px;
-        color: #fff;
-        transition: background 0.3s ease;
-    }
-
-    .sidebar .section-header:hover {
-        background-color: #5e5e73;
-    }
-
-    .sidebar .section-content {
-        display: none;
-        padding: 0;
-        margin-top: 10px;
-    }
-
-    .sidebar .section-content a {
-        font-size: 14px;
-        padding-left: 20px;
-        padding-right: 10px;
-    }
-
-    .sidebar .section.active .section-content {
-        display: block;
-    }
-
-    /* Responsive for Smaller Screens */
-    @media screen and (max-width: 992px) {
-        .container {
-            flex-direction: column;
-        }
-
-        .main-content, .sidebar {
-            width: 100%;
-        }
-
-        .sidebar {
-            height: auto; /* Full height when in mobile view */
-            margin-left: 0;
-        }
-    }
-    /* General Styles */
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-    }
-
-    /* Container for Main Content and Sidebar */
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    /* Video Container */
-    .video-container {
-        flex: 3;
-        padding-right: 20px;
-    }
-
-    /* Video Player */
-    #course-video {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Course Details */
-    .course-details {
-        margin-top: 20px;
-    }
-
-    .course-details h1 {
-        font-size: 26px;
-        margin-bottom: 15px;
-        color: #333;
-    }
-
-    /* Instructor Details */
-    .instructor-details {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .instructor-details img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin-right: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .instructor-info h4 {
-        font-size: 18px;
-        color: #555;
-    }
-
-    /* Modern Progress Bar */
-    .progress-bar {
-        width: 100%;
-        background-color: #e0e0e0;
-        height: 14px;
-        border-radius: 10px;
-        margin-top: 10px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .progress-bar::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%;
-        background: linear-gradient(to right, #a445b2, #d41872);
-        transition: width 0.5s ease-in-out;
-        border-radius: 10px;
-    }
-
-    .progress {
-        background-color: #6a1b9a;
-        height: 100%;
-        width: 50%; /* Example percentage */
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(106, 27, 154, 0.5);
-    }
-
-    /* Comments Section */
-    .comments {
-        margin-top: 40px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .comments h2 {
-        font-size: 22px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    /* Comment Input */
-    .comment-box {
-        margin-bottom: 20px;
-    }
-
-    .comment-box textarea {
-        width: 100%;
-        height: 100px;
-        padding: 15px;
-        border: none;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
-        font-size: 16px;
-        color: #333;
-        resize: none;
-        transition: box-shadow 0.3s ease;
-    }
-
-    .comment-box textarea:focus {
-        outline: none;
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .submit-comment {
-        padding: 10px 25px;
-        background-color: #a445b2;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        font-size: 16px;
-        text-transform: uppercase;
-    }
-
-    .submit-comment:hover {
-        background-color: #d41872;
-    }
-
-    /* Comment List */
-    .comment-list {
-        margin-top: 20px;
-    }
-
-    .comment {
-        background-color: #f7f7f7;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        margin-bottom: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .comment strong {
-        font-weight: 600;
-        color: #333;
-    }
-
-    .comment p {
-        font-size: 15px;
-        color: #555;
-    }
-
-    /* Review Section */
-    .course-review {
-        margin-top: 40px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .course-review h2 {
-        font-size: 22px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .course-review p {
-        font-size: 18px;
-        color: #777;
-        margin-bottom: 20px;
-    }
-
-    .review-box textarea {
-        width: 100%;
-        height: 80px;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-        border: none;
-        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
-        font-size: 16px;
-        color: #333;
-        resize: none;
-        transition: box-shadow 0.3s ease;
-    }
-
-    .review-box textarea:focus {
-        outline: none;
-        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .submit-review {
-        padding: 10px 25px;
-        background-color: #ff5722;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        font-size: 16px;
-        text-transform: uppercase;
-    }
-
-    .submit-review:hover {
-        background-color: #e64a19;
-    }
-    .course-title {
-        background-color: #4C4C6D; /* Dark purple background */
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        margin-left: 180px ;
-        width: 80%;
-        max-width: 770px;
-        text-align: center;
-    }
-
-    /* Title Text */
-    .course-title h2 {
-        font-size: 28px;
-        font-weight: bold;
-        color: white;
-        letter-spacing: 1px;
-        margin: 0;
-        text-transform: uppercase;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 1200px) {
-        .course-title {
-            font-size: 1.8rem; /* Slightly smaller font size */
-            padding: 15px; /* Reduce padding */
-            margin-left: 90px;
-        }
-    }
-
-    @media (max-width: 992px) {
-        .course-title {
-            font-size: 1.6rem; /* Smaller font size */
-            padding: 10px; /* Further reduce padding */
-            margin-left: 70px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .course-title {
-            font-size: 1.4rem; /* Even smaller font size for tablets */
-            padding: 8px; /* Further reduce padding */
-            width: 95%; /* Slightly increase width on smaller screens */
-            margin-left: 50px;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .course-title {
-            font-size: 1.2rem; /* Small font size for mobile */
-            padding: 5px; /* Minimal padding for mobile */
-            width: 100%; /* Full width for mobile */
-            margin-left: 25px;
-        }
-    }
-
-    /* Responsive for smaller screens */
-    @media screen and (max-width: 768px) {
-        .course-title {
-            width: 90%;
-        }
-
-        .course-title h2 {
-            font-size: 24px;
-        }
-    }
-    .navbar-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100px; /* Adjust the height of the background */
-        background: linear-gradient(135deg, #6a0572, #a4508b); /* Purple to pink gradient */
-        z-index: -1; /* Position behind the navbar */
-    }
-    #course-video{
-        max-height: 550px;
-    }
-
-</style>
 <div class="navbar-bg"></div>
 <br><br><br><br><br>
 <div class="course-title">
@@ -563,28 +145,20 @@
                         @auth
                             @if ($review->user_id == Auth::user()->id)
                                 <div id="edit-delete-form-{{ $review->id }}"
-                                    style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
-                                    <form action="{{ route('delete_review', $review->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button style="color: red; background-color: unset; border: none; cursor: pointer;" onclick="deleteReview({{ $review->id }})">Delete</button>
-                                    </form>
+                                     style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
+                                    <button style="color: red; background-color: unset; border: none; cursor: pointer;"
+                                            onclick="deleteReview({{ $review->id }})">Delete</button>
                                     <button style="background-color: unset; border: none; cursor: pointer; color: blue;"
-                                        onclick="editReview({{ $review->id }})">Edit</button>
+                                            onclick="editReview({{ $review->id }})">Edit</button>
                                 </div>
                             @endif
                         @endauth
                     </div>
 
                     <div id="edit-review-form-{{ $review->id }}" style="display: none;">
-                        <form action="{{ route('update_review', $review->id) }}" method="POST"
-                            onsubmit="return confirmUpdate({{ $review->id }})">
-                            @csrf
-                            @method('PUT')
-                            <textarea name="comment" rows="3">{{ $review->comment }}</textarea>
-                            <button type="submit">Save</button>
-                            <button type="button" onclick="cancelEdit({{ $review->id }})">Cancel</button>
-                        </form>
+                        <textarea id="comment-text-{{ $review->id }}" name="comment" rows="3">{{ $review->comment }}</textarea>
+                        <button onclick="updateReview({{ $review->id }})">Save</button>
+                        <button type="button" onclick="cancelEdit({{ $review->id }})">Cancel</button>
                     </div>
                 @endforeach
             @endif
@@ -795,6 +369,10 @@
                         // Add the new review to the comment list dynamically
                         $('.comment-list').prepend(`
                         <div class="comment">
+                       <p style="float:right; cursor: pointer; display: inline;"
+           onclick="toggleEditDeleteForm(${response.review.id})">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+        </p>
                             <div class="review-header">
                                 <!-- Display user profile photo -->
                                 <img src="${response.review.user_image}" alt="User Image" class="user-image" />
@@ -806,16 +384,14 @@
                                 </div>
 
                                 <!-- Three-dot menu for edit and delete -->
-                                <p class="options" style="float:right; cursor: pointer; display: inline;" onclick="toggleEditDeleteForm(${response.review.id})">
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                </p>
-                                <div id="edit-delete-form-${response.review.id}" style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
-                                    <form action="/delete-review/${response.review.id}" method="POST" onsubmit="return deleteReview()">
-                                        @csrf
-                        @method('DELETE')
-                        <button style="color: red; background-color: unset; border: none; cursor: pointer;">Delete</button>
-                    </form>
-                    <button style="background-color: unset; border: none; cursor: pointer; color: blue;" onclick="editReview(${response.review.id})">Edit</button>
+
+
+                                <div id="edit-delete-form-{{ $review->id }}"
+                                     style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
+                                    <button style="color: red; background-color: unset; border: none; cursor: pointer;"
+                                            onclick="deleteReview({{ $review->id }})">Delete</button>
+                                    <button style="background-color: unset; border: none; cursor: pointer; color: blue;"
+                                            onclick="editReview({{ $review->id }})">Edit</button>
                                 </div>
                             </div>
 
@@ -834,66 +410,77 @@
             });
         });
     });
+    
+</script>
 
+    <script>
+        // Delete review via AJAX
+        function deleteReview(reviewId) {
+            if (!confirm('Are you sure you want to delete this review?')) {
+                return;
+            }
 
-    function deleteReview(reviewId) {
-        if (confirm('Are you sure you want to delete this review?')) {
             $.ajax({
-                url: '/delete-review/' + reviewId,  // The URL to send the request
+                url: '/delete-review/' + reviewId, // Assuming this is the correct route
                 type: 'DELETE',
                 data: {
-                    "_token": "{{ csrf_token() }}",  // Include CSRF token for security
+                    _token: '{{ csrf_token() }}' // Include CSRF token
                 },
                 success: function(response) {
                     if (response.success) {
-                        // Remove the review from the page
+                        // Remove the comment from the view
                         $('#review-' + reviewId).remove();
-                        alert(response.message);
+                        alert('Review deleted successfully.');
                     } else {
-                        alert('Failed to delete the review.');
+                        alert('There was an error deleting the review.');
                     }
                 },
                 error: function(xhr) {
-                    alert('Something went wrong. Please try again.');
+                    console.error(xhr.responseText);
+                    alert('An error occurred while trying to delete the review.');
                 }
             });
         }
-    }
 
-    function editReview(reviewId) {
-        $(`#edit-review-form-${reviewId}`).show();
-        $(`#review-content-${reviewId}`).hide();
-    }
 
-    function cancelEdit(reviewId) {
-        $(`#edit-review-form-${reviewId}`).hide();
-        $(`#review-content-${reviewId}`).show();
-    }
+        // Edit review (show edit form)
+        function editReview(reviewId) {
+            $(`#review-${reviewId}`).hide();
+            $(`#edit-review-form-${reviewId}`).show();
+        }
 
-    function confirmUpdate(reviewId) {
-        let formData = $(`#edit-review-form-${reviewId}`).find('form').serialize();
-        let actionUrl = $(`#edit-review-form-${reviewId}`).find('form').attr('action');
+        // Cancel edit (hide edit form)
+        function cancelEdit(reviewId) {
+            $(`#edit-review-form-${reviewId}`).hide();
+            $(`#review-${reviewId}`).show();
+        }
 
-        $.ajax({
-            type: 'PUT',
-            url: actionUrl,
-            data: formData,
-            success: function(response) {
-                if (response.success) {
-                    // Update the review content dynamically
-                    $(`#review-content-${reviewId}`).html(response.review.comment);
-                    $(`#edit-review-form-${reviewId}`).hide();
-                    $(`#review-content-${reviewId}`).show();
+        // Update review via AJAX
+        function updateReview(reviewId) {
+            const updatedComment = $(`#comment-text-${reviewId}`).val();
+
+            $.ajax({
+                url: `/update-review/${reviewId}`,
+                type: 'PUT',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    comment: updatedComment
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $(`#review-${reviewId} .review-content-${reviewId}`).html(`<p>${updatedComment}</p>`);
+                        $(`#edit-review-form-${reviewId}`).hide();
+                        $(`#review-${reviewId}`).show();
+                        alert(response.message);
+                    } else {
+                        alert('Error updating review.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('An error occurred.');
                 }
-            },
-            error: function() {
-                alert('Failed to update review.');
-            }
-        });
-
-        return false; // Prevent form submission
-    }
-
-</script>
-
+            });
+        }
+    </script>
 @endsection

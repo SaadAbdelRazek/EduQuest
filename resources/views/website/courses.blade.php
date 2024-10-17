@@ -133,7 +133,7 @@
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="{{route('courses')}}">Courses</a></li>
+                                            <li class="breadcrumb-item"><a href="{{route('courses',$category)}}">{{$category}}</a></li>
                                         </ol>
                                     </nav>
                                     <!-- breadcrumb End -->
@@ -145,6 +145,7 @@
             </div>
         </section>
         <!-- Courses area start -->
+        @if($categoryCourses->count())
 <div class="courses-area section-padding40 fix">
     <div class="container">
         <div class="row justify-content-center">
@@ -154,11 +155,11 @@
                 </div>
             </div>
         </div>
-
+        @endif
         <!-- Courses List -->
         <div class="container">
             <div class="row" id="course-list">
-                @foreach ($all_courses as $index => $course)
+                @foreach ($categoryCourses as $course)
                 @if($course->is_accepted==1 && $course->is_deleted==0)
                 <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
                     <div class="course-card">
@@ -247,6 +248,7 @@
         </div>
 
         <!-- Load More Button -->
+        @if($categoryCourses->count())
         <div class="row justify-content-center">
             <div class="col-xl-7 col-lg-8">
                 <div class="section-tittle text-center mt-40">
@@ -254,43 +256,14 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 </div>
 <!-- Courses area End -->
 
         <!--? top subjects Area Start -->
-        <div class="topic-area">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>Explore top subjects</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="{{asset('img/gallery/topic2.png')}}" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="{{route('courses')}}">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="section-tittle text-center mt-20">
-                            <a href="{{route('courses')}}" class="border-btn">View More Subjects</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- top subjects End -->

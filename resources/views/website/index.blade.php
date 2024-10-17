@@ -72,13 +72,80 @@
                 </div>
             </div>
         </div>
+
+{{--        Slider --}}<br>
+        <div class="section-tittle text-center mb-55">
+            <h2 style="color: #51117f;">Our Process</h2>
+        </div>
+        <div class="gallery-slider">
+            <button class="prev-btn">&#10094;</button>
+            <div class="slider-container">
+                <div class="slider-track">
+                    <div class="slider-item">
+                        <img src="{{asset('img/gal1.jpg')}}" alt="Image 1">
+                    </div>
+                    <div class="slider-item">
+                        <img src="{{asset('img/gal5.jpg')}}" alt="Image 2">
+                    </div>
+                    <div class="slider-item">
+                        <img src="{{asset('img/gal3.png')}}" alt="Image 3">
+                    </div>
+                    <div class="slider-item">
+                        <img src="{{asset('img/gal2.png')}}" alt="Image 4">
+                    </div>
+                    <div class="slider-item">
+                        <img src="{{asset('img/gal4.avif')}}" alt="Image 5">
+                    </div>
+                </div>
+            </div>
+            <button class="next-btn">&#10095;</button>
+        </div>
+
+        <br><br>
+        {{--        Services --}}
+        <section class="services-section" id="services-section">
+            <div class="services-container">
+                <div class="section-tittle text-center mb-55">
+                    <h2 style="color: #51117f;">Our Services</h2>
+                </div>
+                <div class="service-items">
+                    <div class="service-item">
+                        <i class="fas fa-book service-icon"></i>
+                        <h3>Courses</h3>
+                        <p>We provide a variety of courses tailored to your needs.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-graduation-cap service-icon"></i>
+                        <h3>Different Fields</h3>
+                        <p>Explore multiple fields and gain knowledge across industries.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-graduation-cap service-icon"></i>
+                        <h3>Good Instructors</h3>
+                        <p>Learn from experienced instructors with real-world expertise.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-code service-icon"></i>
+                        <h3>Strong Developers</h3>
+                        <p>Our platform is built by skilled developers ensuring a smooth experience.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-shield-alt service-icon"></i>
+                        <h3>Secure Data</h3>
+                        <p>Your data is protected with the highest security standards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- Courses area start -->
         <div class="courses-area section-padding40 fix">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
                         <div class="section-tittle text-center mb-55">
-                            <h2>Our featured courses</h2>
+                            <h2 style="color: #51117f;">Our featured courses</h2>
                         </div>
                     </div>
                 </div>
@@ -116,7 +183,7 @@
                                         <span>{{$courses->price}}EGP</span>
                                     </div>
                                 </div>
-                                <a href="{{route('courses')}}" class="border-btn border-btn2">View</a>
+                                <a href="#" class="border-btn border-btn2">View</a>
                             </div>
                             </div>
                         @endif
@@ -194,7 +261,7 @@
                         </video>
                     @endforeach
 
-                        
+
                     </div>
                 </div>
             </div>
@@ -206,7 +273,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
                         <div class="section-tittle text-center mb-55">
-                            <h2>Explore top subjects</h2>
+                            <h2 style="color: #51117f;">Explore top subjects</h2>
                         </div>
                     </div>
                 </div>
@@ -224,7 +291,7 @@
                                     <img src="{{ asset('public/images/' . $category->image) }}" alt="">
                                     <div class="topic-content-box">
                                         <div class="topic-content">
-                                            <h3><a href="{{ route('category.show', $category->id) }}">{{ $category->name }}</a></h3>
+                                            <h3><a href="{{ route('courses', $category->name) }}">{{ $category->name }}</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -250,27 +317,71 @@
     </section>
 
 
-{{--        <section class="gallery-section">--}}
-{{--            <div class="section-tittle text-center mb-55">--}}
-{{--                <h2>Our Gallery</h2>--}}
-{{--            </div>--}}
-{{--            <div class="gallery-row">--}}
-{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
-{{--                    <img src="{{asset('img/gal1.jpg')}}" alt="Gallery Image 1" >--}}
-{{--                </div>--}}
-{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
-{{--                    <img src="{{asset('img/gal2.png')}}" alt="Gallery Image 2" >--}}
-{{--                </div>--}}
-{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
-{{--                    <img src="{{asset('img/gal3.png')}}" alt="Gallery Image 3">--}}
-{{--                </div>--}}
-{{--                <div class="gallery-item" style="max-width:800px; max-height:400px">--}}
-{{--                    <img src="{{asset('img/gal4.avif')}}" alt="Gallery Image 4">--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </section><br><br>--}}
+        <div class="services-area">
+            <div class="container">
+                <div class="row justify-content-sm-center">
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="{{asset('img/icon/icon1.svg')}}" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>60+ UX courses</h3>
+                                <p>The automated process all your website tasks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="{{asset('img/icon/icon2.svg')}}" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Expert instructors</h3>
+                                <p>The automated process all your website tasks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="{{asset('img/icon/icon3.svg')}}" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Life time access</h3>
+                                <p>The automated process all your website tasks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+
+        <br><br>
+
+        <div class="section-tittle text-center mb-55">
+            <h2 style="color: #51117f; font-size: 2.8rem">Subscribe Now To Get Our News</h2>
+        </div>
+        <div class="subscribe-section">
+            <form action="{{ route('subscribe') }}" method="POST" class="subscribe-form">
+                @csrf
+                <label for="email">Subscribe : </label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <button type="submit" class="view-more-btn">Subscribe</button>
+            </form>
+        </div>
+        @if(session('success'))
+            <p>{{ session('success') }}</p>
+        @endif
+        @if(session('error'))
+            <p>{{ session('error') }}</p>
+        @endif
+
+        <br><br>
     </main>
-
+@section('custom-js')
+    <script src="{{asset('js/home-slider.js')}}"></script>
+@endsection
 
 @endsection

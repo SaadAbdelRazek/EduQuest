@@ -35,7 +35,7 @@
 
             @foreach($categories as $category)
             <div class="category-card">
-                <a href="{{route('courses')}}">
+                <a href="{{route('courses',$category->name)}}">
                     <img src="{{ asset('public/images/' . $category->image) }}" alt="{{ $category->name }}">                    <div class="category-info">
                         <h3 style="color:white; font-size: 2.2rem">{{$category->name}}</h3>
                     </div>

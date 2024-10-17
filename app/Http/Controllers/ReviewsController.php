@@ -97,36 +97,33 @@ private function updateInstructorRating($instructorId)
 public function deleteReview($reviewId)
 {
 
+    $review = Review::find($reviewId);
 
-        // Find the review by its ID
-        $review = Review::findOrFail($reviewId);
+    if ($review && $review->user_id == auth()->id()) {
+        $review->delete(); // Delete the review from the database
 
-        // Check if the user has permission to delete this review
-        if (auth()->user()->id !== $review->user_id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized to delete this review.'
-            ], 403);
-        }
-
-        // Delete the review
-        $review->delete();
-
-        // Return success response
         return response()->json([
             'success' => true,
-            'message' => 'Review deleted successfully!'
+            'message' => 'Review deleted successfully.',
         ]);
+    }
 
-
-
+    return response()->json([
+        'success' => false,
+        'message' => 'Failed to delete the review.',
+    ], 403);
 }
 
 public function update_review(Request $request,$id){
-    $rev = Review::findOrFail($id);
-    $rev->comment = $request->comment;
-    $rev->save();
-    return response()->json(['success' => true, 'message' => 'Review updated successfully!']);
+    $review = Review::find($id);
+
+    if ($review && $review->user_id == auth()->id()) {
+        $review->comment = $request->input('comment');
+        $review->save();
+        return response()->json(['success' => true, 'message' => 'Review updated successfully.']);
+    }
+
+    return response()->json(['success' => false, 'message' => 'Review not found or not authorized.']);
 }
 
 
