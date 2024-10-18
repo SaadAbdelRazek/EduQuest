@@ -19,12 +19,19 @@ class CartController extends Controller
             ->where('course_id', $courseId)
             ->first();
 
+
+
         if (!$cartItem) {
             // If not, create a new cart item
             Cart::create([
                 'user_id' => $user->id,
                 'course_id' => $courseId,
             ]);
+        }
+
+        else{
+
+            return response()->json(['success' => 'The course is already in your cart.']);
         }
 
         return response()->json(['success' => 'Course added to cart']);
@@ -54,4 +61,34 @@ class CartController extends Controller
 
 
 
+    // ================ local =============
+
+    // public function addBulk(Request $request)
+    // {
+    //     // تحقق من المستخدم
+    //     if (!Auth::check()) {
+    //         return response()->json(['error' => 'You must be logged in to add items to the cart'], 401);
+    //     }
+
+    //     // الحصول على قائمة معرفات الكورسات من الطلب
+    //     $courseIds = $request->input('course_ids', []);
+
+    //     // التحقق من أن هناك كورسات لإضافتها
+    //     if (empty($courseIds)) {
+    //         return response()->json(['error' => 'No courses selected'], 400);
+    //     }
+
+    //     // الحصول على معرف المستخدم الحالي
+    //     $userId = Auth::id();
+
+    //     // حفظ كل كورس في عربة التسوق للمستخدم الحالي
+    //     foreach ($courseIds as $courseId) {
+    //         Cart::create([
+    //             'user_id' => $userId,
+    //             'course_id' => $courseId,
+    //         ]);
+    //     }
+
+    //     return response()->json(['success' => 'Courses added to cart successfully']);
+    // }
 }

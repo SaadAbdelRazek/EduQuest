@@ -94,7 +94,7 @@ private function updateInstructorRating($instructorId)
 }
 
 
-public function deleteReview($reviewId)
+public function delete_review($reviewId)
 {
 
     $review = Review::find($reviewId);
@@ -106,6 +106,7 @@ public function deleteReview($reviewId)
             'success' => true,
             'message' => 'Review deleted successfully.',
         ]);
+        $this->updateInstructorRating($review->course->user_id);
     }
 
     return response()->json([
@@ -128,18 +129,18 @@ public function update_review(Request $request,$id){
 
 
 
-public function delete_review($id)
-{
-    // البحث عن التقييم وحذفه
-    $review = Review::find($id);
-//    $review->delete();
+// public function delete_review($id)
+// {
+//     // البحث عن التقييم وحذفه
+//     $review = Review::find($id);
+// //    $review->delete();
 
-    // تحديث تقييم المدرب بعد حذف التقييم
-    $this->updateInstructorRating($review->course->user_id);
+//     // تحديث تقييم المدرب بعد حذف التقييم
+//     $this->updateInstructorRating($review->course->user_id);
 
-    // إعادة توجيه المستخدم إلى صفحة المراجعات
-    return response()->json(['success' => true, 'message' => 'Review deleted successfully!']);
-}
+//     // إعادة توجيه المستخدم إلى صفحة المراجعات
+//     return response()->json(['success' => true, 'message' => 'Review deleted successfully!']);
+// }
 
 
 public function showCourseReviews($course_id)

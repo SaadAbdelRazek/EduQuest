@@ -18,12 +18,17 @@ class FavouriteController extends Controller
             ->where('course_id', $courseId)
             ->first();
 
+
         if (!$favouriteItem) {
             // If not, create a new favourite item
             favourite::create([
                 'user_id' => $user->id,
                 'course_id' => $courseId,
             ]);
+        }
+        else{
+
+            return response()->json(['success' => 'The course is already in your favorites.']);
         }
 
         return response()->json(['success' => 'Course added to favourite']);
@@ -49,4 +54,36 @@ class FavouriteController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Item removed successfully.']);
     }
+
+
+    // =================== local =====================
+
+    // public function addBulk(Request $request)
+    // {
+    //     // التحقق من أن المستخدم مسجل دخوله
+    //     if (!Auth::check()) {
+    //         return response()->json(['error' => 'You must be logged in to add items to favourites'], 401);
+    //     }
+
+    //     // الحصول على قائمة معرفات الكورسات من الطلب
+    //     $courseIds = $request->input('course_ids', []);
+
+    //     // التحقق من أن هناك كورسات لإضافتها
+    //     if (empty($courseIds)) {
+    //         return response()->json(['error' => 'No courses selected'], 400);
+    //     }
+
+    //     // الحصول على معرف المستخدم الحالي
+    //     $userId = Auth::id();
+
+    //     // حفظ كل كورس في المفضلة للمستخدم الحالي
+    //     foreach ($courseIds as $courseId) {
+    //         Favourite::create([
+    //             'user_id' => $userId,
+    //             'course_id' => $courseId,
+    //         ]);
+    //     }
+
+    //     return response()->json(['success' => 'Courses added to favourites successfully']);
+    // }
 }

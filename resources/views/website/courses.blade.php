@@ -187,31 +187,33 @@
                                         <div class="rating-stars">
                                             <!-- هنا ستبقى كود التقييم الخاص بك -->
                                             @php
-                                                $roundedRate = round($rate->reviews_avg_rate * 2) / 2; // تقريب لأقرب نصف
+                                                $roundedRate = round($course->reviews_avg_rate * 2) / 2; // تقريب لأقرب نصف
                                             @endphp
+                                            <span
+                                            style="font-size: 13px">{{ $course->reviews_avg_rate ?? 'No Ratings' }}</span>
 
                                             @if ($roundedRate >= 0.5)
-                                                <i class="fas fa-star{{ $roundedRate >= 1 ? '' : '-half' }}"></i>
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 1 ? '' : '-half' }}"></i>
                                             @endif
                                             @if ($roundedRate >= 1.5)
-                                                <i class="fas fa-star{{ $roundedRate >= 2 ? '' : '-half' }}"></i>
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 2 ? '' : '-half' }}"></i>
                                             @endif
                                             @if ($roundedRate >= 2.5)
-                                                <i class="fas fa-star{{ $roundedRate >= 3 ? '' : '-half' }}"></i>
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 3 ? '' : '-half' }}"></i>
                                             @endif
                                             @if ($roundedRate >= 3.5)
-                                                <i class="fas fa-star{{ $roundedRate >= 4 ? '' : '-half' }}"></i>
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 4 ? '' : '-half' }}"></i>
                                             @endif
                                             @if ($roundedRate >= 4.5)
-                                                <i class="fas fa-star{{ $roundedRate == 5 ? '' : '-half' }}"></i>
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate == 5 ? '' : '-half' }}"></i>
                                             @endif
-                                            <span
-                                            class="ml-2">({{ $rate->reviews_avg_rate ?? 'No Ratings' }})</span>
+                                            <span style="font-size: 10px; color:rgb(145, 145, 145)"
+                                            class="ml-2">({{ $course->reviews_count ?? 'No Ratings' }})</span>
                                         </div>
 
                                     </div>
                                     <div class="course-price mt-2">
-                                        <span>{{ $course->price }} EGP</span>
+                                        <span style="color: rgb(60, 38, 38)">{{ $course->price }} EGP</span>
                                     </div>
                                     {{-- <a href="{{ route('course_details', $course->id) }}"
                                         class="btn btn-primary mt-3 w-100">View Course</a> --}}

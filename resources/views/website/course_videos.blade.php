@@ -386,13 +386,7 @@
                                 <!-- Three-dot menu for edit and delete -->
 
 
-                                <div id="edit-delete-form-{{ $review->id }}"
-                                     style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
-                                    <button style="color: red; background-color: unset; border: none; cursor: pointer;"
-                                            onclick="deleteReview({{ $review->id }})">Delete</button>
-                                    <button style="background-color: unset; border: none; cursor: pointer; color: blue;"
-                                            onclick="editReview({{ $review->id }})">Edit</button>
-                                </div>
+                                
                             </div>
 
                             <div class="review-content">

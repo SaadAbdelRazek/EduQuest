@@ -53,6 +53,7 @@
     width: 100%;
     padding: 20px;
     text-align: left;
+    margin-bottom:auto;
 }
 
 .profile-picture img {
@@ -90,7 +91,12 @@
     padding: 20px;
     border-radius: 10px;
     background-color: #fff; /* خلفية بيضاء للمحتوى */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* ظل خفيف للمحتوى */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* ظل خفيف للمحتوى */
+    transition-duration: .5s;
+}
+
+.about-teacher:hover, .courses-taught:hover{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .7);
 }
 
 .about-teacher h3, .courses-taught h3 {
@@ -109,7 +115,7 @@
     font-size: 1.1em;
     margin-bottom: 10px; /* مسافة بين كل عنصر في القائمة */
     color: #555;
-    
+
 }
 
 .courses-taught p {

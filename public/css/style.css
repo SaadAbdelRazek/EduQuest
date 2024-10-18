@@ -3364,6 +3364,7 @@ hr {
 .courses-area .properties {
     margin: 0 15px;
 }
+
 .courses-area .properties.properties2 {
     margin-bottom: 30px;
 }
@@ -3376,7 +3377,8 @@ hr {
     transition: 0.4s;
 }
 .courses-area .properties__card:hover {
-    box-shadow: 0px 8px 8px 0px rgba(2, 25, 65, 0.08);
+    box-shadow: 0px 8px 8px 0px rgba(2, 25, 65, 0.28);
+    transform: translatey(-5px);
 }
 .courses-area .properties__img img {
     width: 100%;
@@ -3385,7 +3387,7 @@ hr {
     position: relative;
 }
 .courses-area .properties__caption {
-    padding: 29px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
 }
 .courses-area .properties__caption h3 {
     font-size: 20px;
@@ -3417,7 +3419,7 @@ hr {
     }
 }
 .courses-area .properties__footer {
-    margin-bottom: 22px;
+    /* margin-bottom: 12px; */
     -webkit-transition: 0.4s;
     -moz-transition: 0.4s;
     -o-transition: 0.4s;
@@ -6653,7 +6655,7 @@ h1 {
     color: #51117f;
     border: 1px solid #51117f;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 5px 20px;
     font-size: 16px;
     cursor: pointer;
     display: flex;
@@ -6913,10 +6915,11 @@ h1 {
 }
 
 .course-price {
-    font-size: 15px;
+    font-size: 18px;
     color: #d40a84;
     font-weight: bold;
     margin-bottom: 5px;
+    margin-top: 15px;
 }
 
 .course-actions {

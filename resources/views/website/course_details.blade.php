@@ -63,7 +63,7 @@
             </div>
 
             <div class="course-image">
-                <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image" style="max-height: unset; max-width: 100%">
+                <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image" style="min-width:400px; max-height:300px;">
             </div>
         </div>
     </section>
