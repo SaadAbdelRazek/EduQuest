@@ -261,14 +261,10 @@
                             Your browser does not support the video tag.
                         </video>
 
-<<<<<<< HEAD
-
-=======
                         <div class="video-icon">
                             <a class="popup-video btn-icon" href="{{asset($adVideo->video) }}"><i
                                 class="fas fa-play"></i></a>
                         </div>
->>>>>>> 20366e91557f8d62361d666e76c22a46e7b0f4af
                     </div>
                 </div>
             </div>

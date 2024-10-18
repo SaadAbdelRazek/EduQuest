@@ -122,6 +122,81 @@
             color: white;
             border: 2px solid orange;
         }
+
+        /* General container styling */
+        .container {
+            max-width: 1140px;
+            margin: auto;
+        }
+
+        /* Card container */
+        .course-item {
+            transition: transform 0.3s ease;
+        }
+
+        .course-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Course card styling */
+        .course-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Course image */
+        .course-image img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* Course title */
+        .course-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        /* Instructor text */
+        .course-instructor {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        /* Rating stars */
+        .rating-stars i {
+            color: #FFD700; /* Gold color for stars */
+            margin-right: 2px;
+        }
+
+        /* Load More Button */
+        #load-more {
+            display: inline-block;
+            padding: 10px 30px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        #load-more:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+        }
+
     </style>
     <main>
         <!--? slider Area Start-->
@@ -137,13 +212,9 @@
                                     <!-- breadcrumb Start-->
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-<<<<<<< HEAD
                                             <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                                             <li class="breadcrumb-item"><a href="{{route('courses',$category)}}">{{$category}}</a></li>
-=======
-                                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="{{ route('courses') }}">Courses</a></li>
->>>>>>> 20366e91557f8d62361d666e76c22a46e7b0f4af
+
                                         </ol>
                                     </nav>
                                     <!-- breadcrumb End -->
@@ -155,7 +226,6 @@
             </div>
         </section>
         <!-- Courses area start -->
-<<<<<<< HEAD
         @if($categoryCourses->count())
 <div class="courses-area section-padding40 fix">
     <div class="container">
@@ -167,231 +237,61 @@
             </div>
         </div>
         @endif
-        <!-- Courses List -->
         <div class="container">
             <div class="row" id="course-list">
                 @foreach ($categoryCourses as $course)
-                @if($course->is_accepted==1 && $course->is_deleted==0)
-                <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
-                    <div class="course-card">
-                        <div class="course-image">
-                            <a href="{{ route('course_details', $course->id) }}">
-                                <img src="{{ asset('storage/'. $course->image) }}" alt="{{ $course->title }}" class="img-fluid">
-                            </a>
-
-                        </div>
-                        <div class="course-info p-3">
-                            <h5 class="course-title">
-                                <a href="{{ route('course_details', $course->id) }}" class="text-dark">{{ $course->title }}</a>
-                            </h5>
-                            <p class="course-instructor">{{ $course->instructor->user->name ?? 'Unknown Instructor' }}</p>
-                            <div class="course-rating d-flex align-items-center">
-                                <div class="rating-stars">
-                                    <!-- هنا ستبقى كود التقييم الخاص بك -->
-                                    @switch($course->reviews_avg_rating)
-                                        @case(0.5)
-                                        <i class="fas fa-star-half"></i>
-                                        @break
-                                        @case(1)
-                                        <i class="fas fa-star"></i>
-                                        @break
-                                        @case(1.5)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half"></i>
-                                        @break
-                                        @case(2)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        @break
-                                        @case(2.5)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half"></i>
-                                        @break
-                                        @case(3)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        @break
-                                        @case(3.5)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half"></i>
-                                        @break
-                                        @case(4)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        @break
-                                        @case(4.5)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half"></i>
-                                        @break
-                                        @case(5)
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        @break
-                                        @default
-                                        <i class="fas fa-star"></i>
-                                    @endswitch
+                    @if($course->is_accepted==1 && $course->is_deleted==0)
+                        <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
+                            <div class="course-card">
+                                <!-- Course Image -->
+                                <div class="course-image">
+                                    <a href="{{ route('course_details', $course->id) }}">
+                                        <img src="{{ asset('storage/'. $course->image) }}" alt="{{ $course->title }}" class="img-fluid rounded">
+                                    </a>
                                 </div>
-                                <span class="ml-2">({{ $rate->reviews_avg_rate  ?? 'No Ratings' }})</span>
-                            </div>
-                            <div class="course-price mt-2">
-                                <span>{{ $course->price }} EGP</span>
-                            </div>
-                            <a href="{{ route('course_details', $course->id) }}" class="btn btn-primary mt-3 w-100">View Course</a>
-=======
-        <div class="courses-area section-padding40 fix">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>Our featured courses</h2>
->>>>>>> 20366e91557f8d62361d666e76c22a46e7b0f4af
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Courses List -->
-                <div class="container">
-                    <div class="row" id="course-list">
-                        @foreach ($all_courses as $index => $course)
-                            @if ($course->is_accepted == 1 && $course->is_deleted == 0)
-                                <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
-                                    <div class="course-card">
-                                        <div class="course-image">
-                                            <a href="{{ route('course_details', $course->id) }}">
-                                                <img src="{{ asset('storage/' . $course->image) }}"
-                                                    alt="{{ $course->title }}" class="img-fluid">
-                                            </a>
-
-<<<<<<< HEAD
-        <!-- Load More Button -->
-        @if($categoryCourses->count())
-        <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-8">
-                <div class="section-tittle text-center mt-40">
-                    <a href="#" id="load-more" class="border-btn">Load More</a>
-                </div>
-            </div>
-        </div>
-        @endif
-    </div>
-</div>
-<!-- Courses area End -->
-
-        <!--? top subjects Area Start -->
-
-
-=======
-                                        </div>
-                                        <div class="course-info p-3">
-                                            <h5 class="course-title">
-                                                <a href="{{ route('course_details', $course->id) }}"
-                                                    class="text-dark">{{ $course->title }}</a>
-                                            </h5>
-                                            <p class="course-instructor">
-                                                <a href="{{route('course-instructor', $course->instructor->user_id)}}" style="color: gray">{{ $course->instructor->user->name ?? 'Unknown Instructor' }}</a></p>
-                                            <div class="course-rating d-flex align-items-center">
-                                                <div class="rating-stars">
-                                                    <!-- هنا ستبقى كود التقييم الخاص بك -->
-                                                    @php
-                                                        $roundedRate = round($rate->reviews_avg_rate * 2) / 2; // تقريب لأقرب نصف
-                                                    @endphp
-
-                                                    @if ($roundedRate >= 0.5)
-                                                        <i class="fas fa-star{{ $roundedRate >= 1 ? '' : '-half' }}"></i>
-                                                    @endif
-                                                    @if ($roundedRate >= 1.5)
-                                                        <i class="fas fa-star{{ $roundedRate >= 2 ? '' : '-half' }}"></i>
-                                                    @endif
-                                                    @if ($roundedRate >= 2.5)
-                                                        <i class="fas fa-star{{ $roundedRate >= 3 ? '' : '-half' }}"></i>
-                                                    @endif
-                                                    @if ($roundedRate >= 3.5)
-                                                        <i class="fas fa-star{{ $roundedRate >= 4 ? '' : '-half' }}"></i>
-                                                    @endif
-                                                    @if ($roundedRate >= 4.5)
-                                                        <i class="fas fa-star{{ $roundedRate == 5 ? '' : '-half' }}"></i>
-                                                    @endif
-
-                                                </div>
-                                                <span
-                                                    class="ml-2">({{ $rate->reviews_avg_rate ?? 'No Ratings' }})</span>
-                                            </div>
-                                            <div class="course-price mt-2">
-                                                <span>{{ $course->price }} EGP</span>
-                                            </div>
-                                            {{-- <a href="{{ route('course_details', $course->id) }}"
-                                                class="btn btn-primary mt-3 w-100">View Course</a> --}}
+                                <!-- Course Info -->
+                                <div class="course-info p-3">
+                                    <h5 class="course-title">
+                                        <a href="{{ route('course_details', $course->id) }}" class="text-dark font-weight-bold">{{ $course->title }}</a>
+                                    </h5>
+                                    <p class="course-instructor">{{ $course->instructor->user->name ?? 'Unknown Instructor' }}</p>
+                                    <div class="course-rating d-flex align-items-center">
+                                        <div class="rating-stars">
+                                            @switch($course->reviews_avg_rating)
+                                                @case(0.5) <i class="fas fa-star-half"></i> @break
+                                                @case(1) <i class="fas fa-star"></i> @break
+                                                @case(1.5) <i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
+                                                @case(2) <i class="fas fa-star"></i><i class="fas fa-star"></i> @break
+                                                @case(2.5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
+                                                @case(3) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> @break
+                                                @case(3.5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
+                                                @case(4) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> @break
+                                                @case(4.5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
+                                                @case(5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> @break
+                                                @default <i class="fas fa-star"></i>
+                                            @endswitch
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-                        @endforeach
-                    </div>
-
-                </div>
-
-                <!-- Load More Button -->
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mt-40">
-                            <a href="#" id="load-more" class="border-btn">Load More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Courses area End -->
-
-        <!--? top subjects Area Start -->
-        <div class="topic-area">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>Explore top subjects</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="{{ asset('img/gallery/topic2.png') }}" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="{{ route('courses') }}">Programing</a></h3>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                    </div>
-
-
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="section-tittle text-center mt-20">
-                            <a href="{{ route('courses') }}" class="border-btn">View More Subjects</a>
-                        </div>
-                    </div>
-                </div>
->>>>>>> 20366e91557f8d62361d666e76c22a46e7b0f4af
+                    @endif
+                @endforeach
             </div>
+
+            <!-- Load More Button -->
+            @if($categoryCourses->count())
+                <div class="row justify-content-center mt-4">
+                    <div class="col-auto">
+                        <a href="#" id="load-more" class="btn btn-primary">Load More</a>
+                    </div>
+                </div>
+            @endif
         </div>
-        <!-- top subjects End -->
-        <!-- ? services-area -->
+
+        {{--                </div>--}}
+
+
         <div class="services-area services-area2 section-padding40">
             <div class="container">
                 <div class="row justify-content-sm-center">

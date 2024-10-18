@@ -189,7 +189,7 @@ Route::get('/book-details', function () {
 //     return view('website.courses');
 // })->name('courses');
 
-Route::get('courses', [CourseController::class, 'index'])->name('courses');
+Route::get('courses/{category}', [CourseController::class, 'index'])->name('courses');
 
 // Route::get('/course_details', function () {
 //     return view('website.course_details');
