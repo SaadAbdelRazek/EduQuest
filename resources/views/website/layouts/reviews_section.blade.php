@@ -42,10 +42,10 @@
         @else
             @foreach ($course->reviews as $review)
                 <div class="review" style="position: relative;">
-                    <p style="float:right; cursor: pointer; display: inline;"
+                    {{-- <p style="float:right; cursor: pointer; display: inline;"
                         onclick="toggleEditDeleteForm({{ $review->id }})">
                         <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </p>
+                    </p> --}}
                     <div class="review-header">
                         @if ($review->user)
     <!-- Check if user has a profile picture -->
@@ -96,7 +96,7 @@
                         <span class="comment">{{$review->comment}}</span>
                     </div>
 
-                    @auth
+                    {{-- @auth
                         @if ($review->user_id == Auth::user()->id)
                             <div id="edit-delete-form-{{ $review->id }}"
                                 style="display: none; position: absolute; top: -80px; right: 0; background: white; border: 1px solid #ccc; padding: 5px; z-index: 10;">
@@ -111,10 +111,10 @@
                                     onclick="editReview({{ $review->id }})">Edit</button>
                             </div>
                         @endif
-                    @endauth
+                    @endauth --}}
                 </div>
 
-                <div id="edit-review-form-{{ $review->id }}" style="display: none;">
+                {{-- <div id="edit-review-form-{{ $review->id }}" style="display: none;">
                     <form action="{{ route('update_review', $review->id) }}" method="POST"
                         onsubmit="return confirmUpdate({{ $review->id }})">
                         @csrf
@@ -123,7 +123,7 @@
                         <button type="submit">Save</button>
                         <button type="button" onclick="cancelEdit({{ $review->id }})">Cancel</button>
                     </form>
-                </div>
+                </div> --}}
             @endforeach
         @endif
     </div>

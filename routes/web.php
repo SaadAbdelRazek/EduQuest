@@ -210,12 +210,12 @@ Route::get('/enrollment', function () {
 })->name('enrollment');
 
 
-Route::get('/blog', function () {
-    return view('website.blog');
-})->name('blog');
-Route::get('/blog-details', function () {
-    return view('website.blog-details');
-})->name('blog-details');
+// Route::get('/blog', function () {
+//     return view('website.blog');
+// })->name('blog');
+// Route::get('/blog-details', function () {
+//     return view('website.blog-details');
+// })->name('blog-details');
 
 
 Route::get('/about', function () {
@@ -292,7 +292,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
