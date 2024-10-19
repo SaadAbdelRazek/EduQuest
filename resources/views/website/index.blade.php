@@ -161,7 +161,7 @@
                             <div class="properties__caption">
                                 <p>{{$courses->category}}</p>
                                 <h3><a href="{{ route('course_details', $courses->id) }}">{{$courses->title}}</a></h3>
-                                <div style="display: flex; align-items:center; gap:10px; padding:5px;">
+                                <div style="display: flex; align-items:end; gap:10px; padding:5px;">
                                     @if ($courses->instructor->user->profile_photo_path)
                                     <img class="submenu" src="{{asset('storage/'. $courses->instructor->user->profile_photo_path)}}" alt="" style="width: 40px; height:40px; border-radius:50%; object-fit:cover">
                                     @else
@@ -207,14 +207,15 @@
 
                                             <a href="{{route('course_details', $courses->id)}}" class="cart-btn">View</a>
                                             <div style="display: flex; justify-content:center; gap:10px; margin-top:10px">
-                                                <a class="fav" data-course-id="{{ $courses->id }}"><i id="favourite-icon" class="fas fa-regular fa-heart" ></i></a>
-                                                <a class="cart" data-course-id="{{ $courses->id }}"><i id="cart-icon" class="fas fa-regular fa-cart-plus" ></i></a>
+                                                <a class="fav" data-bs-placement="top" title="add to favourite" data-course-id="{{ $courses->id }}"><i id="favourite-icon" class="fas fa-regular fa-heart" ></i></a>
+                                                <a class="cart" data-bs-placement="top" title="add to cart" data-course-id="{{ $courses->id }}"><i id="cart-icon" class="fas fa-regular fa-cart-plus" ></i></a>
                                             </div>
                                             <style>
                                                 #favourite-icon{
                                                     color: rgb(226, 68, 68);
                                                     font-size: 20px;
                                                     transition-duration: .5s;
+                                                    cursor: pointer;
                                                 }
 
                                                 #favourite-icon:hover{
@@ -226,6 +227,7 @@
                                                     color: rgb(100, 100, 100);
                                                     font-size: 20px;
                                                     transition-duration: .5s;
+                                                    cursor: pointer;
                                                 }
                                                 #cart-icon:hover{
                                                     color: #484848;

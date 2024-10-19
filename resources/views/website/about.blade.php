@@ -79,10 +79,10 @@
                 <div class="section-tittle section-tittle2 mb-55">
                     <div class="front-text">
                         <h2 class="">Learn new skills online with top educators</h2>
-                        <p>At EduQuest, we believe that education is the key to success 
-                            and personal development. We offer diverse courses to meet the 
-                            needs of all learners, whether you’re a student, professional, 
-                            or looking to expand your knowledge. Join us today and 
+                        <p>At EduQuest, we believe that education is the key to success
+                            and personal development. We offer diverse courses to meet the
+                            needs of all learners, whether you’re a student, professional,
+                            or looking to expand your knowledge. Join us today and
                             start your educational journey!</p>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8">
                     <div class="section-tittle text-center mb-55">
-                        <h2>Our Developers</h2>
+                        <h2>Developers Team</h2>
                     </div>
                 </div>
             </div>
@@ -152,12 +152,12 @@
                         <img style="width: 150px;" src="{{asset($developer->image)}}" alt="">
                     </div>
                     <div class="cat-cap">
-                        <h5><a href="services.html">{{$developer->name}}</a></h5>
+                        <h5><a href="#">{{$developer->name}}</h5></a>
                         <p>{{$developer->role}}</p>
                         <div>
                             <a class="m-1" href="{{$developer->facebook}}"><i class="fab fa-facebook-f"></i></a>
                             <a class="m-1" href="{{$developer->linkedin}}"><i class="fab fa-linkedin"></i></a>
-                            <a class="m-1" href="{{$developer->twitter}}"><i class="fa-solid fa-envelope"></i></a>
+                            <a class="m-1" href="{{$developer->twitter}}"><i class="fas fa-solid fa-envelope"></i></a>
                             <a class="m-1" href="{{$developer->github}}"><i class="fab fa-github"></i></a>
                         </div>
 

@@ -33,28 +33,31 @@
     color: #c86fff;
 }
 .boxed-btn {
-    background: #fff;
-    color: #c86fff !important;
+
+    background: linear-gradient(45deg, #781fb3, #d00a83);
+
+    color: #ededed !important;
     display: inline-block;
-    padding: 18px 44px;
+    padding: 10px 20px;
     font-family: "Josefin Sans", sans-serif;
     font-size: 14px;
     font-weight: 400;
-    border: 0;
-    border: 1px solid #c86fff;
+    border-radius: 5px;
+    border: 1px solid #aa3dee;
     letter-spacing: 3px;
     text-align: center;
-    color: #c86fff;
+    /* color: #c86fff; */
     text-transform: uppercase;
     cursor: pointer;
+    transition-duration: .5s;
 }
 .boxed-btn:hover {
-    background: #c86fff;
+    background: linear-gradient(45deg, #d00a83, #781fb3);
     color: #fff !important;
     border: 1px solid #c86fff;
 }
 .boxed-btn:focus {
-    outline: none;
+    outline:auto;
 }
 .boxed-btn.large-width {
     width: 220px;
@@ -2214,7 +2217,7 @@ hr {
 }
 @media (max-width: 575px) {
     .header-area .header-bottom {
-        padding: 15px 20px;
+        padding: 5px 10px;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2292,7 +2295,7 @@ hr {
     display: block;
 }
 .main-header .main-menu ul ul.submenu > li > a {
-    padding: 6px 10px !important;
+    padding: 6px 5px !important;
     font-size: 16px;
     color: #367fff;
 }
@@ -2397,7 +2400,7 @@ hr {
 }
 .mobile_menu .slicknav_menu .slicknav_nav {
     margin-top: 9px !important;
-    background: #c86fff;
+    background: #fff;
 }
 .mobile_menu .slicknav_menu .slicknav_nav a:hover {
     background: transparent;
@@ -3271,6 +3274,9 @@ hr {
 .team-area .single-cat .cat-icon img {
     margin: 0 auto;
     margin-bottom: 30px;
+    border-radius: 50%;
+    height: 150px;
+    object-fit: cover;
 }
 .team-area .single-cat .cat-cap span {
     color: #6785ff;
@@ -5156,6 +5162,7 @@ hr {
     background: linear-gradient(to bottom, #d60a85 0%, #51117f 100%);
 
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c054ff', endColorstr='#5274ff',GradientType=0 );
+    position: relative;
 }
 .about-area1 .support-wrapper .left-content1 .about-icon {
     background: #eae2fe;
@@ -6984,11 +6991,11 @@ h1 {
 /* Course Image */
 .course-image img {
     width: 100%;
-    max-width: 300px;
+    /* max-width: 300px;
     max-height: 150px;
-    min-height: 150px;
-    height: auto;
-    border-radius: 10px;
+    min-height: 150px; */
+    height: 150px;
+    border-radius: 10px 10px 0 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -7005,7 +7012,7 @@ h1 {
     }
 
     .course-image img {
-        max-width: 80%;
+        max-width: 100%;
         margin-top: 20px;
     }
 

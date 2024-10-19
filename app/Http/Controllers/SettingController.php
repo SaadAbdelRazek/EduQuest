@@ -64,7 +64,7 @@ class SettingController extends Controller
     public function settingshow()
     {
         // Fetch all settings
-        $settings = Setting::all(); // This retrieves all settings from the database
+        $settings = Setting::latest()->first(); // This retrieves all settings from the database
 
         // Pass the settings to the view
         return view('website.contact', compact('settings')); // Replace 'your-view-name' with the actual view file name

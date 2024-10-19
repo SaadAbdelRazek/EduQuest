@@ -28,8 +28,9 @@ class CourseController extends Controller
                                  ->withCount('reviews')
                                  ->where('category_id', $category)
                                  ->get();
+        $category_name = Category::findOrFail($category);
 
-        return view('website.courses', compact('category', 'categoryCourses'));
+        return view('website.courses', compact('category', 'categoryCourses','category_name'));
     }
 
 

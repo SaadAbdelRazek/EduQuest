@@ -115,14 +115,15 @@
             height: 100px;
             border-radius: 50%;
             cursor: pointer;
-            transition-duration: 1s;
+            transition-duration: .5s;
+            object-fit: cover;
 
 
         }
 
         .sidebar .photo img:hover {
             opacity: 30%;
-            scale: 1.2;
+            scale: 1.1;
             z-index: -1;
         }
 
