@@ -46,6 +46,7 @@
             @endforeach
         </div>
     </div>
+    @include('website.layouts.services-section')
 
 </main>
 

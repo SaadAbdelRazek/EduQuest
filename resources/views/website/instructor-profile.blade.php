@@ -1,130 +1,9 @@
 @extends('website.layouts.app')
 
-
+@section('custom-css')
+    <link rel="stylesheet" href="{{asset('css/instructor-profile.css')}}">
+@endsection
 @section('content')
-
-    <style>
-        .containerr {
-            padding: 40px;
-            background-color: #ffffff;
-            /* Light Gray */
-            text-align: center;
-
-        }
-
-
-
-
-
-        .profile-picture img {
-            width: 30%;
-            /* يضمن أن الصورة تملأ العرض بالكامل */
-            height: 400px;
-            /* يمكنك تعديل هذا حسب ما يناسبك */
-            object-fit: cover;
-            /* يضمن أن الصورة تكون متناسبة بشكل صحيح وتغطي الحيز */
-            border-radius: 10px;
-            /* للحواف الدائرية */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            /* إضافة تأثير الظل */
-        }
-
-
-        .profile-details {
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.details {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.profile-picture {
-    flex: 1;
-    width: 100%;
-    padding: 20px;
-    text-align: left;
-    margin-bottom:auto;
-}
-
-.profile-picture img {
-    width: 90%;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-    /* border: 2px solid #6c757d; */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.profile-info {
-    flex: 1; /* يجعل العرض أكثر اتساعًا للنص */
-    padding: 20px;
-    text-align: left;
-    border-radius: 10px; /* زوايا مدورة للمحتوى */
-}
-
-.profile-info h3 {
-    font-size: 1.75em; /* تكبير حجم العنوان لجعله بارزًا */
-    margin-bottom: 12px; /* مسافة أكبر تحت العنوان */
-    color: #333; /* لون داكن لتحسين الوضوح */
-    font-weight: bold;
-}
-
-.profile-info p {
-    margin-bottom: 20px; /* زيادة المسافة بين الفقرات لزيادة الوضوح */
-    font-size: 1.1em;
-    line-height: 1.6; /* تحسين المسافة بين الأسطر لجعل النص أسهل في القراءة */
-    color: #555; /* لون فاتح لتحسين التباين */
-}
-
-.about-teacher, .courses-taught {
-    margin-top: 30px; /* مسافة أكبر بين الأقسام لتوضيح الفواصل */
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #fff; /* خلفية بيضاء للمحتوى */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* ظل خفيف للمحتوى */
-    transition-duration: .5s;
-}
-
-.about-teacher:hover, .courses-taught:hover{
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .7);
-}
-
-.about-teacher h3, .courses-taught h3 {
-    font-size: 1.4em;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: bold;
-}
-
-.courses-taught ul {
-    list-style: none;
-    padding: 0;
-}
-
-.courses-taught ul li {
-    font-size: 1.1em;
-    margin-bottom: 10px; /* مسافة بين كل عنصر في القائمة */
-    color: #555;
-
-}
-
-.courses-taught p {
-    font-size: 1em;
-    color: #777;
-}
-
-
-    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -174,10 +53,10 @@
                 data-bs-dismiss="alert" aria-label="Close">X</button>
         </div>
     @endif
-    <div class="containerr">
+    <div class="container">
         <div class="profile-details">
-            <div class="profile-details">
-                <div class="details">
+            <div class="row">
+                <div class="col-md-4">
                     <div class="profile-picture">
                         @if ($course_instructor->profile_photo_path)
                             <img src="{{ asset('storage/' . $course_instructor->profile_photo_path) }}" alt="Instructor Picture">
@@ -185,6 +64,8 @@
                             <img src="{{ asset('img/icon/default_prof_img.jpg') }}" alt="Instructor Picture">
                         @endif
                     </div>
+                </div>
+                <div class="col-md-8">
                     <div class="profile-info">
                         <h3>I'm {{ $course_instructor->name }}</h3>
                         <p>{{ $instructor->specialization }}</p>
@@ -211,12 +92,8 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
         </div>
+    </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="/css/reviews.css">

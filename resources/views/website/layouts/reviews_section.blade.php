@@ -48,47 +48,47 @@
                     </p> --}}
                     <div class="review-header">
                         @if ($review->user)
-    <!-- Check if user has a profile picture -->
-    @if ($review->user->profile_photo_path)
-        <img src="{{ asset('storage/' . $review->user->profile_photo_path) }}" alt="User Image" class="user-image">
-    @else
-        <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="Default User Image" class="user-image">
-    @endif
+                            <!-- Check if user has a profile picture -->
+                            @if ($review->user->profile_photo_path)
+                                <img src="{{ asset('storage/' . $review->user->profile_photo_path) }}" alt="User Image" class="user-image">
+                            @else
+                                <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="Default User Image" class="user-image">
+                            @endif
 
-    <div class="review-details">
-        <p class="user-name">{{ $review->user->name }}</p>
-        <div class="stars">
-            @for ($i = 1; $i <= 5; $i++)
-                @if ($i <= floor($review->rate))
-                    <i class="fas fa-star"></i>
-                @elseif ($i == ceil($review->rate) && fmod($review->rate, 1) == 0.5)
-                    <i class="fas fa-star-half-alt"></i>
-                @else
-                    <i class="far fa-star"></i>
-                @endif
-            @endfor
-        </div>
-        <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
-    </div>
-@else
-    <!-- Default user image and unknown name if no user is associated with the review -->
-    <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="Default User Image" class="user-image">
-    <div class="review-details">
-        <p class="user-name">Unknown User</p>
-        <div class="stars">
-            @for ($i = 1; $i <= 5; $i++)
-                @if ($i <= floor($review->rate))
-                    <i class="fas fa-star"></i>
-                @elseif ($i == ceil($review->rate) && fmod($review->rate, 1) == 0.5)
-                    <i class="fas fa-star-half-alt"></i>
-                @else
-                    <i class="far fa-star"></i>
-                @endif
-            @endfor
-        </div>
-        <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
-    </div>
-@endif
+                            <div class="review-details">
+                                <p class="user-name">{{ $review->user->name }}</p>
+                                <div class="stars">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= floor($review->rate))
+                                            <i class="fas fa-star"></i>
+                                        @elseif ($i == ceil($review->rate) && fmod($review->rate, 1) == 0.5)
+                                            <i class="fas fa-star-half-alt"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
+                            </div>
+                        @else
+                            <!-- Default user image and unknown name if no user is associated with the review -->
+                            <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="Default User Image" class="user-image">
+                            <div class="review-details">
+                                <p class="user-name">Unknown User</p>
+                                <div class="stars">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= floor($review->rate))
+                                            <i class="fas fa-star"></i>
+                                        @elseif ($i == ceil($review->rate) && fmod($review->rate, 1) == 0.5)
+                                            <i class="fas fa-star-half-alt"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
+                            </div>
+                        @endif
 
                     </div>
 

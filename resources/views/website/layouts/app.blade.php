@@ -69,7 +69,7 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li class="active"><a href="{{ route('home') }}">Home</a></li>
-                                                <li><a href="#services-section">Services</a></li>
+                                                <li><a href="{{url('/#services-section')}}">Services</a></li>
                                                 <li><a href="{{ route('categories') }}">Categories</a>
                                                 </li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
@@ -193,11 +193,11 @@
                                 <div class="footer-tittle">
                                     <h4>Our solutions</h4>
                                     <ul>
-                                        <li><a href="#services-section">Courses</a></li>
-                                        <li><a href="#services-section">Different Fields</a></li>
-                                        <li><a href="#services-section">Good Instructors</a></li>
-                                        <li><a href="#services-section">Strong Developers</a></li>
-                                        <li><a href="#services-section">Secure Data</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Courses</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Different Fields</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Good Instructors</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Strong Developers</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Secure Data</a></li>
                                     </ul>
                                 </div>
                             </div>

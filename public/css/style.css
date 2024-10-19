@@ -5156,6 +5156,7 @@ hr {
 }
 .theme-colors,
 .header-sticky.sticky-bar {
+    position: relative;
     background: #c054ff;
     background: -moz-linear-gradient(top, #d60a85 0%, #51117f 100%);
     background: -webkit-linear-gradient(top, #d60a85 0%, #51117f 100%);
@@ -7523,4 +7524,85 @@ h1 {
 }
 .subscribe-form button:hover {
     background-color: #45a049;
+}
+
+
+/*Index slider responsive*/
+@media (min-width: 768px) {
+    .slider-item {
+        min-width: 50%; /* Show two items on medium screens */
+    }
+    .section-tittle h2 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .slider-item {
+        min-width: 33.33%; /* Show three items on large screens */
+    }
+    .section-tittle h2 {
+        font-size: 3rem;
+    }
+}
+
+
+/*Index video style*/
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+    .right-content1 {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .right-content1 {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .right-img {
+        max-width: 100%; /* Make the video take full width on small screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .right-content1 {
+        padding: 5px;
+    }
+
+    video {
+        width: 100%; /* Make the video 100% width on small screens */
+    }
+}
+
+
+/*Course Videos*/
+@media (max-width: 576px) {
+    .progress-bar {
+        height: 10px;
+    }
+
+    .submit-comment {
+        font-size: 0.875rem;
+        padding: 8px 16px;
+    }
+
+    .review-header {
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .filter-buttons {
+        flex-direction: column; /* Stack buttons on small screens */
+        align-items: center; /* Center buttons */
+    }
+
+    .filter-buttons a {
+        width: 100%; /* Full width buttons */
+        text-align: center; /* Center text */
+    }
 }

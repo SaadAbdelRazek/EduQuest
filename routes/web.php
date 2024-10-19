@@ -177,22 +177,9 @@ Route::group(['middleware' => 'auth'], function () {
 // ========================================================================================================
 
 
-Route::get('/elements', function () {
-    return view('website.elements');
-})->name('elements');
-Route::get('/book-details', function () {
-    return view('website.book-details');
-})->name('book-details');
-
-// Route::get('/courses', function () {
-//     return view('website.courses');
-// })->name('courses');
 
 Route::get('courses/{category}', [CourseController::class, 'index'])->name('courses');
 
-// Route::get('/course_details', function () {
-//     return view('website.course_details');
-// })->name('course_details');
 
 
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');

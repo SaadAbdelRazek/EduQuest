@@ -194,7 +194,7 @@
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="{{ route('categories') }}">Categories</a></li>
                                             <li class="breadcrumb-item">
-                                                <a href="{{ route('courses', $category) }}">{{ $category_name->name }}</a>
+                                                <a href="{{ route('courses', $category) }}">{{ $categoryName }}</a>
                                             </li>
                                         </ol>
                                     </nav>

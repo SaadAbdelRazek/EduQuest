@@ -1,0 +1,12 @@
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .course-card {
+        width: calc(50% - 20px); /* Two cards in a row for tablets */
+    }
+}
+
+@media (max-width: 576px) {
+    .course-card {
+        width: 100%; /* Full width for mobile devices */
+    }
+}
