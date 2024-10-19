@@ -122,81 +122,6 @@
             color: white;
             border: 2px solid orange;
         }
-
-        /* General container styling */
-        .container {
-            max-width: 1140px;
-            margin: auto;
-        }
-
-        /* Card container */
-        .course-item {
-            transition: transform 0.3s ease;
-        }
-
-        .course-item:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Course card styling */
-        .course-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .course-card:hover {
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Course image */
-        .course-image img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        /* Course title */
-        .course-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        /* Instructor text */
-        .course-instructor {
-            font-size: 14px;
-            color: #777;
-            margin-bottom: 8px;
-        }
-
-        /* Rating stars */
-        .rating-stars i {
-            color: #FFD700; /* Gold color for stars */
-            margin-right: 2px;
-        }
-
-        /* Load More Button */
-        #load-more {
-            display: inline-block;
-            padding: 10px 30px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 50px;
-            transition: background-color 0.3s ease;
-        }
-
-        #load-more:hover {
-            background-color: #0056b3;
-            text-decoration: none;
-        }
-
     </style>
     <main>
         <!--? slider Area Start-->
@@ -212,9 +137,9 @@
                                     <!-- breadcrumb Start-->
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                            <li class="breadcrumb-item"><a href="{{route('courses',$category)}}">{{$category}}</a></li>
-
+                                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                                            <li class="breadcrumb-item"><a
+                                                    href="{{ route('courses', $category) }}">{{ $categoryName }}</a></li>
                                         </ol>
                                     </nav>
                                     <!-- breadcrumb End -->
@@ -226,111 +151,123 @@
             </div>
         </section>
         <!-- Courses area start -->
-        @if($categoryCourses->count())
-<div class="courses-area section-padding40 fix">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-7 col-lg-8">
-                <div class="section-tittle text-center mb-55">
-                    <h2>Our featured courses</h2>
-                </div>
-            </div>
-        </div>
+        @if ($categoryCourses->count())
+            <div class="courses-area section-padding40 fix">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-7 col-lg-8">
+                            <div class="section-tittle text-center mb-55">
+                                <h2>Our featured courses</h2>
+                            </div>
+                        </div>
+                    </div>
         @endif
+        <!-- Courses List -->
         <div class="container">
             <div class="row" id="course-list">
                 @foreach ($categoryCourses as $course)
-                    @if($course->is_accepted==1 && $course->is_deleted==0)
+                    @if ($course->is_accepted == 1 && $course->is_deleted == 0)
                         <div class="col-lg-4 col-md-6 col-sm-12 course-item mb-4">
                             <div class="course-card">
-                                <!-- Course Image -->
                                 <div class="course-image">
                                     <a href="{{ route('course_details', $course->id) }}">
-                                        <img src="{{ asset('storage/'. $course->image) }}" alt="{{ $course->title }}" class="img-fluid rounded">
+                                        <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}"
+                                            class="img-fluid">
                                     </a>
+
                                 </div>
-                                <!-- Course Info -->
                                 <div class="course-info p-3">
                                     <h5 class="course-title">
-                                        <a href="{{ route('course_details', $course->id) }}" class="text-dark font-weight-bold">{{ $course->title }}</a>
+                                        <a href="{{ route('course_details', $course->id) }}"
+                                            class="text-dark">{{ $course->title }}</a>
                                     </h5>
-                                    <p class="course-instructor">{{ $course->instructor->user->name ?? 'Unknown Instructor' }}</p>
+                                    <p class="course-instructor">
+                                       <a href="{{route('course-instructor',$course->instructor->user_id)}}" style="color:gray">{{ $course->instructor->user->name ?? 'Unknown Instructor' }}</a> </p>
                                     <div class="course-rating d-flex align-items-center">
                                         <div class="rating-stars">
-                                            @switch($course->reviews_avg_rating)
-                                                @case(0.5) <i class="fas fa-star-half"></i> @break
-                                                @case(1) <i class="fas fa-star"></i> @break
-                                                @case(1.5) <i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
-                                                @case(2) <i class="fas fa-star"></i><i class="fas fa-star"></i> @break
-                                                @case(2.5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
-                                                @case(3) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> @break
-                                                @case(3.5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
-                                                @case(4) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> @break
-                                                @case(4.5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half"></i> @break
-                                                @case(5) <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> @break
-                                                @default <i class="fas fa-star"></i>
-                                            @endswitch
+                                            <!-- هنا ستبقى كود التقييم الخاص بك -->
+                                            @php
+                                                $roundedRate = round($course->reviews_avg_rate * 2) / 2; // تقريب لأقرب نصف
+                                            @endphp
+                                            <span
+                                            style="font-size: 13px">{{ $course->reviews_avg_rate ?? 'No Ratings' }}</span>
+
+                                            @if ($roundedRate >= 0.5)
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 1 ? '' : '-half' }}"></i>
+                                            @endif
+                                            @if ($roundedRate >= 1.5)
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 2 ? '' : '-half' }}"></i>
+                                            @endif
+                                            @if ($roundedRate >= 2.5)
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 3 ? '' : '-half' }}"></i>
+                                            @endif
+                                            @if ($roundedRate >= 3.5)
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate >= 4 ? '' : '-half' }}"></i>
+                                            @endif
+                                            @if ($roundedRate >= 4.5)
+                                                <i style="font-size: 12px; color:#b4690e" class="fas fa-star{{ $roundedRate == 5 ? '' : '-half' }}"></i>
+                                            @endif
+                                            <span style="font-size: 10px; color:rgb(145, 145, 145)"
+                                            class="ml-2">({{ $course->reviews_count ?? 'No Ratings' }})</span>
                                         </div>
+
                                     </div>
+                                    <div class="course-price mt-2">
+                                        <span style="color: rgb(60, 38, 38)">{{ $course->price }} EGP</span>
+                                    </div>
+                                    {{-- <a href="{{ route('course_details', $course->id) }}"
+                                        class="btn btn-primary mt-3 w-100">View Course</a> --}}
                                 </div>
                             </div>
                         </div>
                     @endif
                 @endforeach
-            </div>
 
-            <!-- Load More Button -->
-            @if($categoryCourses->count())
-                <div class="row justify-content-center mt-4">
-                    <div class="col-auto">
-                        <a href="#" id="load-more" class="btn btn-primary">Load More</a>
-                    </div>
+                <!-- Courses List -->
+                <div class="container">
+
                 </div>
-            @endif
-        </div>
-
-        {{--                </div>--}}
-
-
-        <div class="services-area services-area2 section-padding40">
-            <div class="container">
-                <div class="row justify-content-sm-center">
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-services mb-30">
-                            <div class="features-icon">
-                                <img src="{{ asset('img/icon/icon1.svg') }}" alt="">
+                <!-- top subjects End -->
+                <!-- ? services-area -->
+                <div class="services-area services-area2 section-padding40">
+                    <div class="container">
+                        <div class="row justify-content-sm-center">
+                            <div class="col-lg-4 col-md-6 col-sm-8">
+                                <div class="single-services mb-30">
+                                    <div class="features-icon">
+                                        <img src="{{ asset('img/icon/icon1.svg') }}" alt="">
+                                    </div>
+                                    <div class="features-caption">
+                                        <h3>60+ UX courses</h3>
+                                        <p>The automated process all your website tasks.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="features-caption">
-                                <h3>60+ UX courses</h3>
-                                <p>The automated process all your website tasks.</p>
+                            <div class="col-lg-4 col-md-6 col-sm-8">
+                                <div class="single-services mb-30">
+                                    <div class="features-icon">
+                                        <img src="{{ asset('img/icon/icon2.svg') }}" alt="">
+                                    </div>
+                                    <div class="features-caption">
+                                        <h3>Expert instructors</h3>
+                                        <p>The automated process all your website tasks.</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-services mb-30">
-                            <div class="features-icon">
-                                <img src="{{ asset('img/icon/icon2.svg') }}" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <h3>Expert instructors</h3>
-                                <p>The automated process all your website tasks.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-services mb-30">
-                            <div class="features-icon">
-                                <img src="{{ asset('img/icon/icon3.svg') }}" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <h3>Life time access</h3>
-                                <p>The automated process all your website tasks.</p>
+                            <div class="col-lg-4 col-md-6 col-sm-8">
+                                <div class="single-services mb-30">
+                                    <div class="features-icon">
+                                        <img src="{{ asset('img/icon/icon3.svg') }}" alt="">
+                                    </div>
+                                    <div class="features-caption">
+                                        <h3>Life time access</h3>
+                                        <p>The automated process all your website tasks.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

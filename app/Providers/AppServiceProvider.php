@@ -53,29 +53,30 @@ class AppServiceProvider extends ServiceProvider
         // Passing courses data to all views
         View::composer('*', function ($view) {
 
+            // جلب جميع الكورسات مع حساب عدد التقييمات ومتوسط التقييم لكل كورس
+            $all_courses = Course::with(['instructor.user'])  // جلب بيانات المدرسين
+                                 ->withCount('reviews')  // حساب عدد التقييمات لكل كورس
+                                 ->withAvg('reviews', 'rate')  // حساب متوسط التقييمات
+                                 ->get();
 
-            $all_courses = Course::with((['instructor.user']))->withCount('reviews')  // حساب عدد التقييمات لكل كورس
-                         ->withAvg('reviews', 'rate')  // حساب متوسط التقييمات
-                         ->get();
+            // جلب الكورسات الأرخص مع حساب متوسط التقييمات
+            $cheap_courses = Course::withAvg('reviews', 'rate')  // حساب متوسط التقييم
+                                   ->withCount('reviews')  // حساب عدد التقييمات
+                                   ->orderBy('price', 'asc')  // ترتيب حسب السعر
+                                   ->limit(5)  // تحديد 5 كورسات فقط
+                                   ->get();
 
-            // $instructor = Course::with('instructor')->get();
+            // حساب عدد جميع الكورسات
+            $courses_count = Course::count();
 
-    // الكورسات الأرخص مع حساب متوسط التقييمات
-    $cheap_courses = Course::withAvg('reviews', 'rate')
-                           ->orderBy('price', 'asc')
-                           ->limit(5)
-                           ->get();
+            
 
-                           $courses_count = Course::all()->count();
-
-
-            $view->with('all_courses',$all_courses);
-            $cheap_courses = Course::orderBy('price', 'asc')->limit(5)->get();
-            $view->with('all_courses', Course::all());
-            $view->with('home_courses', $cheap_courses);
+            // إرسال البيانات إلى جميع الـ Views
+            $view->with('all_courses', $all_courses);
+            $view->with('home_courses', $cheap_courses);  // الكورسات الأرخص
             $view->with('courses_count', $courses_count);
-            // $view->with('course_review', $course_review);
         });
+
 
         // Passing user counts and all users to the admin dashboard view
         View::composer('admin.layouts.dash', function ($view) {

@@ -36,25 +36,90 @@
                 /* scale: 1.1; */
                 z-index: -1;
             }
+    /* Responsive Design for Sidebar */
+    @media screen and (max-width: 992px) {
+        .sidebar {
+            width: 100%;
+            min-height: auto;
+            padding: 15px;
+            position: relative;
+            top: 0;
+            left: 0;
+            display: block;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 1.25em;
+        }
+
+        .photo img {
+            max-width: 120px;
+            margin: 0 auto;
+        }
+
+        .sidebar ul li a {
+            text-align: center;
+            padding: 12px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .sidebar {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .sidebar h2 {
+            font-size: 1.1em;
+        }
+
+        .photo img {
+            max-width: 100px;
+        }
+
+        .sidebar ul li a {
+            font-size: 0.9em;
+            padding: 10px;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        .sidebar {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .sidebar h2 {
+            font-size: 1em;
+        }
+
+        .photo img {
+            max-width: 80px;
+        }
+
+        .sidebar ul li a {
+            font-size: 0.85em;
+            padding: 8px;
+        }
+    }
 </style>
 </head>
 <body>
 
 <!-- Sidebar -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
     <div class="photo" id="photo">
         <a href="{{ route('myProfile', $user_data->id) }}">
             @if ($user_data->profile_photo_path)
-            <img src="{{ asset('storage/' . $user_data->profile_photo_path) }}" alt="{{ $user_data->name }}"
-            data-bs-toggle="tooltip" data-bs-placement="bottom" title="view your profile">
+                <img src="{{ asset('storage/' . $user_data->profile_photo_path) }}" alt="{{ $user_data->name }}"
+                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="view your profile">
             @else
-            <img src="{{ asset('img/icon/default_prof_img.jpg') }}" alt="{{ $user_data->name }}"
-            data-bs-toggle="tooltip" data-bs-placement="bottom" title="view your profile">
-
+                <img src="{{ asset('img/icon/default_prof_img.jpg') }}" alt="{{ $user_data->name }}"
+                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="view your profile">
             @endif
         </a>
         <div class="in-photo">
-
             <span></span>
             <p></p>
         </div>
@@ -75,5 +140,6 @@
 
 
 @yield('custom-js')
+
 </body>
 </html>

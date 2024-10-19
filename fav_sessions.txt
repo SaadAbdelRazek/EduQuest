@@ -1,0 +1,116 @@
+<script>
+            $(document).ready(function () {
+                // Add to cart action
+                $('.cart').click(function (e) {
+                    e.preventDefault();
+
+                    let courseId = $(this).data('course-id');
+
+                    @if (auth()->check())  // If user is logged in
+                        $.ajax({
+                            url: '{{ route("cart.add") }}',
+                            type: 'POST',
+                            data: {
+                                course_id: courseId,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (response) {
+                                alert(response.success);
+                            },
+                            error: function (xhr) {
+                                alert(xhr.responseJSON.error);
+                            }
+                        });
+                    @else  // If user is not logged in
+                        // Store the course ID in Local Storage
+                        let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
+                        
+                        cart.push(courseId);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        alert('Course added to cart! Please log in to complete the purchase.');
+                    @endif
+                });
+
+                // Add to favourites action
+                $('.fav').click(function (e) {
+                    e.preventDefault();
+
+                    let courseId = $(this).data('course-id');
+
+                    @if (auth()->check())  // If user is logged in
+                        $.ajax({
+                            url: '{{ route("favourite.add") }}',
+                            type: 'POST',
+                            data: {
+                                course_id: courseId,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (response) {
+                                alert(response.success);
+                            },
+                            error: function (xhr) {
+                                alert(xhr.responseJSON.error);
+                            }
+                        });
+                    @else  // If user is not logged in
+                        // Store the course ID in Local Storage
+                        let favourites = localStorage.getItem('favourites') ? JSON.parse(localStorage.getItem('favourites')) : [];
+                        favourites.push(courseId);
+                        localStorage.setItem('favourites', JSON.stringify(favourites));
+                        alert('Course added to favourites! Please log in to save it to your account.');
+                    @endif
+                });
+            });
+        </script>
+
+
+<script>
+    $(document).ready(function () {
+        @if (auth()->check())  // If user is logged in
+            // Check if there are courses in Local Storage (for cart)
+            let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+            if (cart.length > 0) {
+                // Send the courses to the server
+                $.ajax({
+                    url: '{{ route("cart.add.bulk") }}',  // You'll need to create this route
+                    type: 'POST',
+                    data: {
+                        course_ids: cart,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        alert('Your cart has been updated.');
+                        // Clear Local Storage for cart after sending
+                        localStorage.removeItem('cart');
+                    },
+                    error: function (xhr) {
+                        alert('Error adding cart items.');
+                    }
+                });
+            }
+
+            // Check if there are courses in Local Storage (for favourites)
+            let favourites = localStorage.getItem('favourites') ? JSON.parse(localStorage.getItem('favourites')) : [];
+            if (favourites.length > 0) {
+                // Send the courses to the server
+                $.ajax({
+                    url: '{{ route("favourite.add.bulk") }}',  // You'll need to create this route
+                    type: 'POST',
+                    data: {
+                        course_ids: favourites,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        alert('Your favourites have been updated.');
+                        // Clear Local Storage for favourites after sending
+                        localStorage.removeItem('favourites');
+                    },
+                    error: function (xhr) {
+                        alert('Error adding favourite items.');
+                    }
+                });
+            }
+        @endif
+    });
+</script>

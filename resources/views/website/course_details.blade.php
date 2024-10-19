@@ -5,9 +5,6 @@
 <main>
 
 
-
-
-
 <section class="slider-area slider-area2">
     <div class="slider-active">
         <!-- Single Slider -->
@@ -20,8 +17,8 @@
                             <!-- breadcrumb Start-->
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Course details</a></li>
+                                    <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{{route('course_details',$course_info->id)}}">Course details</a></li>
                                 </ol>
                             </nav>
                             <!-- breadcrumb End -->
@@ -66,15 +63,18 @@
             </div>
 
             <div class="course-image">
-                <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image">
+                <img src="{{asset('storage/'. $course_info->image)}}" alt="Course Image" style="min-width:400px; max-height:300px;">
             </div>
         </div>
     </section>
 
 
-
-<aside class="sidebar">
-    <button class="floating-button">Register / Buy</button>
+    <aside class="sidebar">
+    @if($course_info->price==0)
+    <a href="{{route('view.free.enroll',$course_info->id)}}" class="floating-button">Enroll</a>
+@else
+    <a href="{{route('view.enroll.course',$course_info->id)}}" class="floating-button">Buy Now</a>
+@endif
 </aside>
 
     <section class="certificate-section">

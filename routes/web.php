@@ -43,13 +43,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $adVideo = AdVideo::all();
     $developers = Developer::all();
-    $rate = Course::withAvg('reviews', 'rate')->first();
-    return view('website.index',compact('adVideo','developers','rate'));
+
+
+    return view('website.index',compact('adVideo','developers'));
 })->name('home');
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('admin.dashboard');
-// })->name('dashboard');
+
 
 // ============================================= middlewares ========================================================
 
@@ -178,22 +177,9 @@ Route::group(['middleware' => 'auth'], function () {
 // ========================================================================================================
 
 
-Route::get('/elements', function () {
-    return view('website.elements');
-})->name('elements');
-Route::get('/book-details', function () {
-    return view('website.book-details');
-})->name('book-details');
-
-// Route::get('/courses', function () {
-//     return view('website.courses');
-// })->name('courses');
 
 Route::get('courses/{category}', [CourseController::class, 'index'])->name('courses');
 
-// Route::get('/course_details', function () {
-//     return view('website.course_details');
-// })->name('course_details');
 
 
 Route::get('/course-instructor/{id}',[InstructorController::class,'show_profile'])->name('course-instructor');
@@ -211,12 +197,12 @@ Route::get('/enrollment', function () {
 })->name('enrollment');
 
 
-Route::get('/blog', function () {
-    return view('website.blog');
-})->name('blog');
-Route::get('/blog-details', function () {
-    return view('website.blog-details');
-})->name('blog-details');
+// Route::get('/blog', function () {
+//     return view('website.blog');
+// })->name('blog');
+// Route::get('/blog-details', function () {
+//     return view('website.blog-details');
+// })->name('blog-details');
 
 
 Route::get('/about', function () {
@@ -293,7 +279,7 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 // ============================================   reviews     =======================================
 
 Route::post('sub-review/{id}', [ReviewsController::class, 'submitReview'])->name('sub_review');
-Route::delete('delete-review/{id}', [ReviewsController::class, 'delete_review'])->name('delete_review');
+Route::delete('delete-review/{id}', [ReviewsController::class, 'deleteReview'])->name('delete_review');
 Route::put('update-review/{id}', [ReviewsController::class, 'update_review'])->name('update_review');
 
 
@@ -345,13 +331,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart/items', [CartController::class, 'getCartItems'])->name('view.cart');
     Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart/checkout',[CartController::class, 'viewCheckout'])->name('checkout');
+    //--------------favourites-------------------
+    Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
+    Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
+    Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');
 });
-//--------------favourites-------------------
-Route::post('/favourite/add', [FavouriteController::class, 'addToFavourite'])->name('favourite.add');
-Route::get('/favourite/items', [FavouriteController::class, 'viewFavourite'])->name('view.favourites');
-Route::post('/favourite/remove/{id}', [FavouriteController::class, 'remove'])->name('favourite.remove');
 
 
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 
+
+// Route::post('/cart/add-bulk', [CartController::class, 'addBulk'])->name('cart.add.bulk');
+
+// Route::post('/favourite/add-bulk', [FavouriteController::class, 'addBulk'])->name('favourite.add.bulk');
 

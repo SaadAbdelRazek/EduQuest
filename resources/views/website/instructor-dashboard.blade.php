@@ -4,56 +4,124 @@
     active
 @endsection
 @section('content')
-<div class="main-content">
+<style>
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .container {
+            margin-left: 20px; /* Reduce margin for larger tablets and below */
+        }
 
+        .metrics, .charts {
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center align items */
+        }
 
-    <div class="container" style=" margin-left: 50px">
+        .metric, .chart-container {
+            width: 100%; /* Full width on smaller screens */
+            max-width: 300px; /* Limit max width */
+            margin-bottom: 20px; /* Space between items */
+        }
 
-        <center>
-            <header>
-                <h1>Performance Analysis</h1>
-            </header>
-        </center>
-        <div class="courses-container">
-            <div class="metrics">
-                <div class="metric">
-                    <h3><i class="fas fa-users"></i> Total Students</h3>
-                    <p>{{$students_count}}</p>
-                </div>
-                <div class="metric">
-                    <h3><i class="fas fa-book"></i> Total Courses</h3>
-                    <p>{{$courses}}</p>
-                </div>
-                <div class="metric">
-                    <h3><i class="fas fa-solid fa-dollar-sign"></i> total enrollments</h3>
-                    <p>{{$total_enrolls}}$</p>
-                </div>
-                <div class="metric">
-                    <h3><i class="fas fa-regular fa-comment-dots"></i> Feedback Rating</h3>
-                    @if ($rating)
+        .metric h3, .chart-container h2 {
+            font-size: 1.25em; /* Adjust header font size */
+        }
+    }
 
-                    <p>{{$rating}}/5</p>
-                    @else
-                    <p>un rated</p>
-                    @endif
-                </div>
-            </div>
+    @media (max-width: 768px) {
+        .container {
+            margin-left: 0; /* Remove left margin for small tablets */
+            padding: 0 10px; /* Add horizontal padding */
+        }
 
-            <div class="charts">
-                <div class="chart-container">
-                    <h2>Student Performance</h2>
-                    <canvas id="studentPerformanceChart"></canvas>
+        .metric p {
+            font-size: 1.2em; /* Increase metric paragraph font size */
+        }
+
+        header h1 {
+            font-size: 1.5em; /* Adjust header font size */
+        }
+
+        .metric h3, .chart-container h2 {
+            font-size: 1.15em; /* Adjust header font size */
+        }
+    }
+
+    @media (max-width: 576px) {
+        .metric h3, .chart-container h2 {
+            font-size: 1em; /* Further reduce header font size */
+        }
+
+        .metric p {
+            font-size: 1em; /* Adjust metric paragraph font size */
+        }
+    }
+
+    /* Additional adjustments for very small screens */
+    @media (max-width: 400px) {
+        header h1 {
+            font-size: 1.25em; /* Smaller header font size for very small screens */
+        }
+
+        .metric p {
+            font-size: 0.9em; /* Reduce metric paragraph font size */
+        }
+    }
+
+</style>
+    <div class="main-content">
+        <div class="container">
+            @if ($instructor->academic_degree == null || $instructor->bio == null || $instructor->description == null || $instructor->phone == null || $instructor->specialization == null || $instructor->university_name == null || $instructor->experience_years == null)
+                <div>
+                    <p><a href="{{route('instructor_dashboard_info')}}">Click to add instructor info to increase your reach</a></p>
                 </div>
-                <div class="chart-container">
-                    <h2>Course Completion Rate</h2>
-                    <canvas id="courseCompletionChart"></canvas>
+            @endif
+
+            <center>
+                <header>
+                    <h1>Performance Analysis</h1>
+                </header>
+            </center>
+
+            <!-- Performance Metrics Section -->
+            <div class="courses-container">
+                <div class="metrics">
+                    <div class="metric">
+                        <h3><i class="fas fa-users"></i> Total Students</h3>
+                        <p>{{$students_count}}</p>
+                    </div>
+                    <div class="metric">
+                        <h3><i class="fas fa-book"></i> Total Courses</h3>
+                        <p>{{$courses}}</p>
+                    </div>
+                    <div class="metric">
+                        <h3><i class="fas fa-dollar-sign"></i> Total Enrollments</h3>
+                        <p>{{$total_enrolls}}$</p>
+                    </div>
+                    <div class="metric">
+                        <h3><i class="fas fa-comment-dots"></i> Feedback Rating</h3>
+                        @if ($rating)
+                            <p>{{$rating}}/5</p>
+                        @else
+                            <p>Unrated</p>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts">
+                    <div class="chart-container">
+                        <h2>Enrollments/Logins</h2>
+                        <canvas id="studentPerformanceChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h2>Courses Profits</h2>
+                        <canvas id="courseCompletionChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
-</div>
 <script>
     const ctx1 = document.getElementById('studentPerformanceChart').getContext('2d');
 
@@ -113,23 +181,41 @@ const studentPerformanceChart = new Chart(ctx1, {
 
 
 
-const ctx2 = document.getElementById('courseCompletionChart').getContext('2d');
-const courseCompletionChart = new Chart(ctx2, {
-    type: 'pie',
-    data: {
-        labels: ['Not Completed', 'Completed'],
-        datasets: [{
-            label: 'Course Completion Rate',
-            data: [70, 30],
-            backgroundColor: ['#5d0189','#28a745' ],
-            borderColor: [ '#5d0189', '#28a745'],
-            borderWidth: 1,
-        }]
-    },
-    options: {
-        responsive: true,
+const courseNames = @json($course_names); // أسماء الكورسات
+    const courseProfits = @json($course_profits); // أرباح الكورسات
+
+    // دالة لتوليد لون عشوائي بصيغة HEX
+    function generateRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
-});
+
+    // توليد ألوان عشوائية لكل كورس
+    const backgroundColors = Array.from({ length: courseNames.length }, generateRandomColor);
+    const borderColors = Array.from({ length: courseNames.length }, generateRandomColor);
+
+    // إعداد الرسم البياني
+    const ctx2 = document.getElementById('courseCompletionChart').getContext('2d');
+    const courseCompletionChart = new Chart(ctx2, {
+        type: 'pie', // نوع الرسم البياني هو Pie
+        data: {
+            labels: courseNames, // أسماء الكورسات كـ labels
+            datasets: [{
+                label: 'Course Profits', // عنوان البيانات
+                data: courseProfits, // بيانات الأرباح لكل كورس
+                backgroundColor: backgroundColors, // ألوان الخلفية المولدة
+                borderColor: borderColors, // ألوان الحدود المولدة
+                borderWidth: 1, // عرض الحدود
+            }]
+        },
+        options: {
+            responsive: true, // الرسم البياني متجاوب
+        }
+    });
 </script>
     {{-- @section('custom-js') --}}
         {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}

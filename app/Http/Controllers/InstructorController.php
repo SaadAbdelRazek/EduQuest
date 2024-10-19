@@ -5,11 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Course;
 use App\Models\User;
 use App\Models\Enrollment;
 use App\Models\Instructor;
 use App\Models\Review;
-use App\Models\Course;
+use App\Models\CourseProgress;
 use Carbon\Carbon;
 
 class InstructorController extends Controller
@@ -83,11 +84,25 @@ public function getUserCountsLastFiveDays()
         return $course->price * $course->enrollments_count;
     });
 
-    $courses = Course::where('instructor_id',$instructor->id)->count();
+    $course = Course::where('instructor_id',$instructor->id)->get();
+    $courses = $course->count();
+
+    // استرجاع الكورسات الخاصة بالمدرب وحساب المدفوعات بناءً على عدد الطلاب المسجلين
+$coursess = Course::where('instructor_id', $instructor->id)
+->withCount('enrollments') // لحساب عدد الملتحقين
+->get(); // الحصول على كل الكورسات
+
+// حساب الأرباح لكل كورس
+$course_names = $coursess->pluck('title'); // أسماء الكورسات
+$course_profits = $coursess->map(function($course) {
+return $course->price * $course->enrollments_count; // حساب الأرباح بناءً على عدد الطلاب
+});
 
 
 
-        return view('website.instructor-dashboard', compact('students','students_count','total_enrolls','rating','courses','userCounts','newUserCounts'));
+    // حساب العدد الكلي للكورسات الخاصة بالمدرب
+
+        return view('website.instructor-dashboard', compact('instructor','students','students_count','total_enrolls','rating','courses','userCounts','newUserCounts','course_names','course_profits'));
     }
 
     public function add_course(){
@@ -136,19 +151,25 @@ public function instructor_info_update(Request $request ,$id){
         'spec' => 'nullable|string|max:200',
         'degree' => 'nullable|string|max:100',
         'university' => 'nullable|string|max:100',
+        'experience' => 'nullable|string|max:100',
         'bio' => 'nullable|string|max:250',
         'phone' => 'nullable|max:13',
     ]);
 
     $instructor = Instructor::findOrFail($id);
+    // $user = User::findOrFail($instructor->user_id);
+    // $user = $instructor->where('user_id',auth()->user());
 
     $instructor->description = $request->description;
     $instructor->specialization = $request->spec;
     $instructor->academic_degree = $request->degree;
     $instructor->university_name = $request->university;
+    $instructor->experience_years = $request->experience;
     $instructor->bio = $request->bio;
     $instructor->phone = $request->phone;
+    // $user->phone = $request->phone;
     $instructor->save();
+    // $user->save();
     return redirect()->back()->with('success',' successfully updated');
 
 

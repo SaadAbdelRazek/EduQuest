@@ -69,7 +69,7 @@
                                         <nav>
                                             <ul id="navigation">
                                                 <li class="active"><a href="{{ route('home') }}">Home</a></li>
-                                                <li><a href="#services-section">Services</a></li>
+                                                <li><a href="{{url('/#services-section')}}">Services</a></li>
                                                 <li><a href="{{ route('categories') }}">Categories</a>
                                                 </li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
@@ -90,25 +90,40 @@
                                                     <p><img class="submenu"
                                                         src="{{ asset('storage/' . $user_data->profile_photo_path) }}"
                                                         alt class="d-block ui-w-80"
-                                                        style="width:50px; border-radius:50%; height:50px;"></p>
+                                                        style="width:50px; border-radius:50%; height:50px; object-fit: cover;"></p>
                                                     @else
                                                     <p><img class="submenu"
                                                         src="{{ asset('/img/icon/default_prof_img.jpg') }}"
                                                         alt class="d-block ui-w-80"
-                                                        style="width:50px; border-radius:50%; height:50px;"></p>
+                                                        style="width:50px; border-radius:50%; height:50px; object-fit: cover;"></p>
                                                     @endif
 
 
-                                                        <ul class="submenu" style="width:fit-content; ">
-                                                            <li><a href="{{ route('myProfile') }}">Profile</a></li>
-                                                            <li><a href="{{ route('view.cart') }}">Cart</a></li>
-                                                            <li><a href="{{ route('view.favourites') }}">Favourites</a></li>
-                                                            <li><a href="{{ route('logout') }}"
-                                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                                    Logout
-                                                                </a></li>
-                                                            <form id="logout-form" action="{{ route('logout') }}"
-                                                                method="POST" style="display: none;">
+                                                        <ul class="submenu" style="width:fit-content; min-width:130px ">
+
+                                                                <li>
+                                                                    <a href="{{ route('myProfile') }}">
+                                                                        <i class="fas fa-user"></i> Profile
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('view.cart') }}">
+                                                                        <i class="fas fa-shopping-cart"></i> Cart
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('view.favourites') }}">
+                                                                        <i class="fas fa-heart"></i>Favourite
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                                                    </a>
+                                                                </li>
+
+
+                                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                                 @csrf
                                                             </form>
 
@@ -178,11 +193,11 @@
                                 <div class="footer-tittle">
                                     <h4>Our solutions</h4>
                                     <ul>
-                                        <li><a href="#services-section">Courses</a></li>
-                                        <li><a href="#services-section">Different Fields</a></li>
-                                        <li><a href="#services-section">Good Instructors</a></li>
-                                        <li><a href="#services-section">Strong Developers</a></li>
-                                        <li><a href="#services-section">Secure Data</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Courses</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Different Fields</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Good Instructors</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Strong Developers</a></li>
+                                        <li><a href="{{url('/#services-section')}}">Secure Data</a></li>
                                     </ul>
                                 </div>
                             </div>

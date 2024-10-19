@@ -22,13 +22,17 @@ use Illuminate\Http\Exceptions\PostTooLargeException;
 class CourseController extends Controller
 {
 
-    public function index($category){
-        // $courses = Course::all();
-        $rate = Course::withAvg('reviews', 'rate')->where('category',$category)->first();
-        $categoryCourses=Course::where('category',$category)->get();
+    public function index($category) {
+        // جلب جميع الكورسات في الفئة المحددة مع معدل التقييم لكل كورس
+        $categoryCourses = Course::withAvg('reviews', 'rate')
+                                 ->withCount('reviews')
+                                 ->where('category_id', $category)
+                                 ->get();
+        $categoryName = Category::where('id', $category)->first()->name;
 
-        return view('website.courses',compact('rate','category','categoryCourses'));
+        return view('website.courses', compact('categoryName', 'categoryCourses', 'category'));
     }
+
 
     public function store(Request $request)
 {

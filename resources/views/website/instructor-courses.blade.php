@@ -2,6 +2,9 @@
 @section('courses')
     active
 @endsection
+@section('custom-css')
+    <link rel="stylesheet" href="{{asset('css/instructor-dash-responsive.css')}}">
+@endsection
 @section('content')
     <br>
         <br>
