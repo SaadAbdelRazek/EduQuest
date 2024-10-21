@@ -5156,14 +5156,14 @@ hr {
 }
 .theme-colors,
 .header-sticky.sticky-bar {
-    position: relative;
+    /*position: relative;*/
     background: #c054ff;
     background: -moz-linear-gradient(top, #d60a85 0%, #51117f 100%);
     background: -webkit-linear-gradient(top, #d60a85 0%, #51117f 100%);
     background: linear-gradient(to bottom, #d60a85 0%, #51117f 100%);
 
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c054ff', endColorstr='#5274ff',GradientType=0 );
-    position: relative;
+    /*position: relative;*/
 }
 .about-area1 .support-wrapper .left-content1 .about-icon {
     background: #eae2fe;
@@ -7002,6 +7002,9 @@ h1 {
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
+    .header-sticky.sticky-bar{
+        position: relative;
+    }
     .course-content {
         flex-direction: column;
         align-items: center;

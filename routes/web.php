@@ -306,21 +306,22 @@ Route::put('/contacts/{id}/status', [ContactController::class, 'updateStatus'])-
 
 Route::resource('settings', SettingController::class);
 
-Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact');
+Route::middleware(['auth', 'Admin'])->group(function () {
+    Route::get('/contact', [SettingController::class, 'settingshow'])->name('contact');
 
-Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
-Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
+    Route::get('/decline-course/{course_id}', [CourseDeclineController::class, 'viewDeclinePage'])->name('admin.view.decline');
+    Route::post('/course/decline', [CourseDeclineController::class, 'sendDeclineReason'])->name('admin.submit.decline');
 
-Route::get('/dashboard-developers', [DeveloperController::class, 'index'] )->name('show.developers');
-Route::get('/dashboard-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
-Route::get('/dashboard-adVideo-add', [AdVideoController::class, 'add_video'] )->name('adVideo-add');
-Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
+    Route::get('/dashboard-developers', [DeveloperController::class, 'index'] )->name('show.developers');
+    Route::get('/dashboard-adVideo-controll', [AdVideoController::class, 'index'] )->name('adVideo-controll');
+    Route::get('/dashboard-adVideo-add', [AdVideoController::class, 'add_video'] )->name('adVideo-add');
+    Route::post('/admin-adVideo-controll-edit', [AdVideoController::class, 'store'] )->name('about.storeVideo');
 
-Route::get('/about/editVedio/{id}', [AdVideoController::class, 'edit'])->name('video.edit');
-Route::put('/about/update/{id}',[AdVideoController::class,"update"])->name('video.update');
-Route::delete('dashboard/advideo/delete/{id}',[AdVideoController::class , "delete_video"])->name('delete_advideo');
+    Route::get('/about/editVedio/{id}', [AdVideoController::class, 'edit'])->name('video.edit');
+    Route::put('dashboard/about/update/{id}',[AdVideoController::class,"update"])->name('video.update');
+    Route::delete('dashboard/advideo/delete/{id}',[AdVideoController::class , "delete_video"])->name('delete_advideo');
 
-
+});
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
@@ -344,4 +345,3 @@ Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('s
 // Route::post('/cart/add-bulk', [CartController::class, 'addBulk'])->name('cart.add.bulk');
 
 // Route::post('/favourite/add-bulk', [FavouriteController::class, 'addBulk'])->name('favourite.add.bulk');
-

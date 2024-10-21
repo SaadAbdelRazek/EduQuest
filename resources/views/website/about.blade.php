@@ -18,7 +18,7 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">about</a></li>
+                                        <li class="breadcrumb-item"><a href="{{route('about')}}">about</a></li>
                                     </ol>
                                 </nav>
                                 <!-- breadcrumb End -->
@@ -117,17 +117,14 @@
                 <!-- img -->
                 <div class="right-img">
                     @foreach ($adVideo as $adVideo)
-
+                        <video width="700" controls>
+                            <source src="{{ asset('videos/' . $adVideo->video) }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     @endforeach
-                    <video width="700" controls>
-                        <source src="{{ asset('videos/' . $adVideo->video) }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
 
-                    <div class="video-icon">
-                        <a class="popup-video btn-icon" href="{{asset($adVideo->video) }}"><i
-                            class="fas fa-play"></i></a>
-                    </div>
+
+
 
                 </div>
             </div>

@@ -24,7 +24,6 @@
 </head>
 
 <body>
-<!-- Preloader Start -->
 <header>
     <!-- Header Start -->
     <div class="header-area header-transparent">
@@ -35,7 +34,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a href="{{route('home')}}"><img src="{{asset('img/hero/logo.png')}}" style="" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10">
@@ -45,35 +44,68 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li class="active"><a href="{{ route('home') }}">Home</a></li>
-                                            <li><a href="{{ route('categories') }}">Categories</a></li>
-                                            <li><a href="{{ route('about') }}">About</a></li>
-                                            <li><a href="{{ route('blog') }}">Blog</a>
-                                                <ul class="submenu">
-                                                    <li><a href="{{ route('blog') }}">Blog</a></li>
-                                                    <li><a href="{{ route('blog-details') }}">Blog Details</a></li>
-                                                    <li><a href="{{ route('elements') }}">Elements</a></li>
-                                                </ul>
+                                            <li><a href="{{url('/#services-section')}}">Services</a></li>
+                                            <li><a href="{{ route('categories') }}">Categories</a>
                                             </li>
                                             <li><a href="{{ route('contact') }}">Contact</a></li>
+                                            <li><a href="{{ route('about') }}">About</a></li>
+                                            <li><a href="{{ route('faqs') }}">FAQs</a></li>
+                                            <li>
+                                                <form action="{{route('search')}}" method="GET">
+                                                    <input type="text" name="query" placeholder="Search..." class="search-input">
+                                                    <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                                                </form>
+                                            </li>
                                             {{-- <li><a href="{{ route('myProfile') }}">My Profile</a></li> --}}
                                             <!-- Button -->
                                             @if (Auth::check())
-                                                <li ><p><img class="submenu" src="{{asset('storage/'. $user_data->profile_photo_path)}}" alt class="d-block ui-w-80" style="width:50px; border-radius:50%; height:50px;"></p>
 
-                                                    <ul class="submenu" style="width:fit-content; ">
-                                                        <li ><a href="{{ route('myProfile') }}">Profile</a></li>
-                                                        <li ><a href="{{ route('logout') }}"
-                                                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                                Logout
-                                                            </a></li>
+                                                <li>
+                                                    @if ($user_data->profile_photo_path)
+                                                        <p><img class="submenu"
+                                                                src="{{ asset('storage/' . $user_data->profile_photo_path) }}"
+                                                                alt class="d-block ui-w-80"
+                                                                style="width:50px; border-radius:50%; height:50px; object-fit: cover;"></p>
+                                                    @else
+                                                        <p><img class="submenu"
+                                                                src="{{ asset('/img/icon/default_prof_img.jpg') }}"
+                                                                alt class="d-block ui-w-80"
+                                                                style="width:50px; border-radius:50%; height:50px; object-fit: cover;"></p>
+                                                    @endif
+
+
+                                                    <ul class="submenu" style="width:fit-content; min-width:130px ">
+
+                                                        <li>
+                                                            <a href="{{ route('myProfile') }}">
+                                                                <i class="fas fa-user"></i> Profile
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('view.cart') }}">
+                                                                <i class="fas fa-shopping-cart"></i> Cart
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('view.favourites') }}">
+                                                                <i class="fas fa-heart"></i>Favourite
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                <i class="fas fa-sign-out-alt"></i> Logout
+                                                            </a>
+                                                        </li>
+
+
                                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                             @csrf
                                                         </form>
 
                                                         {{-- <li><form action="" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn " style="width: 70px; padding:0;" >Logout</button>
-                                                        </form></li> --}}
+                                                    @csrf
+                                                    <button type="submit" class="btn " style="width: 70px; padding:0;" >Logout</button>
+                                                    </form></li> --}}
 
                                                     </ul>
                                                 </li>

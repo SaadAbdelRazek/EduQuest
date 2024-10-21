@@ -69,7 +69,7 @@ class AboutController extends Controller
         return view('admin.createDeveloper', [
             'users' => $users,
 
-    ]);
+        ]);
     }
 
     public function store(Request $request)
@@ -116,8 +116,7 @@ class AboutController extends Controller
         $developer->delete();
 
         return to_route('show.developers', $id);
-    }
-
+            }
 
 
 

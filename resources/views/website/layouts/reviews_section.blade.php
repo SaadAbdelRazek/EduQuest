@@ -47,6 +47,7 @@
                         <i class="fa-solid fa-ellipsis-vertical"></i>
                     </p> --}}
                     <div class="review-header">
+
                         @if ($review->user)
                             <!-- Check if user has a profile picture -->
                             @if ($review->user->profile_photo_path)
@@ -54,6 +55,19 @@
                             @else
                                 <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="Default User Image" class="user-image">
                             @endif
+
+                            @php
+                                // حساب حالة المستخدم
+                                if ($review->user->last_seen !== null) {
+                                    $diffInMinutes = Carbon\Carbon::now()->diffInMinutes(Carbon\Carbon::parse($review->user->last_seen));
+                                    $status = $diffInMinutes <= 2 ? 'Online' : 'Offline';
+                                } else {
+                                    $status = 'unknown'; // إذا كانت last_seen غير معروفة
+                                }
+                            @endphp
+
+                                <!-- دائرة تمثل حالة المستخدم -->
+                            <span class="status-indicator {{ $status }}"></span>
 
                             <div class="review-details">
                                 <p class="user-name">{{ $review->user->name }}</p>
@@ -70,6 +84,7 @@
                                 </div>
                                 <span class="review_date">{{ $review->created_at->diffForHumans() }}</span>
                             </div>
+
                         @else
                             <!-- Default user image and unknown name if no user is associated with the review -->
                             <img src="{{ asset('/img/icon/default_prof_img.jpg') }}" alt="Default User Image" class="user-image">
@@ -131,7 +146,7 @@
 
     <script>
         function toggleEditDeleteForm(reviewId) {
-            const form = document.getElementById(`edit-delete-form-${reviewId}`);
+            const form = document.getElementById(edit-delete-form-${reviewId});
             form.style.display = form.style.display === 'none' ? 'block' : 'none';
         }
 
@@ -140,8 +155,8 @@
         }
 
         function editReview(reviewId) {
-            document.getElementById(`review-content-${reviewId}`).style.display = 'none';
-            document.getElementById(`edit-review-form-${reviewId}`).style.display = 'block';
+            document.getElementById(review-content-${reviewId}).style.display = 'none';
+            document.getElementById(edit-review-form-${reviewId}).style.display = 'block';
         }
 
         function confirmUpdate(reviewId) {
@@ -149,8 +164,8 @@
         }
 
         function cancelEdit(reviewId) {
-            document.getElementById(`review-content-${reviewId}`).style.display = 'block';
-            document.getElementById(`edit-review-form-${reviewId}`).style.display = 'none';
+            document.getElementById(review-content-${reviewId}).style.display = 'block';
+            document.getElementById(edit-review-form-${reviewId}).style.display = 'none';
         }
     </script>
 

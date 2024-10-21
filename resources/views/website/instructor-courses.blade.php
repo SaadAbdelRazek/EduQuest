@@ -48,7 +48,7 @@
                         <form action="{{ route('courses.delete', $course->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href="{{ route('course_details', $course->id) }}" class="btn-view">View</a>
+                            <a href="{{ route('courses.edit', $course->id) }}" class="btn-view">View</a>
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     @else
